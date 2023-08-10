@@ -1,11 +1,14 @@
 import AppRouter from './router/AppRouter';
+import {NextUIProvider} from "@nextui-org/react";
 
 function App() {
 
 
   return (
     <div className="App">
-      <AppRouter />
+      <NextUIProvider>
+        <AppRouter />
+      </NextUIProvider>
     </div>
   );
 }

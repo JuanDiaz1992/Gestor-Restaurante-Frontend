@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import getCookie from "../../../Scripts/getCookies";
+import {Button, Input, Textarea } from "@nextui-org/react";
 
 
 function Specialities(props){
@@ -56,7 +57,7 @@ function Specialities(props){
             <>  
                 <div>
                     {specialities.map((item)=>(
-                        <button className="btn btn-secondary"  key={item.id} onClick={()=>{selectItem(item.id)}} >{item.name}</button>
+                        <Button className="btn btn-secondary"  key={item.id} onClick={()=>{selectItem(item.id)}} >{item.name}</Button>
                     ))}
                 </div>
                 <div>
@@ -64,30 +65,41 @@ function Specialities(props){
                     <form encType='multipart/form-data'>
                     <div className="mb-3">
                         <label htmlFor="name" >Nombre de la especialidad</label>
-                        <input type="text" className="form-control" id="name" />
+                        <Input  id="name" variant="faded" radius="sm" className="max-w-xs" type="text"/>
                     </div>
                     
                     <div className="mb-3">
                         <label htmlFor="description" >Descripción</label>
-                        <textarea className="form-control" name="" id="description" rows="3" placeholder="Describa brevemente que incluye o de que trata la especialidad"></textarea>
+                        <Textarea name="" id="description" rows="3" placeholder="Describa brevemente que incluye o de que trata la especialidad"></Textarea>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="price" >Costo</label>
-                        <input type="text" className="form-control" id="price"/>
+                        <Input type="number" 
+                                id="price" 
+                                placeholder="0.00" 
+                                variant="faded" 
+                                radius="sm" 
+                                className="max-w-xs"           
+                                labelPlacement="outside"
+                                endContent={
+                                <div className="pointer-events-none flex items-center">
+                                <span className="text-default-400 text-small">$</span>
+                                </div>
+                        }/>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="file">Foto</label>
-                        <input type="file" className="form-control" id="file"/>
+                        <Input type="file" id="file"/>
                     </div>
-                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <Button type="submit" color="primary">Submit</Button>
                     </form>
                 </div> 
             </>
             : 
             <div>
                 <h4>¿El menú de hoy incluye especialidades?</h4>
-                <button className="btn btn-primary" onClick={()=>{isSpecialitiesInclude(true)}}>Si</button>
-                <button className="btn btn-danger" onClick={()=>{isSpecialitiesInclude(false)}}>NO</button>
+                <Button color="primary"  onClick={()=>{isSpecialitiesInclude(true)}}>Si</Button>
+                <Button  onClick={()=>{isSpecialitiesInclude(false)}}>NO</Button>
             </div>
             }
 

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import {Button} from "@nextui-org/react";
 import getCookie from "../../Scripts/getCookies"
 import Specialities from "./manageMenu/specialties";
 import Soups from "./manageMenu/soup";
@@ -167,7 +168,7 @@ function ManageMenu() {
             <> 
               <h4>Especialidades</h4>
               {menuTemp.map((item)=>(
-                  <button className="btn btn-success" key={item.id}>{item.name}</button>                
+                  <Button color="primary" variant="ghost" key={item.id}>{item.name}</Button>                
               ))}
             </>
             :
@@ -182,15 +183,15 @@ function ManageMenu() {
               
               {seeMEnuOption}
               <div className="buttomsContainer">
-                {menuSection ===0 ? <></>:<button className="btn btn-danger" onClick={()=>{goBack()}}>Atrás</button>}
-                <button 
-                  className="btn btn-success"
+                {menuSection ===0 ? <></>:<Button color="danger" onClick={()=>{goBack()}}>Atrás</Button>}
+                <Button 
+                  color ="success"
                   onClick={() => {
                     viewSectionMenu();
                   }}
                 >
                   {menuSection === 0 ? "Iniciar" : "Siguiente"}
-                </button>
+                </Button>
               </div>
 
             </div>
