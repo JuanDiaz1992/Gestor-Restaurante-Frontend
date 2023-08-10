@@ -1,0 +1,66 @@
+.navbar{
+    background: rgba(255, 255, 255, 0.712) !important;
+    backdrop-filter: blur( 20px )!important;
+    -webkit-backdrop-filter: blur( 4px )!important;
+
+}
+.ulProfileContainer{
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+}
+.navBarLogo{
+    width: 150px;
+}
+.profileAndButtonContainer{
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+}
+.navbar-nav{
+    align-items: center;
+}
+.collapse{
+    justify-content: flex-end;
+}
+.nameProfile{
+    padding: 0px !important;
+}
+.profilePhoto{
+    width: 30px;
+    object-fit:contain;
+
+}
+.divContainerUl{
+    justify-content: flex-end;
+}
+
+.imgContainer {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+    border-radius: 50%;
+  }
+
+.submenu{
+    position: absolute;
+    top: 100%;
+    right:  0px;
+    list-style: none;
+    background: rgb(0 0 0 / 66%);
+    padding: 0;
+    margin: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: all .5s ease;
+}
+.submenu li {
+    width: 100%;
+  }
+  
+.nav-item:hover .submenu {
+    display: block;
+  }

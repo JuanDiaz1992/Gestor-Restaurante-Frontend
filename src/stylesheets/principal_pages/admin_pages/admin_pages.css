@@ -1,0 +1,554 @@
+/*******************************Principal Page Admin**********************/
+
+.sectionAdmin{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    padding: 90px 32px 32px 32px;
+    background-color: #edeef0;
+}
+
+.section_div1_container {
+    width: 100%;
+    height: 80%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+
+
+    grid-column-gap: 32px;
+    grid-row-gap: 32px;
+    margin: 32px auto;
+
+
+    }
+    
+.element1 { 
+    cursor: pointer;
+    overflow: hidden;
+    grid-area: 1 / 1 / 3 / 2; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+
+    background-color: #d8a108;
+    background-image: url(../../../img/3864311_2036344.webp);
+    background-size: cover;
+    border-radius: 16px;
+
+    padding: 48px 22px 48px 22px ;
+    position: relative;
+
+}
+.element2 { 
+    cursor: pointer;
+    grid-area: 1 / 2 / 2 / 4; 
+    height: 100%;
+
+    background-color: rgba(0, 0, 0, 0.822);
+    background-image: url(../../../img/fondoInventario3.webp);
+    background-size: cover;
+    background-position: top;
+
+    border-radius: 16px;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+
+    padding: 0 39% 40px 40px;
+    text-decoration: none;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+
+
+}
+.element3 { 
+    cursor: pointer;
+    grid-area: 1 / 4 / 2 / 5; 
+
+    background-color: #ffffff;
+    border-radius: 16px;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 40px;
+    display: flex;
+    position: relative;
+
+
+
+}
+.element4 { 
+    cursor: pointer;
+    grid-area: 2 / 2 / 3 / 3;
+
+    
+    background-image: url(../../../img/fondoInventario.webp);
+    background-size: cover;
+    background-position: top;
+
+
+    background-color: #fff;
+    border-radius: 16px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 10px 40px 10px;
+    display: flex;
+    position: relative;
+
+}
+.element5 { 
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    grid-area: 2 / 3 / 3 / 5;
+
+
+    padding: 45px 0 0 39px;
+    
+    background-color: #f0b26b;
+    border-radius: 16px;
+
+    display: flex;
+    position: relative;
+    flex-direction: column;
+}
+
+.imgBannerVenta{
+    width: 100px;
+    position: absolute;
+}
+
+
+.foto1{
+    right: 177px;
+    bottom: -6px;
+    transform: rotate(-15deg);
+    z-index: 4;
+}
+.foto2{
+    right: -3px;
+    bottom: 0;
+    transform: rotate(15deg);
+    z-index: 3;
+}
+.foto3{
+    right: 150px;
+    bottom: 97px;
+    z-index: 3;
+}
+.foto4{
+    right: 10px;
+    bottom: 97px;
+    z-index: 2;
+}
+.foto6{
+    right: 210px;
+    bottom: 167px;
+    z-index: 3;
+    width: 60px;
+}
+.foto5{
+    position: absolute;
+    right: 50px;
+    bottom: -10px;
+    width: 150px;
+    z-index: 2;
+}
+
+
+
+.food1 {
+  width: 100%;
+  animation: entrada .9s linear ; /* Agrega un retraso de 2 segundos */
+  transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+  transform-style: preserve-3d;
+}
+
+
+
+  
+
+.h3menu{
+    text-align: center;
+    margin: 0;
+    font-weight: 600;
+    line-height: 1.1;
+}
+.h3invent{
+
+    margin: 0;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.grapich{
+    width: 150px;
+    position: absolute;
+    right:  0;
+    bottom: 0;
+}
+
+
+.imgUser{
+    width: 200px;
+
+}
+
+
+@media screen and (max-width: 1030px) {
+    .sectionAdmin {
+        height: 100%;
+    }
+    .section_div1_container {
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+        }
+        
+        .element1 { grid-area: 1 / 1 / 3 / 3; }
+        .element2 { grid-area: 1 / 3 / 2 / 5; }
+        .element3 { grid-area: 2 / 3 / 3 / 5; }
+        /* .element4 { grid-area: 3 / 1 / 4 / 5; }
+        .element5 { grid-area: 4 / 1 / 6 / 5; } */
+
+
+        .element4 { grid-area: 5 / 1 / 6 / 5; }
+        .element5 { grid-area: 3 / 1 / 5 / 5; }
+
+        .imgBannerVenta{
+            width: 190px;
+        }
+        .foto1{
+            right: 229px;
+            bottom: -6px;
+        }
+        .foto2{
+            right: -21px;
+            bottom: 0;
+        }
+        .foto3{
+            right: 189px;
+            bottom: 167px;
+        }
+        .foto4{
+            right: -35px;
+            bottom: 106px;
+        }
+        .foto6{
+            right: 289px;
+            bottom: 285px;
+            width: 100px;
+        }
+        .foto5{
+            position: absolute;
+            right: 50px;
+            bottom: -10px;
+            width: 250px;
+        }
+}
+
+@media screen and (max-width: 665px) {
+    .section_div1_container {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+
+        }
+        
+        .element1 { grid-area: 1 / 1 / 2 / 3; }
+        .element2 { grid-area: 2 / 1 / 3 / 3; }
+        .element5 { grid-area: 3 / 1 / 4 / 3; }
+        .element3{ grid-area: 4 / 1 / 5 / 3; }
+        .element4{ grid-area: 5 / 1 / 6 / 3; }
+        .grapich{
+            width: 310px;
+        }
+        .imgBannerVenta{
+            width: 150px;
+        }
+        .foto1{
+            right: 197px;
+            bottom: -6px;
+        }
+        .foto2{
+            right: -21px;
+            bottom: 0;
+        }
+        .foto3{
+            right: 182px;
+            bottom: 134px;
+        }
+        .foto4{
+            right: -13px;
+            bottom: 106px;
+        }
+        .foto6{
+            right: 252px;
+            bottom: 285px;
+            width: 60px;
+        }
+        .foto5{
+            position: absolute;
+            right: 50px;
+            bottom: -10px;
+            width: 200px;
+        }
+}
+
+
+
+/*******************************section createUser**********************/
+
+.section_createUser{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+
+
+}
+.label_createUser{
+    color: black !important;
+}
+.card_createUser{
+    margin-top: 50px;
+}
+
+/*******************************section ManageUser**********************/
+
+.section_editUser{
+    height: 100vh;
+    background-color: #edeef0;
+    padding: 80px 5px 5px 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.section_editUser--div{
+
+    width: 95%;
+    inset:0 !important;
+    max-width: 1300px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    background-color: white;
+    padding: 20px;
+    height: fit-content;
+    border-radius: 15px;
+
+}
+
+
+
+.bton_actions_container{
+    text-align: right;
+}
+.bton_actions_container button{
+    margin-left: 10px;
+}
+
+
+.ReactModal__Content{
+    height: 100vh;
+    inset: 0px !important;
+    padding:150px 50px 0px 50px !important;
+    background-color: rgba(209, 209, 209, 0.9) !important;
+
+}
+.modal-dialog{
+    background-color: white;
+    border-radius: 15px;
+    padding: 15px;
+    height: fit-content;
+}
+
+
+.modal-footer{
+    gap: 15px;
+}
+
+.imgEditUserContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.imgEditUser{
+    width: 100px;
+}
+.imgContainerEdit{
+    width: 100px;
+    height: 100px;
+}
+
+.modal-title{
+    margin-bottom: 8px !important;
+}
+
+
+
+@media screen and (max-width: 784px) {
+    .section_editUser--div{
+        align-items: normal;
+        overflow: auto;
+    }
+
+}
+
+
+
+/*******************************section register buys and bills of inventory**********************/
+
+
+/*Main page for inventory registration*/
+.principalPagueRegistreInventory{
+    background-image: url("../../../img/backgroundInventory.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    padding: 90px 15px 0 15px;
+    gap: 50px;
+    min-height: 100vh;
+}
+
+
+.principalPagueRegistreInventory-div1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+}
+.card-div1-item{
+    height: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 25px 0 0 30px;
+    width: 360px;
+
+    border-radius: 15px;
+    font-weight: bold;
+
+    color: white;
+
+    -webkit-box-shadow: 0px 0px 8px -1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 8px -1px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 8px -1px rgba(0,0,0,0.75);
+}
+
+.principalPagueRegistreInventory-div1-item1{
+    cursor: pointer;
+    background-image: url("../../../img/compas.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+.principalPagueRegistreInventory-div1-item2{
+    cursor: pointer;
+    background-image: url("../../../img/gastos.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+/*Pages registration*/
+.sectionRegistreInventory{
+    background-image: url("../../../img/backgroundInventory.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    padding: 150px 15px 0 15px;
+    gap: 50px;
+    min-height: 100vh;
+    flex-direction: row-reverse;
+}
+
+.viewMore{
+    text-decoration: underline; /* Para agregar el subrayado */
+    color: blue; /* Para establecer el color del texto */
+    cursor: pointer; /* Opcional: Cambiar el cursor al pasar sobre el párrafo */
+    white-space: nowrap;
+}
+.valueObservations{
+    max-width: 254px;
+}
+
+.sectionRegistreInventory--div1{
+    background-color: white;
+    width: 65%;
+    padding: 20px;
+    height: fit-content;
+    border-radius: 15px;
+}
+.sectionRegistreInventory--div2{
+    width: 35%;
+    background-color: white;
+    height: fit-content;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+
+@media screen and (max-width: 900px) {
+
+    .sectionRegistreInventory{
+        flex-direction: column-reverse;
+    }
+    .sectionRegistreInventory--div1{
+        width: 100%;
+        overflow: auto;
+    }
+    .sectionRegistreInventory--div2{
+        width: 100%;
+    }
+    .principalPagueRegistreInventory-div1{
+        flex-direction: column;
+        padding: 48px 0 0 0;
+    }
+    .card-div1-item{
+        height: 240px;
+    }
+}
+
+/********************************Menu creator*************************/
+
+.sectionMenu_div--container{
+    display: flex;
+    gap: 25px;
+}
+
+.menuContainer{
+    width: 30%;
+}
+.menuCreator{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70%;
+}
+
+.buttomsContainer{
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    padding: 0 35px 0 0;
+}
