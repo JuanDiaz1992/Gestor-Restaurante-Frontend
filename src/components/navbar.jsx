@@ -2,6 +2,7 @@ import { useNavigate, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/userSlice";
 import React, { useEffect, useState } from "react";
+import {Avatar, NavbarMenu } from "@nextui-org/react";
 import cerrarSesion from "./Scripts/cerrarSesion";
 import logo from "../img/logo4.png";
 
@@ -41,7 +42,7 @@ function NavBar() {
   }
   return (
     <>
-      <nav className="navbar navbar-expand-* navbar-ligth fixed-top">
+      <nav  className="navbar navbar-expand-* navbar-ligth fixed-top">
         <div className="container-fluid">
           <NavLink to="/" className="navbar-brand">
             <img
@@ -54,31 +55,40 @@ function NavBar() {
             <>
               <div className="profileAndButtonContainer">
                 <div className="navbar-nav ulProfileContainer">
-                  <div className="nav-item profileContainer">
-                    <div className="nav-link imgContainer">
-                      <img
-                        className="profilePhoto"
+                  <div className="nav-item ">
+                    <div className="nav-link ">
+                      <Avatar
+                        isBordered 
+                        color="success"
+                        size="md"
+                        classNames={{
+                            img: "opacity-1"
+                        }}
                         src={url + img}
                         alt={name}
                       />
                     </div>
                   </div>
                   <div className="nav-item">
-                    <p className="colorBlack">
+                    <p className="nameUser">
                       {name}
+                    </p>
+                    <p className="typeUserNav">
+                      {type_user === "Admin"? "Administrador": 
+                      type_user === "Waiter"? "Mesero":
+                      type_user === "Chef"? "Cocinero": ""}
                     </p>
                   </div>
                 </div>
-                <button
-                  className="navbar-toggler"
-                  onClick={handleChange}
-                >
-                  <span className="navbar-toggler-icon"></span>
-                </button>
+                <div  className={!navActive? "icon nav-icon-5 open" : "icon nav-icon-5"} onClick={handleChange}>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
               </div>
 
               <div
-                className={navActive? "collapse navbar-collapse divContainerUl":"collapse navbar-collapse divContainerUl show"}
+                className={"collapse navbar-collapse divContainerUl" + (navActive ? "" : " show")}
                 id="navbarNav"
               >
                 <ul className="navbar-nav">
@@ -136,12 +146,11 @@ function NavBar() {
             </>
           ) : (
             <>
-              <button
-                className="navbar-toggler"
-                onClick={handleChange}
-              >
-                <span className="navbar-toggler-icon"></span>
-              </button>
+              <div  className={!navActive? "icon nav-icon-5 open" : "icon nav-icon-5"} onClick={handleChange}>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
               <div className={navActive? "collapse navbar-collapse divContainerUl":"collapse navbar-collapse divContainerUl show"} id="navbarNav">
                 <ul className="navbar-nav">
                   <li className="nav-item">

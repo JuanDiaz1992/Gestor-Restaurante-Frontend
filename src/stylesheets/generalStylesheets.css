@@ -19,7 +19,7 @@
     text-align: center;
 }
 .colorBlack{
-    color: rgb(0, 0, 0);
+    color: rgb(0, 0, 0) !important;
     margin: 0;
 }
 .loading_container{

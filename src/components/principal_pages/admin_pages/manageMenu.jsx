@@ -160,25 +160,29 @@ function ManageMenu() {
   return (
     <>
       <section className="section sectionMen">
-        <h2 className="textoCentrado">Gestionar el menú del día</h2>
+        <h2 className="textoCentrado principalTitle">Gestionar el menú del día</h2>
         <div className="sectionMenu_div--container">
-          <div className="menuContainer">
-            <h3>Menú</h3>
+          
+            
             {menuTemp !== ""? 
             <> 
-              <h4>Especialidades</h4>
-              {menuTemp.map((item)=>(
-                  <Button color="primary" variant="ghost" key={item.id}>{item.name}</Button>                
-              ))}
+            <div className="menuContainer">
+              <h4>Especialidades para hoy:</h4>
+                <div className="buttomsEspcialitiesContainer">
+                {menuTemp.map((item)=>(
+                    <Button color="primary" variant="ghost" key={item.id}>{item.name}</Button>                
+                ))}
+                </div>
+              </div>
             </>
             :
             <>
             </>}
-          </div>
+          
           {isMenuCreated ? (
             <></>
           ) : (
-            <div className="menuCreator">
+            <div className={"menuCreator " + (menuTemp !== ""? "menuCreator70" : "menuCreator100")}>
               {menuSection === 0 ? <h4>Deseas crear el menú para hoy?</h4> : <></>}
               
               {seeMEnuOption}

@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
- 
 function PrincipalPageInventory(){
     const navigate = useNavigate()
    
@@ -17,6 +16,7 @@ function PrincipalPageInventory(){
                                 animate={{ opacity: 1}}
                                 exit={{ opacity: 0 }}
                                 transition={{ 
+                                    delay:.3,
                                     duration: 1,
                                     ease: "linear",
                                 }}
@@ -29,7 +29,7 @@ function PrincipalPageInventory(){
                                 animate={{ opacity: 1}}
                                 exit={{ opacity: 0 }}
                                 transition={{ 
-                                    delay:0.5,
+                                    delay:.7,
                                     duration: 1,
                                     ease: "linear",
                                 }}

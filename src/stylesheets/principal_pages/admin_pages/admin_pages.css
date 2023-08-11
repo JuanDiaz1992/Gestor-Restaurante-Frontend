@@ -530,18 +530,29 @@
 
 /********************************Menu creator*************************/
 
+.principalTitle{
+    margin-bottom: 50px;
+}
+
 .sectionMenu_div--container{
     display: flex;
     gap: 25px;
 }
 
 .menuContainer{
+    padding: 10px;
     width: 30%;
 }
 .menuCreator{
     display: flex;
     flex-direction: column;
     align-items: center;
+
+}
+.menuCreator100{
+    width: 100%;
+}
+.menuCreator70{
     width: 70%;
 }
 
@@ -551,4 +562,39 @@
     gap: 10px;
     justify-content: flex-end;
     padding: 0 35px 0 0;
+}
+
+.buttomsEspcialitiesContainer{
+
+    display: flex;
+    gap: 2px;
+    flex-wrap: wrap
+}
+
+.especialitiesEmpty{
+    text-align: center;
+    margin: 50px 0 50px 0;
+}
+
+.cardContainerMenu{
+    display: flex;
+}
+
+.cardEspecialities{
+    width: 200px;
+}
+
+.cardEspecialities img{
+
+    object-fit:cover;
+}
+.cardContainerImg{
+    justify-content: center
+}
+
+
+.formEspecialitiesContainer{
+    margin: 50px 0 0 0 ;
+    width: 70%;
+
 }

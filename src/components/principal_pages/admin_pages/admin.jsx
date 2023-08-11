@@ -34,18 +34,19 @@ function AdminPage(){
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ 
+                            delay:.5,
                             duration: 1,
                             ease: "linear"
                         }}>
 
                         <motion.img className="food1" src={menu} alt="comida1" 
-                            initial={{ y: -80, opacity: 0 }}
+                            initial={{ y: -30, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
-                            exit={{ y: -80, opacity: 0 }}
+                            exit={{ y: -30, opacity: 0 }}
                             transition={{ 
-                                delay:.2,
+                                delay:1,
                                 duration: 0.9,
-                                ease: [0, 0.71, 0.2, 1.01], }}
+                                ease: "linear", }}
                         />
 
 
@@ -54,7 +55,7 @@ function AdminPage(){
                                 animate={{ y: 0, opacity: 1 }}
                                 exit={{ y: -150, opacity: 0 }}
                                 transition={{ 
-                                delay:.5,
+                                delay:1,
                                 duration: 0.9,
                                 ease: [0, 0.71, 0.2, 1.01], }}
                         >Crea aquí el menú del día</motion.h3>
