@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import {Button} from "@nextui-org/react";
+import {Button, Tooltip } from "@nextui-org/react";
+import {AiFillCloseCircle} from "react-icons/ai"
+import { Toaster, toast } from "react-hot-toast";
 import getCookie from "../../Scripts/getCookies"
 import Specialities from "./manageMenu/specialties";
 import Soups from "./manageMenu/soup";
@@ -25,7 +27,7 @@ function ManageMenu() {
   const [isChange,setChange] = useState(false)
 
   /*El siguiente es el menú temporal el cual se guarda en la sesión antes de guardarlo en la bd*/
-  const [menuTemp,setMenuTemp] = useState("");
+  const [menuTemp,setMenuTemp] = useState([]);
 
 
   const menu_data = async () =>{
@@ -77,21 +79,58 @@ function ManageMenu() {
       const data = await response.json();
       if (data.status === 200){
         setMenuTemp(data.results)
+      }else{
+        setMenuTemp([])
       }
     }catch (error) {
       console.error("Error fetching data:", error);
     }
   }
+
+  const deleteItemOfMenu= async (id, name)=>{
+    try{
+      const response = await fetch(url,{
+          method: "DELETE",
+          mode: "cors",
+          body: JSON.stringify({
+            idItemMenu: id,
+            delete_item_data: true,
+        }),
+          headers: {
+            Authorization: "Token " + getCookie("token"),
+            Module: "inventory",
+          }
+          
+        }
+
+      );
+      const data = await response.json();
+      if (data.status === 200){
+        toast.success(name + " eliminado del menú",
+        {
+          icon: '🗑️',
+          style: {
+            borderRadius: '10px',
+            background: 'rgba(139, 0, 0, 0.75)',
+            color: 'white',
+          },
+        });
+        setChange(true)
+      }
+    }catch (error) {
+      console.error("Error fetching data:", error);
+    }
+
+  }
+
   useEffect(()=>{
-    menu_data();
     menu_data_temp();
+    menu_data();
     setChange(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[isChange])
 
-
-
-
-
+/*********************************************************/
   const viewSectionMenu = () => {
     let suma = menuSection + 1;
     setMenuSection(suma);
@@ -111,7 +150,8 @@ function ManageMenu() {
         menuTemp = {menuTemp}
         specialties = {specialties}
         setChange = {setChange}
-        setChildrenUpdate = {setChildrenUpdate}/>);
+        setChildrenUpdate = {setChildrenUpdate}
+        />);
         break;
       case 2:
         console.log("caso2");
@@ -157,6 +197,9 @@ function ManageMenu() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[childrenUpdate])
 
+
+
+
   return (
     <>
       <section className="section sectionMen">
@@ -164,13 +207,21 @@ function ManageMenu() {
         <div className="sectionMenu_div--container">
           
             
-            {menuTemp !== ""? 
+            {menuTemp.length !== 0? 
             <> 
-            <div className="menuContainer">
+            <div className="menuContainer sticky">
               <h4>Especialidades para hoy:</h4>
                 <div className="buttomsEspcialitiesContainer">
                 {menuTemp.map((item)=>(
-                    <Button color="primary" variant="ghost" key={item.id}>{item.name}</Button>                
+                  <Tooltip key={item.id}  content="Eliminar del menú" color="danger" placement="right">
+                    <Button 
+                      color="primary" 
+                      variant="ghost" 
+                      endContent={<AiFillCloseCircle/>} 
+                      onClick={()=>{deleteItemOfMenu(item.id, item.name)}}
+                      >{item.name} 
+                    </Button>   
+                  </Tooltip>             
                 ))}
                 </div>
               </div>
@@ -182,12 +233,13 @@ function ManageMenu() {
           {isMenuCreated ? (
             <></>
           ) : (
-            <div className={"menuCreator " + (menuTemp !== ""? "menuCreator70" : "menuCreator100")}>
+            <div className={"menuCreator " + (menuTemp.length !== 0? "menuCreator70" : "menuCreator100")}>
               {menuSection === 0 ? <h4>Deseas crear el menú para hoy?</h4> : <></>}
               
               {seeMEnuOption}
               <div className="buttomsContainer">
-                {menuSection ===0 ? <></>:<Button color="danger" onClick={()=>{goBack()}}>Atrás</Button>}
+                {menuSection ===0 ? <></>:
+                <Button color="danger" onClick={()=>{goBack()}}>Atrás</Button>}
                 <Button 
                   color ="success"
                   onClick={() => {
@@ -201,6 +253,7 @@ function ManageMenu() {
             </div>
           )}
         </div>
+        <Toaster position="top-center" reverseOrder={true} />
       </section>
     </>
   );

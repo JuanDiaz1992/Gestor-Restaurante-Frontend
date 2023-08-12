@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import getCookie from "../../../Scripts/getCookies";
 import {Button, Input, Textarea, Card, CardFooter, Image, CardBody } from "@nextui-org/react";
-
+import { toast } from "react-hot-toast";
 
 function Specialities(props){
     const url = useSelector((state) => state.auth.url);
     const idUser = useSelector((state) => state.auth.id_user);
     const [specialitiesInclude, setSpecialitiesInclude] = useState(false)
+    const [specialities, setSpecialites] =useState([]); 
+    const [updateSpecialites,setUpdateSpecialites] = useState(false)
 
     /*Inputs del formulario*/
     const [name, setName] = useState("");
@@ -39,22 +41,29 @@ function Specialities(props){
         })
         .then(response =>response.json())
         .then(data=>{
-            console.log(data)
+            if(data.status === 200){
+                console.log(data)
+                toast.success(name + " se creo correctamente");
+                props.setChange(true);
+                setUpdateSpecialites(true);
+            }else if(data.status === 404){
+                console.log("error 409")
+
+            }
+            
         })
 
 
     }
     
-    const isSpecialitiesInclude = (result)=>{
-        if (result){
-            setSpecialitiesInclude(true)
-        }else{
-            setSpecialitiesInclude(false)
-            props.setChildrenUpdate(true)
-        }
-    }
-    const specialities = props.specialties
-    const selectItem = async (id)=>{
+
+    useEffect(()=>{
+        setSpecialites(props.specialties)
+        setUpdateSpecialites(false)
+    },[updateSpecialites])
+
+    /*Esta función es la que selecciona los elementos que van a ir en el menú del día*/
+    const selectItem = async (id, name)=>{
         const selectedSpeciality = specialities.find(items => items.id === id);
         try{
             const response = await fetch(
@@ -76,8 +85,10 @@ function Specialities(props){
             if(data.status === 200){
                 console.log(data)
                 props.setChange(true)
+                toast.success(name + " se agregó al menú");
             }else if(data.status === 409){
                 console.log(data)
+                toast.error(name + " ya está en el menú");
             }
 
         }catch (error){
@@ -87,18 +98,29 @@ function Specialities(props){
 
 
 
+   /*Esta función es la que valida si el menú del día incluye especialidades*/ 
+    const isSpecialitiesInclude = (result)=>{
+        if (result){
+            setSpecialitiesInclude(true)
+        }else{
+            setSpecialitiesInclude(false)
+            props.setChildrenUpdate(true)
+        }
+    }
+    
+
     return(
         <>  
            
             {specialitiesInclude === true? 
 
             <>  
-            {specialities !== ""? 
+            {specialities.length !== 0? 
                 <>
                 <h4>Seleccione la especialidad para hoy </h4>
                 <div className="cardContainerMenu max-w-[900px] gap-2 grid grid-cols-12 grid-rows-2 px-8">
                     {specialities.map((item)=>(
-                        <Card className="cardEspecialities" shadow="sm" key={item.id} isPressable onClick={()=>{selectItem(item.id)}} onPress={() => console.log("item pressed")}>
+                        <Card className="cardEspecialities" shadow="sm" key={item.id} isPressable onClick={()=>{selectItem(item.id, item.name)}} onPress={() => console.log("item pressed")}>
                         <CardBody className="overflow-visible p-0 cardContainerImg">
                             <Image
                             shadow="sm"
@@ -113,7 +135,7 @@ function Specialities(props){
                             <p className="text-default-500">${item.price}</p>
                         </CardFooter>
                         </Card>
-                        // <Button className="btn btn-secondary"  key={item.id} onClick={()=>{selectItem(item.id)}} >{item.name}</Button>
+                        
                     ))}
 
                 </div>
@@ -159,6 +181,7 @@ function Specialities(props){
                     <Button type="submit" color="primary">Submit</Button>
                     </form>
                 </div> 
+
             </>
             : 
             <div>
