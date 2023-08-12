@@ -6,7 +6,44 @@ import {Button, Input, Textarea, Card, CardFooter, Image, CardBody } from "@next
 
 function Specialities(props){
     const url = useSelector((state) => state.auth.url);
+    const idUser = useSelector((state) => state.auth.id_user);
     const [specialitiesInclude, setSpecialitiesInclude] = useState(false)
+
+    /*Inputs del formulario*/
+    const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
+    const [price,setPrice] = useState("");
+    const [photo,setPhoto] = useState();
+
+
+    const sendForm =(e)=>{
+        e.preventDefault();
+        console.log(name)
+        let formData = new FormData();
+        formData.append("name",name);
+        formData.append("description",description);
+        formData.append("price",price);
+        formData.append("photo",photo);
+        formData.append("menu_item_type","especialities");
+        formData.append('idProfile_user',idUser);
+        formData.append('new_item_menu',true);
+        
+        fetch(url,{
+            method:"POST",
+            mode: "cors",
+            body: formData,
+            headers:{
+                Authorization: "Token " + getCookie("token"),
+                Module: "inventory",
+            }
+        })
+        .then(response =>response.json())
+        .then(data=>{
+            console.log(data)
+        })
+
+
+    }
     
     const isSpecialitiesInclude = (result)=>{
         if (result){
@@ -89,15 +126,15 @@ function Specialities(props){
                 </>}
                 <div className="formEspecialitiesContainer">
                     <h4>Agregar otra especialidad</h4>
-                    <form encType='multipart/form-data'>
+                    <form encType='multipart/form-data'  onSubmit={(e)=>{sendForm(e)}}>
                     <div className="mb-3">
                         <label htmlFor="name" >Nombre de la especialidad</label>
-                        <Input  id="name" variant="faded" radius="sm" type="text"/>
+                        <Input value={name} onChange={(e)=>{setName(e.target.value)}} id="name" variant="faded" radius="sm" type="text"/>
                     </div>
                     
                     <div className="mb-3">
                         <label htmlFor="description" >Descripción</label>
-                        <Textarea name="" id="description" rows="3" placeholder="Describa brevemente que incluye o de que trata la especialidad"></Textarea>
+                        <Textarea value={description} onChange={(e)=>{setDescription(e.target.value)}} id="description" rows="3" placeholder="Describa brevemente que incluye o de que trata la especialidad"></Textarea>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="price" >Costo</label>
@@ -106,7 +143,8 @@ function Specialities(props){
                                 placeholder="0.00" 
                                 variant="faded" 
                                 radius="sm" 
-         
+                                value={price}
+                                onChange={(e)=>{setPrice(e.target.value)}}
                                 labelPlacement="outside"
                                 endContent={
                                 <div className="pointer-events-none flex items-center">
@@ -116,7 +154,7 @@ function Specialities(props){
                     </div>
                     <div className="mb-3">
                         <label htmlFor="formFile" className="form-label colorBlack">Foto</label>
-                        <input type="file" id="formFile"className="form-control"/>
+                        <input type="file" id="formFile"className="form-control" onChange={(e)=>setPhoto(e.target.files[0])}/>
                     </div>
                     <Button type="submit" color="primary">Submit</Button>
                     </form>

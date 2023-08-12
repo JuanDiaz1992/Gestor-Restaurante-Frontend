@@ -578,6 +578,9 @@
 
 .cardContainerMenu{
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
 }
 
 .cardEspecialities{
@@ -585,7 +588,7 @@
 }
 
 .cardEspecialities img{
-
+    height: 300px;
     object-fit:cover;
 }
 .cardContainerImg{

@@ -38,7 +38,7 @@ function ManageMenu() {
           headers: {
             Authorization: "Token " + getCookie("token"),
             Module: "inventory",
-          },
+          }
         }
 
       );
