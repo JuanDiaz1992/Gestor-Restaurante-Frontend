@@ -604,3 +604,15 @@
     width: 70%;
 
 }
+
+.cardContainerMenu--div{
+    position: relative;
+}
+.cardContainerImg__buttonDelete{
+    position: absolute;
+    z-index: 11;
+    right: 0;
+    font-size: 20px;
+    color:rgb(226 255 0);
+    margin: 5px;
+}

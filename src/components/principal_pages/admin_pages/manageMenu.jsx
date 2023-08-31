@@ -19,7 +19,6 @@ function ManageMenu() {
   const [childrenUpdate,setChildrenUpdate] = useState(false);
 
   /*Los siguientes son los estados que guardan cada uno de los elementos del menú*/
-  const [specialties,setEspecialities] = useState([]);
   const [soups,setSoups] = useState([]);
   const [beginning,setBeginning] = useState([]);
   const [meats,setMeat] = useState([]);
@@ -42,7 +41,7 @@ function ManageMenu() {
           mode: "cors",
           headers: {
             Authorization: "Token " + getCookie("token"),
-            Module: "inventory",
+            Module: "menu_management",
           }
         }
 
@@ -50,12 +49,10 @@ function ManageMenu() {
       const data = await response.json();
       if (data.status === 200){
         const results = data.results;
-        const especialitiesFilter = results.filter(item => item.menu_item_type === "especialities");
         const soupsFilter  = results.filter(item => item.menu_item_type === "soups");
         const beginningFilter  = results.filter(item => item.menu_item_type === "beginning");
         const meatsFilter  = results.filter(item => item.menu_item_type === "meats");
         const drinksFilter  = results.filter(item => item.menu_item_type === "drinks");
-        setEspecialities(especialitiesFilter);
         setSoups(soupsFilter);
         setBeginning(beginningFilter);
         setMeat(meatsFilter);
@@ -78,7 +75,7 @@ function ManageMenu() {
           mode: "cors",
           headers: {
             Authorization: "Token " + getCookie("token"),
-            Module: "inventory",
+            Module: "menu_management",
           },
         }
 
@@ -105,7 +102,7 @@ function ManageMenu() {
         }),
           headers: {
             Authorization: "Token " + getCookie("token"),
-            Module: "inventory",
+            Module: "menu_management",
           }
           
         }

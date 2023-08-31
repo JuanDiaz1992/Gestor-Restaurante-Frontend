@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import getCookie from "../../../Scripts/getCookies";
+import {AiFillCloseCircle} from "react-icons/ai";
+import { confirmAlert } from "react-confirm-alert";
 import {
   Button,
   Input,
@@ -17,17 +19,9 @@ function Specialities(props) {
   const idUser = useSelector((state) => state.auth.id_user);
 
   /*Sección de estados*/
-  const [specialitiesInclude, setSpecialitiesInclude] =
-    useState(
-      false
-    ); /*Esta variable la cambia el usuario y es la que decide si el menú del día actual incluye especialidades*/
-  const [specialities, setSpecialites] = useState(
-    []
-  ); /*Aquí se almacenan las especialidades creadas en la bd*/
-  const [updateSpecialites, setUpdateSpecialites] =
-    useState(
-      false
-    ); /*Este estado se usa para el useEffect para el momento en que se agrego una especialidad a la bd*/
+  const [specialitiesInclude, setSpecialitiesInclude] = useState(false); /*Esta variable la cambia el usuario y es la que decide si el menú del día actual incluye especialidades*/
+  const [specialities, setSpecialites] = useState([]); /*Aquí se almacenan las especialidades creadas en la bd*/
+  const [updateSpecialites, setUpdateSpecialites] = useState(false); /*Este estado se usa para el useEffect para el momento en que se agrego una especialidad a la bd*/
 
   /*Inputs del formulario*/
   const [name, setName] = useState("");
@@ -55,7 +49,7 @@ function Specialities(props) {
         mode: "cors",
         headers: {
           Authorization: "Token " + getCookie("token"),
-          Module: "inventory",
+          Module: "menu_management",
         },
       });
       const data = await response.json();
@@ -89,7 +83,7 @@ function Specialities(props) {
       body: formData,
       headers: {
         Authorization: "Token " + getCookie("token"),
-        Module: "inventory",
+        Module: "menu_management",
       },
     })
       .then((response) => response.json())
@@ -98,6 +92,11 @@ function Specialities(props) {
           toast.success(name + " se creo correctamente");
           props.setChangeFather(true);
           setUpdateSpecialites(true);
+          setName("");
+          setDescription("");
+          setPrice("");
+          let formRegis = document.getElementById('formRegis');
+          formRegis.reset();
         } else if (data.status === 404) {
           console.log("error 409");
         }
@@ -112,8 +111,6 @@ function Specialities(props) {
   }, [updateSpecialites]);
 
 
-
-
   /*Esta función es la que selecciona de las especialidades, que elementos que van a ir en el menú del día*/
   const selectItem = async (id, name) => {
     const selectedSpeciality = specialities.find((items) => items.id === id);
@@ -123,7 +120,7 @@ function Specialities(props) {
         mode: "cors",
         headers: {
           Authorization: "Token " + getCookie("token"),
-          Module: "inventory",
+          Module: "menu_management",
         },
         body: JSON.stringify({
           item: selectedSpeciality,
@@ -132,17 +129,55 @@ function Specialities(props) {
       });
       const data = await response.json();
       if (data.status === 200) {
-        console.log(data);
         props.setChangeFather(true);
         toast.success(name + " se agregó al menú");
       } else if (data.status === 409) {
-        console.log(data);
         toast.error(name + " ya está en el menú");
       }
     } catch (error) {
       console.log(error);
     }
   };
+
+
+  const deleteItem = (id, name) => {
+    confirmAlert({
+      title: "Confirmación de eliminación",
+      message: `¿Estás seguro que deseas eiliminar a ${name}?`,
+      buttons: [
+        {
+          label: "Sí",
+          onClick: () => {
+            fetch(url, {
+              method: "DELETE",
+              mode: "cors",
+              headers: {
+                Authorization: "Token " + getCookie("token"),
+                'Module': 'menu_management'
+              },
+              body: JSON.stringify({
+                item: id,
+                delete_item_bd_from_menu: true,
+              }),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                if (data.status === 200) {
+                  setUpdateSpecialites(true);
+                  props.setChangeFather(true);
+                  toast.success(name + " se eliminó de las especialidades");
+                }
+              });
+          },
+        },
+        {
+          label: "No",
+          onClick: () => {}, // No hace nada
+        },
+      ],
+    });
+  };
+
 
   return (
     <>
@@ -153,30 +188,35 @@ function Specialities(props) {
               <h4>Seleccione la especialidad para hoy </h4>
               <div className="cardContainerMenu max-w-[900px] gap-2 grid grid-cols-12 grid-rows-2 px-8">
                 {specialities.map((item) => (
-                  <Card
-                    className="cardEspecialities"
-                    shadow="sm"
-                    key={item.id}
-                    isPressable
-                    onClick={() => {
-                      selectItem(item.id, item.name);
-                    }}
-                    onPress={() => console.log("item pressed")}
-                  >
-                    <CardBody className="overflow-visible p-0 cardContainerImg">
-                      <Image
-                        shadow="sm"
-                        radius="lg"
-                        alt={item.title}
-                        className="opacity-1"
-                        src={url + item.picture}
-                      />
-                    </CardBody>
-                    <CardFooter className="text-small justify-between">
-                      <b>{item.name}</b>
-                      <p className="text-default-500">${item.price}</p>
-                    </CardFooter>
-                  </Card>
+                  <div className="cardContainerMenu--div" key={item.id}>
+                    <button onClick={()=>deleteItem(item.id, item.name)} className="cardContainerImg__buttonDelete"><AiFillCloseCircle/></button>
+                    <Card
+                      className="cardEspecialities"
+                      shadow="sm"
+
+                      isPressable
+                      onClick={() => {
+                        selectItem(item.id, item.name);
+                      }}
+                    >
+
+                      <CardBody className="overflow-visible p-0 cardContainerImg">
+                        
+                        <Image
+                          shadow="sm"
+                          radius="lg"
+                          alt={item.title}
+                          className="opacity-1"
+                          src={url + item.picture}
+                        />
+                      </CardBody>
+                      <CardFooter className="text-small justify-between">
+                        <b>{item.name}</b>
+                        <p className="text-default-500">${item.price}</p>
+                      </CardFooter>
+                    </Card>
+                  </div>
+
                 ))}
               </div>
             </>
@@ -193,6 +233,7 @@ function Specialities(props) {
           <div className="formEspecialitiesContainer">
             <h4>Agregar otra especialidad</h4>
             <form
+              id="formRegis"
               encType="multipart/form-data"
               onSubmit={(e) => {
                 sendForm(e);
