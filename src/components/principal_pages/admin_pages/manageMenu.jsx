@@ -30,6 +30,9 @@ function ManageMenu() {
   const [menuTemp,setMenuTemp] = useState([]);
 
 
+
+  /*Este bloque de código hace fecth y trae todos los elementos del creador del menú que ya existen
+  Y los guarda en sus respectivos estados*/
   const menu_data = async () =>{
     try{
       const response = await fetch(
@@ -62,6 +65,10 @@ function ManageMenu() {
       console.error("Error fetching data:", error);
     }
   }
+
+
+
+  /*Este bloque de codigo obtiene los elementos del creador de menú temporal*/
   const menu_data_temp = async () =>{
     try{
       const response = await fetch(
@@ -123,45 +130,42 @@ function ManageMenu() {
 
   }
 
+  /*Este useEffect refresca el menú temporal y los elementos del menú ya creados*/
   useEffect(()=>{
-    menu_data_temp();
+     menu_data_temp();
     menu_data();
     setChange(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[isChange])
 
 /*********************************************************/
-  const viewSectionMenu = () => {
+  const viewSectionMenu = () => {   /*Este elemento se llama para incrementar un número el cual decide que opción del menú elegir*/
     let suma = menuSection + 1;
     setMenuSection(suma);
     switchMenu(suma)
   };
-  const goBack=()=>{
+  const goBack=()=>{                /*Este elemento se llama para disminuir un número el cual decide que opción del menú elegir*/
     let resta = menuSection - 1;
     setMenuSection(resta);
     switchMenu(resta)
   }
-  const switchMenu =(operador)=>{
+  const switchMenu =(operador)=>{   /*Este es el switch menú, el cuál muestra un elemento del menú de acuerdo a la variable que recibe como parámetro*/
     switch (operador) {
       case 1:
-        console.log("caso1");
         setSeeMenuOption(
         <Specialities 
         menuTemp = {menuTemp}
-        specialties = {specialties}
-        setChange = {setChange}
+        setChangeFather = {setChange}
         setChildrenUpdate = {setChildrenUpdate}
         />);
         break;
       case 2:
-        console.log("caso2");
         setSeeMenuOption(
         <Soups
         soups = {soups}
            />);
         break;
       case 3:
-        console.log("caso3");
         setSeeMenuOption(
         <Beginnings
         beginning = {beginning}
@@ -169,21 +173,18 @@ function ManageMenu() {
         break;
       
       case 4:
-        console.log("caso4")
         setSeeMenuOption(
         <Meats
         meats = {meats}
            />);
         break;
       case 5:
-        console.log("caso5")
         setSeeMenuOption(
         <Drinks 
         drinks = {drinks}
         />);
         break;
       default:
-        console.log("sale");
         setMenuSection(0);
         setSeeMenuOption(<></>);
         break;
