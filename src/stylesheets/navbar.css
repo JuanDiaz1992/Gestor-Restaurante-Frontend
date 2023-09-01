@@ -26,6 +26,11 @@
     display: flex;
     flex-direction: row;
     gap: 25px;
+    align-items: center;
+}
+.profileAndButtonContainer svg{
+  color: black;
+  font-size: 20px;
 }
 .navbar-nav{
     align-items: center;

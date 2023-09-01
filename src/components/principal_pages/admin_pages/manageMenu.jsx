@@ -82,6 +82,7 @@ function ManageMenu() {
       );
       const data = await response.json();
       if (data.status === 200){
+        console.log(data)
         setMenuTemp(data.results)
       }else{
         setMenuTemp([])
@@ -151,7 +152,6 @@ function ManageMenu() {
       case 1:
         setSeeMenuOption(
         <Specialities 
-        menuTemp = {menuTemp}
         setChangeFather = {setChange}
         setChildrenUpdate = {setChildrenUpdate}
         />);
@@ -159,26 +159,26 @@ function ManageMenu() {
       case 2:
         setSeeMenuOption(
         <Soups
-        soups = {soups}
+        setChangeFather = {setChange}
            />);
         break;
       case 3:
         setSeeMenuOption(
         <Beginnings
-        beginning = {beginning}
+        setChangeFather = {setChange}
          />);
         break;
       
       case 4:
         setSeeMenuOption(
         <Meats
-        meats = {meats}
+        setChangeFather = {setChange}
            />);
         break;
       case 5:
         setSeeMenuOption(
         <Drinks 
-        drinks = {drinks}
+        setChangeFather = {setChange}
         />);
         break;
       default:
@@ -213,8 +213,11 @@ function ManageMenu() {
                 {menuTemp.map((item)=>(
                   <Tooltip key={item.id}  content="Eliminar del menú" color="danger" placement="right">
                     <Button 
-                      color="primary" 
-                      variant="ghost" 
+                      color={item.menu_item_type === "especialities"? "primary" : 
+                            item.menu_item_type === "soups"? "warning": 
+                            item.menu_item_type === "beginning"? "success" : 
+                            item.menu_item_type === "meats"? "danger" : ""} 
+                      variant="flat" 
                       endContent={<AiFillCloseCircle/>} 
                       onClick={()=>{deleteItemOfMenu(item.id, item.name)}}
                       >{item.name} 
@@ -231,10 +234,12 @@ function ManageMenu() {
           {isMenuCreated ? (
             <></>
           ) : (
+
             <div className={"menuCreator " + (menuTemp.length !== 0? "menuCreator70" : "menuCreator100")}>
               {menuSection === 0 ? <h4>Deseas crear el menú para hoy?</h4> : <></>}
               
               {seeMEnuOption}
+              
               <div className="buttomsContainer">
                 {menuSection ===0 ? <></>:
                 <Button color="danger" onClick={()=>{goBack()}}>Atrás</Button>}
@@ -249,6 +254,7 @@ function ManageMenu() {
               </div>
 
             </div>
+
           )}
         </div>
         <Toaster position="top-center" reverseOrder={true} />

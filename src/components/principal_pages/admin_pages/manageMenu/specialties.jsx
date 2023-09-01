@@ -231,7 +231,7 @@ function Specialities(props) {
             </>
           )}
           <div className="formEspecialitiesContainer">
-            <h4>Agregar otra especialidad</h4>
+            <h4>Agregar especialidad</h4>
             <form
               id="formRegis"
               encType="multipart/form-data"

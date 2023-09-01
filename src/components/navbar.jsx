@@ -1,32 +1,56 @@
-import { useNavigate, NavLink } from "react-router-dom";
+import { useNavigate, NavLink, useLocation  } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/userSlice";
 import React, { useEffect, useState } from "react";
-import {Avatar, NavbarMenu } from "@nextui-org/react";
+import { Avatar } from "@nextui-org/react";
 import cerrarSesion from "./Scripts/cerrarSesion";
 import logo from "../img/logo4.png";
+import { Button, Tooltip  } from "@nextui-org/react";
+import {BiArrowBack} from "react-icons/bi"
 
 import  '../stylesheets/navbar.css'
 
 
 
 function NavBar() {
+
+  const location = useLocation()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const infoBusiness = useSelector((state) => state.auth);
   const url = useSelector((state) => state.auth.url);
   const isLoggedIn = useSelector((state) => state.auth.is_logged_in);
   const type_user = useSelector((state) => state.auth.type_user);
   const name = useSelector((state) => state.auth.name);
   let img = useSelector((state) => state.auth.photo);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+
 
   const [navActive,setNavActive] = useState(true)
   const [setLogo, getLogo] = useState(false);
+  const [buttonNavigate, setbuttonNavigate] = useState(false)
   
   const handleChange =()=>{
     setNavActive(!navActive);
   }
+  const navigateTo = ()=>{
+    if(location.pathname==="/Login"){
+      navigate("/")
+    }else{
+      navigate(-1)
+    }
+    
+  }
   
+  useEffect(()=>{
+    if(location.pathname === "/" || location.pathname === "/AdminPAge"
+      || location.pathname === "/ChefPage" || location.pathname === "/WaiterPage" ){
+      setbuttonNavigate(false)
+    }else{
+      setbuttonNavigate(true)
+    }
+  },[location])
+
 
   useEffect(() => {
     if (infoBusiness.logo) {
@@ -51,9 +75,17 @@ function NavBar() {
               alt="logo"
             />
           </NavLink>
+          
           {isLoggedIn ? (
             <>
               <div className="profileAndButtonContainer">
+                {buttonNavigate? 
+                  <Tooltip content="Volver atrás" placement="bottom"> 
+                    <Button isIconOnly color="danger" variant="ligth"  onClick={navigateTo}>
+                      <BiArrowBack />
+                    </Button> 
+                  </Tooltip> 
+                  : <></> }
                 <div className="navbar-nav ulProfileContainer">
                   <div className="nav-item ">
                     <div className="nav-link ">
@@ -146,10 +178,13 @@ function NavBar() {
             </>
           ) : (
             <>
-              <div  className={!navActive? "icon nav-icon-5 open" : "icon nav-icon-5"} onClick={handleChange}>
-                <span></span>
-                <span></span>
-                <span></span>
+              <div className="profileAndButtonContainer">
+                {buttonNavigate? <Button isIconOnly color="warning" variant="faded"  onClick={navigateTo}><BiArrowBack /></Button> : <></> }
+                <div  className={!navActive? "icon nav-icon-5 open" : "icon nav-icon-5"} onClick={handleChange}>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
               </div>
               <div className={navActive? "collapse navbar-collapse divContainerUl":"collapse navbar-collapse divContainerUl show"} id="navbarNav">
                 <ul className="navbar-nav">

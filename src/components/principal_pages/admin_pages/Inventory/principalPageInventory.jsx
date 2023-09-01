@@ -17,7 +17,7 @@ function PrincipalPageInventory(){
                                 exit={{ opacity: 0 }}
                                 transition={{ 
                                     delay:.3,
-                                    duration: 1,
+                                    duration: .5,
                                     ease: "linear",
                                 }}
                         >
@@ -30,7 +30,7 @@ function PrincipalPageInventory(){
                                 exit={{ opacity: 0 }}
                                 transition={{ 
                                     delay:.7,
-                                    duration: 1,
+                                    duration: .5,
                                     ease: "linear",
                                 }}
                         >

@@ -35,7 +35,7 @@ function AdminPage(){
                         exit={{ opacity: 0 }}
                         transition={{ 
                             delay:.5,
-                            duration: 1,
+                            duration: .5,
                             ease: "linear"
                         }}>
 
@@ -45,7 +45,7 @@ function AdminPage(){
                             exit={{ y: -30, opacity: 0 }}
                             transition={{ 
                                 delay:1,
-                                duration: 0.9,
+                                duration: 0.5,
                                 ease: "linear", }}
                         />
 
@@ -56,7 +56,7 @@ function AdminPage(){
                                 exit={{ y: -150, opacity: 0 }}
                                 transition={{ 
                                 delay:1,
-                                duration: 0.9,
+                                duration: 0.5,
                                 ease: [0, 0.71, 0.2, 1.01], }}
                         >Crea aquí el menú del día</motion.h3>
                     </motion.div>
@@ -67,7 +67,7 @@ function AdminPage(){
                                 exit={{ opacity: 0 }}
                                 transition={{ 
                                     delay:0.5,
-                                    duration: 1,
+                                    duration: .5,
                                     ease: "linear",
                                 }}
                     >
@@ -81,7 +81,7 @@ function AdminPage(){
                                 exit={{ opacity: 0 }}
                                 transition={{ 
                                     delay:0.7,
-                                    duration: 1,
+                                    duration: .5,
                                     ease: "linear", }}
                     
                     
@@ -99,7 +99,7 @@ function AdminPage(){
                                 exit={{ opacity: 0 }}
                                 transition={{ 
                                     delay:1,
-                                    duration: 1,
+                                    duration: .5,
                                     ease: "linear", }}
                     >
                         <img className="imgUser" src={user} alt="" />
@@ -112,7 +112,7 @@ function AdminPage(){
                                 exit={{ opacity: 0 }}
                                 transition={{ 
                                     delay:1.3,
-                                    duration: 1,
+                                    duration: .5,
                                     ease: "linear",
                                 }}
                     >
@@ -124,7 +124,7 @@ function AdminPage(){
                                     animate={{ x: -5 }} 
                                     transition={{
                                     delay:2.3,
-                                    duration: 1, 
+                                    duration: .5, 
                                     ease: "easeInOut", 
                                     type: "spring"
                                     }}
