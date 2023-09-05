@@ -19,50 +19,11 @@ function ManageMenu() {
   const [childrenUpdate,setChildrenUpdate] = useState(false);
 
   /*Los siguientes son los estados que guardan cada uno de los elementos del menú*/
-  const [soups,setSoups] = useState([]);
-  const [beginning,setBeginning] = useState([]);
-  const [meats,setMeat] = useState([]);
-  const [drinks,setDrinks] = useState([]);
+
   const [isChange,setChange] = useState(false)
 
   /*El siguiente es el menú temporal el cual se guarda en la sesión antes de guardarlo en la bd*/
   const [menuTemp,setMenuTemp] = useState([]);
-
-
-
-  /*Este bloque de código hace fecth y trae todos los elementos del creador del menú que ya existen
-  Y los guarda en sus respectivos estados*/
-  const menu_data = async () =>{
-    try{
-      const response = await fetch(
-        `${url}items_menu/`,
-        {
-          method: "GET",
-          mode: "cors",
-          headers: {
-            Authorization: "Token " + getCookie("token"),
-            Module: "menu_management",
-          }
-        }
-
-      );
-      const data = await response.json();
-      if (data.status === 200){
-        const results = data.results;
-        const soupsFilter  = results.filter(item => item.menu_item_type === "soups");
-        const beginningFilter  = results.filter(item => item.menu_item_type === "beginning");
-        const meatsFilter  = results.filter(item => item.menu_item_type === "meats");
-        const drinksFilter  = results.filter(item => item.menu_item_type === "drinks");
-        setSoups(soupsFilter);
-        setBeginning(beginningFilter);
-        setMeat(meatsFilter);
-        setDrinks(drinksFilter)
-      }
-    }catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  }
-
 
 
   /*Este bloque de codigo obtiene los elementos del creador de menú temporal*/
@@ -82,7 +43,6 @@ function ManageMenu() {
       );
       const data = await response.json();
       if (data.status === 200){
-        console.log(data)
         setMenuTemp(data.results)
       }else{
         setMenuTemp([])
@@ -131,7 +91,6 @@ function ManageMenu() {
   /*Este useEffect refresca el menú temporal y los elementos del menú ya creados*/
   useEffect(()=>{
      menu_data_temp();
-    menu_data();
     setChange(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[isChange])
