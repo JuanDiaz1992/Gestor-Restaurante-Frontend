@@ -9,6 +9,7 @@ import Soups from "./manageMenu/soup";
 import Beginnings from "./manageMenu/beginning";
 import Meats from "./manageMenu/meat";
 import Drinks from "./manageMenu/drinks";
+import Swal from "sweetalert2";
 
 function ManageMenu() {
   const url = useSelector((state) => state.auth.url);
@@ -154,6 +155,65 @@ function ManageMenu() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[childrenUpdate])
 
+  const createMenu =()=>{
+    let soups = menuTemp.some((item) => item.menu_item_type === "soups");
+    let beginning = menuTemp.some((item) => item.menu_item_type === "beginning");
+    let meats = menuTemp.some((item) => item.menu_item_type === "meats");
+    let drinks = menuTemp.some((item) => item.menu_item_type === "drinks");
+
+    let emptyItems = []
+    if (!soups) {
+      emptyItems.push("sopas");
+    }if(!beginning){
+      emptyItems.push("principios");
+    }if(!meats){
+      emptyItems.push("carnes");
+    }if(!drinks){
+      emptyItems.push("bebidas");
+    }
+    let message = "Aún faltan "
+    if (emptyItems.length !== 0) {
+      for (let i = 0; i < emptyItems.length; i++) {
+        if (i === 0){
+          message += emptyItems[i];
+        }else if(i === emptyItems.length - 1){
+          message += " y " + emptyItems[i];
+        }else if (i < emptyItems.length && i > 0) {
+          message += ", " + emptyItems[i];
+        }
+        
+      }
+      message += " para terminar de crear el menú"
+      Swal.fire({
+        title: "Error",
+        text: message,
+        icon: "error",
+        confirmButtonText: "Ok",
+        willClose: function () {},
+        customClass: {
+          container: "notification-modal",
+        },
+      });
+    }else{
+      fetch(url,{
+        method: "POST",
+        mode: "cors",
+        headers:{
+          Authorization: "Token " + getCookie("token"),
+          Module: "menu_management",
+        },
+        body:JSON.stringify({
+          create_menu:true
+        })
+      })
+      .then(response =>response.json())
+      .then(data=>{
+        console.log(data)
+      })
+    }
+    
+   
+  }
 
 
 
@@ -167,7 +227,7 @@ function ManageMenu() {
             {menuTemp.length !== 0? 
             <> 
             <div className="menuContainer sticky">
-              <h4>Especialidades para hoy:</h4>
+              <h4>Menú para hoy:</h4>
                 <div className="buttomsEspcialitiesContainer">
                 {menuTemp.map((item)=>(
                   <Tooltip key={item.id}  content="Eliminar del menú" color="danger" placement="right">
@@ -175,7 +235,8 @@ function ManageMenu() {
                       color={item.menu_item_type === "especialities"? "primary" : 
                             item.menu_item_type === "soups"? "warning": 
                             item.menu_item_type === "beginning"? "success" : 
-                            item.menu_item_type === "meats"? "danger" : ""} 
+                            item.menu_item_type === "meats"? "danger" : 
+                            item.menu_item_type === "drinks"? "secondary" : ""} 
                       variant="flat" 
                       endContent={<AiFillCloseCircle/>} 
                       onClick={()=>{deleteItemOfMenu(item.id, item.name)}}
@@ -202,14 +263,29 @@ function ManageMenu() {
               <div className="buttomsContainer">
                 {menuSection ===0 ? <></>:
                 <Button color="danger" onClick={()=>{goBack()}}>Atrás</Button>}
-                <Button 
-                  color ="success"
-                  onClick={() => {
-                    viewSectionMenu();
-                  }}
-                >
-                  {menuSection === 0 ? "Iniciar" : "Siguiente"}
-                </Button>
+                {menuSection >=5 ? 
+                <>
+                  <Button 
+                    color ="success"
+                    onClick={() => {
+                      createMenu();
+                    }}
+                  >
+                    Crear Menú
+                  </Button>
+                </>
+                : 
+                <>
+                  <Button 
+                    color ="success"
+                    onClick={() => {
+                      viewSectionMenu();
+                    }}
+                  >
+                    {menuSection === 0 ? "Iniciar" : "Siguiente"}
+                  </Button>
+                </>}
+
               </div>
 
             </div>
