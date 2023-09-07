@@ -32,7 +32,7 @@ function Beginning(props){
     /*Sección de funciones*/
   
 
-    /*Función que trae solo las especialidades de la bd*/
+    /*Función que trae solo el item de la bd*/
     const menu_data = async () => {
       try {
         const response = await fetch(`${url}items_menu/`, {
@@ -94,7 +94,7 @@ function Beginning(props){
         });
     };
   
-    /*Cuando se agrega un nuevo elemento a las principios, se actualizan con este hook*/
+    /*Cuando se agrega un nuevo elemento, se actualizan con este hook*/
     useEffect(() => {
       menu_data();
       setUpdateItems(false);
@@ -102,7 +102,7 @@ function Beginning(props){
     }, [updateItems]);
   
   
-    /*Esta función es la que selecciona de las principios, que elementos que van a ir en el menú del día*/
+    /*Esta función es la que selecciona que elementos que van a ir en el menú del día*/
     const selectItem = async (id, name) => {
       const selectedSpeciality = item.find((items) => items.id === id);
       try {

@@ -1,5 +1,5 @@
 
-import ComponenteBaseCreadorMenu from "./componenteBaseCreadorMenu";
+import ComponenteBaseCreadorMenu from "../componenteBaseCreadorMenu";
 function Beginning(props){ 
 return(
 

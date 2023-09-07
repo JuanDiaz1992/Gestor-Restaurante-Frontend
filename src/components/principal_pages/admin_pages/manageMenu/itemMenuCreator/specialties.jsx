@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@nextui-org/react";
-import ComponenteBaseCreadorMenu from "./componenteBaseCreadorMenu";
+import ComponenteBaseCreadorMenu from "../componenteBaseCreadorMenu";
 
 function Specialities(props) {
 

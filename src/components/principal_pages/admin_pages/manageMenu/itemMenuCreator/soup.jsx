@@ -1,4 +1,4 @@
-import ComponenteBaseCreadorMenu from "./componenteBaseCreadorMenu";
+import ComponenteBaseCreadorMenu from "../componenteBaseCreadorMenu";
 
 function Soups(props){     
     return(
