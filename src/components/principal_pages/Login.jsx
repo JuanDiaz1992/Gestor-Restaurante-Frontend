@@ -96,7 +96,7 @@ function Login() {
 
   return (
     <>
-    {/* <video src={video1} autoPlay={true} muted={true} loop={true} poster={imgVideo}></video> */}
+
 
     <section className="section_login">
         <div className="section_logind_div1"></div>

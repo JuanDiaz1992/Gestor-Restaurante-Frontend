@@ -26,7 +26,7 @@
     "sweetalert2": "^11.7.12",
     "web-vitals": "^2.1.4"
   },
-  "homepage": "",
+  "homepage": "https://gesthordesign.000webhostapp.com/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

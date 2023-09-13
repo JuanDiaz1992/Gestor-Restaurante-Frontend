@@ -31,7 +31,6 @@ function ManageMenu() {
   /*Función que valida si ya existe un menú con la fecha actual creado*/
   const validateMenu = async ()=>{
       let getId = await obtenerIDMenu(url)
-      console.log(getId)
       if (getId !== 0 ) {
         setMenuCreate(true)
       }else{
@@ -143,9 +142,11 @@ function ManageMenu() {
             {isMenuCreated === true? 
               <>
               <div>
-                <h1>El menú del día es: </h1>
+                <h1 className="sectionMenu_div--container--tile_menu">MENÚ DEL DÍA</h1>
                 <MenuOfBd 
                 isMenuCreated={isMenuCreated}
+                setMenuCreate={setMenuCreate}
+                
                 />
               </div>
 

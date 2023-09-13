@@ -541,6 +541,11 @@
     height: 100%;
 }
 
+.sectionMenu_div--container--tile_menu{
+    text-align: center;
+    font-size: 50px;
+    font-family:fantasy ;
+}
 .menuContainer{
     top: 100px;
     padding: 10px;
@@ -625,16 +630,57 @@
     align-items: center;
 }
 
+/********************************Menu del día en el creador de menú*************************/
 
 .menu_of_day_container{
-    width: 100%;
     display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 60Vh;
     gap: 25px;
-    justify-content: center
 }
+
+
+.menu_of_day_container--div1{
+    width: 100%;
+    display: grid;
+    grid-gap: 10px;
+    padding: 10px;
+     
+}
+
+  
+@media (min-width: 1000px) {
+.menu_of_day_container--div1 {
+    grid-template-columns: repeat(4, 1fr);
+}
+}
+
+@media (max-width: 980px) {
+.menu_of_day_container--div1 {
+    grid-template-columns: repeat(2, 1fr);
+}
+}
+
+@media (max-width: 500px) {
+.menu_of_day_container--div1 {
+    grid-template-columns: repeat(1, 1fr);
+}
+}
+
 
 .buttons_menu_container{
     display: flex;
     flex-direction: column;
     gap: 5px;
+    background: rgb(223, 223, 223);
+    padding: 15px;
+    border-radius: 17px;
+}
+
+.menu_of_day_container--div2{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
 }
