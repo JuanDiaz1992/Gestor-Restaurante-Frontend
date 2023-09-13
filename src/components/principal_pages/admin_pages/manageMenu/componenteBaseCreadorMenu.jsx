@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import getCookie from "../../../Scripts/getCookies";
 import {AiFillCloseCircle} from "react-icons/ai";
 import { confirmAlert } from "react-confirm-alert";
+import Compressor from 'compressorjs';
 import GoToTop from "../../../Scripts/OnTop"
 import {
   Button,
@@ -28,6 +29,7 @@ function Beginning(props){
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState(0);
     const [photo, setPhoto] = useState();
+    const [photoCompress,setPhotoCompress] = useState();
   
     /*Sección de funciones*/
   
@@ -55,15 +57,34 @@ function Beginning(props){
         console.error("Error fetching data:", error);
       }
     };
+
+    const compressImage = (originalImage) => {
+      return new Promise((resolve, reject) => {
+        new Compressor(originalImage, {
+          quality: 0.9,
+          maxWidth: 374,
+          maxHeight:480,
+          success(result) {
+            resolve(result); // Devuelve la imagen comprimida
+          },
+          error(err) {
+            reject(err); // Devuelve un error en caso de fallo
+          },
+        });
+      });
+    };
+
   
     /*Función que crea nuevos elementos para el menú, este es el formulario*/
-    const sendForm = (e) => {
+    const sendForm = async  (e) => {
       e.preventDefault();
+      const compressedImage = await compressImage(photo);
+      console.log(compressedImage)
       let formData = new FormData();
       formData.append("name", name);
       formData.append("description", description);
       formData.append("price", price);
-      formData.append("photo", photo);
+      formData.append("photo", new File([compressedImage], photo.name + '.webp', { type: 'image/webp' }));
       formData.append("menu_item_type", props.nameItem);
       formData.append("idProfile_user", idUser);
       formData.append("new_item_menu", true);
