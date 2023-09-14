@@ -32,6 +32,7 @@ function MenuCreator(props) {
           <Specialities
             setChangeFather={props.setChange}
             setChildrenUpdate={setChildrenUpdate}
+            viewSectionMenu={viewSectionMenu}
           />
         );
         break;

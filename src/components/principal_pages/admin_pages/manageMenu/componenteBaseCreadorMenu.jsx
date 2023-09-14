@@ -29,7 +29,7 @@ function Beginning(props){
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState(0);
     const [photo, setPhoto] = useState();
-    const [photoCompress,setPhotoCompress] = useState();
+
   
     /*Sección de funciones*/
   
