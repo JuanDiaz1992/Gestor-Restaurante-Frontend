@@ -686,8 +686,9 @@
     border-radius: 10px;
     border: 1px solid rgb(165, 165, 165);
 }
-.modal-content-edit-menu{
-    height: max-content !important;
+.modal_content_edit_menu{
+    position: absolute;
+    top: 100px;
 }
 
 .menu_of_day_container--div2{

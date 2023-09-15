@@ -123,3 +123,13 @@
     transform: rotate(-45deg);
     top: 13px;
   }
+
+  @media (max-width: 500px) {
+    .navBarLogo {
+        width: 80px;
+    }
+    .profileAndButtonContainer{
+      gap: 5px;
+    }
+    }
+    

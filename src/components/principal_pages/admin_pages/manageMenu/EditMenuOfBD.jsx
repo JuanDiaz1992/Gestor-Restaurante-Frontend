@@ -2,7 +2,14 @@ import { useEffect, useState, useMemo } from "react";
 import getCookie from "../../../Scripts/getCookies";
 import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
-import { Listbox, ListboxItem, Button } from "@nextui-org/react";
+import {
+  Listbox,
+  ListboxItem,
+  Button,
+  ModalHeader,
+  ModalBody,
+  Spinner,
+} from "@nextui-org/react";
 import date from "../../../Scripts/obtenerFechaActual";
 
 function EditMenuOfBD(props) {
@@ -13,6 +20,7 @@ function EditMenuOfBD(props) {
   const [beginning, setBegining] = useState([]);
   const [meats, setMeats] = useState([]);
   const [drinks, setDrinks] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { idMenuFather, setIsChangeFather, closeModalEdit } = props;
 
   const menu_data = async () => {
@@ -28,7 +36,7 @@ function EditMenuOfBD(props) {
       const data = await response.json();
       if (data.status === 200) {
         const results = data.results;
-        
+
         const resultFilter = results.filter((result) => {
           return !props.allResults.some(
             (isInMenuresult) => isInMenuresult.name === result.name
@@ -64,6 +72,7 @@ function EditMenuOfBD(props) {
     } catch (error) {
       console.error("Error fetching data:", error);
     }
+    setLoading(false);
   };
   useEffect(() => {
     menu_data();
@@ -105,25 +114,19 @@ function EditMenuOfBD(props) {
       });
   };
 
-  
   return (
     <>
       <div className="modal-dialog">
         <div className="modal-content ">
-          <div className="modal-header">
-            <h5 className="modal-title">Agregar items al menú</h5>
-            <button
-              className="btn-close"
-              aria-label="Close"
-              onClick={closeModalEdit}
-            ></button>
-          </div>
-          {allItems.length === 0 ? (
-            <div>
-              <h4>No existen más items para agregar al menú</h4>
-            </div>
-          ) : (
-            <div>
+          <ModalHeader className="flex flex-col gap-1">
+            <h3 className="text-2xl">Agregar items al menú</h3>
+          </ModalHeader>
+          {loading ? (
+            <>
+              <Spinner label="Loading..." color="success" />
+            </>
+          ) : allItems.length !== 0 ? (
+            <ModalBody>
               {specialities.length > 0 && (
                 <div>
                   <h3>Especialidades</h3>
@@ -244,15 +247,18 @@ function EditMenuOfBD(props) {
                   </Listbox>
                 </div>
               )}
-            </div>
+            </ModalBody>
+          ) : (
+            <ModalBody>
+              <h4>No existen más items para agregar al menú</h4>
+            </ModalBody>
           )}
-
-          <div>
-            {allItems.length!==0 &&
-                (<Button onClick={editMenu}>Agregar al menú</Button>)
-            }
-            
-            <Button>Crear nuevo item</Button>
+          <div className="flex  flex-row gap-1 flex-wrap">
+            {allItems.length !== 0 && (
+              <Button color={selectedValue===""? "default":"success"} onClick={selectedValue===""? "":editMenu}>Aceptar</Button>
+            )}
+            <Button color="warning">Crear nuevo</Button>
+            <Button color="danger" onClick={closeModalEdit}>Cerrar</Button>
           </div>
         </div>
       </div>

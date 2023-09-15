@@ -1,30 +1,28 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Button, Tooltip } from "@nextui-org/react";
+import { Button, Tooltip, ModalContent, Modal } from "@nextui-org/react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { toast } from "react-hot-toast";
 import { confirmAlert } from "react-confirm-alert";
 import Swal from "sweetalert2";
-import Modal from "react-modal";
 import getCookie from "../../../Scripts/getCookies";
 import obtenerIDMenu from "../../../Scripts/obtenerIDGlobalDelMenu";
-import EditMenuOfBD from "./EditMenuOfBD"
+import EditMenuOfBD from "./EditMenuOfBD";
 
 function MenuOfBd(props) {
-
   const url = useSelector((state) => state.auth.url);
   const [specialities, setEspecialities] = useState([]);
   const [soups, setSoups] = useState([]);
   const [beginning, setBegining] = useState([]);
   const [meats, setMeats] = useState([]);
   const [drinks, setDrinks] = useState([]);
-  const [allResults,setAllResults] = useState([]);
-  const [isChange,setIsChange] = useState(false);
-  const [idMenu,setIdMenu] = useState()
+  const [allResults, setAllResults] = useState([]);
+  const [isChange, setIsChange] = useState(false);
+  const [idMenu, setIdMenu] = useState();
 
   const getMenu = async () => {
     let id = await obtenerIDMenu(url);
-    setIdMenu(id)
+    setIdMenu(id);
     if (props.isMenuCreated) {
       fetch(`${url}items_menuJoin?linkTo=menu&equalTo=${id}`, {
         method: "GET",
@@ -36,12 +34,11 @@ function MenuOfBd(props) {
       })
         .then((response) => response.json())
         .then((data) => {
-          setAllResults(data.results)
+          setAllResults(data.results);
           setEspecialities(
             data.results.filter(
               (especialitie) => especialitie.menu_item_type === "especialities"
             )
-            
           );
           setSoups(
             data.results.filter(
@@ -68,54 +65,54 @@ function MenuOfBd(props) {
   };
   useEffect(() => {
     getMenu();
-    setIsChange(false)
+    setIsChange(false);
   }, [isChange]);
 
-
-  const deleteItemFromMenuBd=(id, name)=>{
+  const deleteItemFromMenuBd = (id, name) => {
     let delete_item_menu_bd_bolean = false;
     let delete_all_menu_bolean = false;
-    if(allResults.length>1){
-      delete_item_menu_bd_bolean = true
-    }else if(allResults.length===1){
-      delete_all_menu_bolean = true
+    if (allResults.length > 1) {
+      delete_item_menu_bd_bolean = true;
+    } else if (allResults.length === 1) {
+      delete_all_menu_bolean = true;
     }
-    try{
-      fetch(url,{
-        method:"DELETE",
-        mode:"cors",
-        headers:{
+    try {
+      fetch(url, {
+        method: "DELETE",
+        mode: "cors",
+        headers: {
           Authorization: "Token " + getCookie("token"),
-          Module: "menu_management"
+          Module: "menu_management",
         },
-        body:JSON.stringify({
+        body: JSON.stringify({
           idMenu: idMenu,
           id: id,
           delete_item_menu_bd: delete_item_menu_bd_bolean,
-          delete_all_menu: delete_all_menu_bolean
-        })
+          delete_all_menu: delete_all_menu_bolean,
+        }),
       })
-      .then(response=>response.json())
-      .then(data=>{
-        if(data.status === 200){
-          toast.success(name + " se eliminó de le menú.");
-          
-
-        }else{
-          toast.error("Ha ocurrido un error al eliminar " + name + ", valide con el administrador del sistema.");
-        }
-        if(allResults.length===1){
-          props.setMenuCreate(false);
-        }
-        setIsChange(true)
-      })
-    }catch(error){
-      console.log(error)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.status === 200) {
+            toast.success(name + " se eliminó de le menú.");
+          } else {
+            toast.error(
+              "Ha ocurrido un error al eliminar " +
+                name +
+                ", valide con el administrador del sistema."
+            );
+          }
+          if (allResults.length === 1) {
+            props.setMenuCreate(false);
+          }
+          setIsChange(true);
+        });
+    } catch (error) {
+      console.log(error);
     }
+  };
 
-  }
-
-  const deleteMenu=()=>{
+  const deleteMenu = () => {
     confirmAlert({
       title: "Confirmación de eliminación",
       message: `¿Estás seguro que deseas eiliminar todo el menú?`,
@@ -128,11 +125,11 @@ function MenuOfBd(props) {
               mode: "cors",
               headers: {
                 Authorization: "Token " + getCookie("token"),
-                'Module': 'menu_management'
+                Module: "menu_management",
               },
               body: JSON.stringify({
-                delete_menu:true,
-                idMenu:idMenu
+                delete_menu: true,
+                idMenu: idMenu,
               }),
             })
               .then((response) => response.json())
@@ -158,50 +155,62 @@ function MenuOfBd(props) {
         },
       ],
     });
-  }
+  };
 
-/*Modal*/
+  /*Modal*/
 
   const [modalEditMenu, setModalIsOpenEditMenu] = useState(false);
 
-const openModalEditMenu = () => {
-  setModalIsOpenEditMenu(true);
-};
+  const openModalEditMenu = () => {
+    setModalIsOpenEditMenu(true);
+  };
 
-const closeModalEditMenu = () => {
-  setModalIsOpenEditMenu(false);
-};
+  const closeModalEditMenu = () => {
+    setModalIsOpenEditMenu(false);
+  };
   return (
     <>
-    <div className="menu_of_day_container">
-      <div className="menu_of_day_container--div1">
+      <div className="menu_of_day_container">
+        <div className="menu_of_day_container--div1">
           {specialities.length > 0 && (
-          <div className="buttons_menu_container">
-            <h3>Especialidades</h3>
-            {specialities.map((item) => (
-              <Tooltip key={item.id} color="danger" content={"Eliminar " + item.name}>
-                <Button 
-                  onClick={()=>deleteItemFromMenuBd(item.id, item.name)} 
-                  variant="flat" 
-                  radius="full"
-                  color={item.state === 1? "primary" : "default"} 
-                  endContent={<AiFillCloseCircle />} >{item.name}
-                </Button>
-              </Tooltip>
-            ))}
+            <div className="buttons_menu_container">
+              <h3>Especialidades</h3>
+              {specialities.map((item) => (
+                <Tooltip
+                  key={item.id}
+                  color="danger"
+                  content={"Eliminar " + item.name}
+                >
+                  <Button
+                    onClick={() => deleteItemFromMenuBd(item.id, item.name)}
+                    variant="flat"
+                    radius="full"
+                    color={item.state === 1 ? "primary" : "default"}
+                    endContent={<AiFillCloseCircle />}
+                  >
+                    {item.name}
+                  </Button>
+                </Tooltip>
+              ))}
             </div>
-            )}
+          )}
           {soups.length > 0 && (
-            <div className="buttons_menu_container"> 
+            <div className="buttons_menu_container">
               <h3>Sopas</h3>
               {soups.map((item) => (
-                <Tooltip key={item.id} color="danger" content={"Eliminar " + item.name}>
-                  <Button 
-                    onClick={()=>deleteItemFromMenuBd(item.id, item.name)} 
-                    variant="flat" 
-                    radius="full" 
-                    color={item.state === 1 ? "warning" : "default"} 
-                    endContent={<AiFillCloseCircle />}>{item.name}
+                <Tooltip
+                  key={item.id}
+                  color="danger"
+                  content={"Eliminar " + item.name}
+                >
+                  <Button
+                    onClick={() => deleteItemFromMenuBd(item.id, item.name)}
+                    variant="flat"
+                    radius="full"
+                    color={item.state === 1 ? "warning" : "default"}
+                    endContent={<AiFillCloseCircle />}
+                  >
+                    {item.name}
                   </Button>
                 </Tooltip>
               ))}
@@ -212,13 +221,19 @@ const closeModalEditMenu = () => {
             <div className="buttons_menu_container">
               <h3>Principios</h3>
               {beginning.map((item) => (
-                <Tooltip key={item.id} color="danger" content={"Eliminar " + item.name}>
-                  <Button 
-                    onClick={()=>deleteItemFromMenuBd(item.id, item.name)} 
-                    variant="flat" 
+                <Tooltip
+                  key={item.id}
+                  color="danger"
+                  content={"Eliminar " + item.name}
+                >
+                  <Button
+                    onClick={() => deleteItemFromMenuBd(item.id, item.name)}
+                    variant="flat"
                     radius="full"
-                    color={item.state === 1 ? "success" : "default"} 
-                    endContent={<AiFillCloseCircle />}>{item.name}
+                    color={item.state === 1 ? "success" : "default"}
+                    endContent={<AiFillCloseCircle />}
+                  >
+                    {item.name}
                   </Button>
                 </Tooltip>
               ))}
@@ -229,13 +244,19 @@ const closeModalEditMenu = () => {
             <div className="buttons_menu_container">
               <h3>Carnes</h3>
               {meats.map((item) => (
-                <Tooltip key={item.id} color="danger" content={"Eliminar " + item.name}>
-                  <Button 
-                    onClick={()=>deleteItemFromMenuBd(item.id, item.name)} 
-                    variant="flat" 
-                    radius="full" 
-                    color={item.state === 1 ? "danger" : "default"} 
-                    endContent={<AiFillCloseCircle />}>{item.name}
+                <Tooltip
+                  key={item.id}
+                  color="danger"
+                  content={"Eliminar " + item.name}
+                >
+                  <Button
+                    onClick={() => deleteItemFromMenuBd(item.id, item.name)}
+                    variant="flat"
+                    radius="full"
+                    color={item.state === 1 ? "danger" : "default"}
+                    endContent={<AiFillCloseCircle />}
+                  >
+                    {item.name}
                   </Button>
                 </Tooltip>
               ))}
@@ -246,38 +267,47 @@ const closeModalEditMenu = () => {
             <div className="buttons_menu_container">
               <h3>Bebidas</h3>
               {drinks.map((item) => (
-                <Tooltip key={item.id} color="danger" content={"Eliminar " + item.name}>
-                  <Button 
-                    onClick={()=>deleteItemFromMenuBd(item.id, item.name)} 
-                    variant="flat" 
-                    radius="full" 
-                    color={item.state === 1 ? "secondary" : "default"} 
-                    endContent={<AiFillCloseCircle />}>{item.name}
+                <Tooltip
+                  key={item.id}
+                  color="danger"
+                  content={"Eliminar " + item.name}
+                >
+                  <Button
+                    onClick={() => deleteItemFromMenuBd(item.id, item.name)}
+                    variant="flat"
+                    radius="full"
+                    color={item.state === 1 ? "secondary" : "default"}
+                    endContent={<AiFillCloseCircle />}
+                  >
+                    {item.name}
                   </Button>
                 </Tooltip>
               ))}
             </div>
           )}
-
+        </div>
+        <div className="menu_of_day_container--div2">
+          <Button  color="danger" onClick={deleteMenu} >
+            Eliminar Menú
+          </Button>
+          <Button color="secondary" onClick={openModalEditMenu}>Agregar elementos</Button>
+        </div>
       </div>
-      <div className="menu_of_day_container--div2">
-        <Button onClick={()=>deleteMenu()} color="danger">Eliminar Menú</Button>
-        <Button onClick={openModalEditMenu}>Agregar elementos</Button>
-      </div>
-    </div>
-    <Modal
-          isOpen={modalEditMenu}
-          onRequestClose={closeModalEditMenu}
-          overlayClassName="overlay-custom modal-content-edit-menu"
-        >
+      <Modal
+        isOpen={modalEditMenu}
+        onOpenChange={closeModalEditMenu}
+        scrollBehavior={true}
+        size="xl"
+      >
+        <ModalContent className="modal_content_edit_menu">
           <EditMenuOfBD
-             allResults ={allResults}
-             idMenuFather={idMenu}
-             closeModalEdit={closeModalEditMenu}
-             setIsChangeFather={setIsChange}
+            allResults={allResults}
+            idMenuFather={idMenu}
+            closeModalEdit={closeModalEditMenu}
+            setIsChangeFather={setIsChange}
           />
-        </Modal>
-
+        </ModalContent>
+      </Modal>
     </>
   );
 }
