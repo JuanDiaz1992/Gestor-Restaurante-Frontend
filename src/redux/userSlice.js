@@ -8,7 +8,6 @@ const initialState = {
   type_user:'waiter',
   photo:'',
   url: 'http://192.168.1.49:80/gestion_restaurante/',
-  // url: 'https://https://gesthordesign.000webhostapp.com/gestion_restaurante/',
   id_business:'',
   name_business: '',
   logo: '',

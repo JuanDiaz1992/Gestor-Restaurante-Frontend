@@ -36,7 +36,7 @@ function Compras(props){
                       <th scope="col">Valor</th>
                       <th scope="col">Motivo</th>
                       <th scope="col">Observaciones</th>
-                      <th scope="col">Hora</th>
+                      <th scope="col">Fecha</th>
                       <th scope="col">Acciones</th>
                     </tr>
                   </thead>
@@ -75,7 +75,7 @@ function Compras(props){
                             
                             : 
                             value.observations }</td>
-                        <td>{value.date.split(" ")[1]}</td>
+                        <td>{value.date}</td>
                         <td>
                           <motion.button
                             onClick={() => {

@@ -63,7 +63,7 @@ function Login() {
           dispatch(login(data));
           console.log(data)
           const token = data.token;
-          Cookies.set('token', token);
+          Cookies.set('token', token, { sameSite: 'None', secure: true });
 
           navigate("/Dashboard", {
             replace: true,

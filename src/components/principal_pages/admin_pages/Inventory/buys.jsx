@@ -2,8 +2,10 @@ import { useSelector } from "react-redux";
 import getCookie from "../../../Scripts/getCookies";
 import { useState, useEffect } from "react";
 import { Toaster, toast } from "react-hot-toast";
-import Table from "./table";
 import { confirmAlert } from "react-confirm-alert";
+import Table from "./table";
+import date from "../../../Scripts/obtenerFechaActual";
+
 
 function InventoryAll() {
   const [purchaseValue, setPurchaseValue] = useState("");
@@ -32,13 +34,7 @@ function InventoryAll() {
 
   /*Función para traer los datos*/
   useEffect(() => {
-    const currentDate = new Date();
-    // Paso 2: Formatear la fecha en el formato 'YYYY-MM-DD'
-    const year = currentDate.getFullYear();
-    const month = String(currentDate.getMonth() + 1).padStart(2, "0");
-    const day = String(currentDate.getDate()).padStart(2, "0");
-    const formattedDate = `${year}-${month}-${day}`;
-
+    const formattedDate = date()
     /*Función para traer datos de las compras*/
     const fetchData = async () => {
       try {
@@ -132,7 +128,7 @@ function InventoryAll() {
   /*Función para agregar datos de las compras*/
   const inventory = async (e) => {
     e.preventDefault();
-
+    const formattedDate = date()
     try {
       const response = await fetch(url, {
         method: "POST",
@@ -142,7 +138,9 @@ function InventoryAll() {
           reason: reason,
           observations: observations,
           idProfile_user: idProfile_user,
-          record_buys: true,
+          dateTime:formattedDate,
+          record_buys: true
+          
         }),
         headers: {
           Authorization: "Token " + getCookie("token"),

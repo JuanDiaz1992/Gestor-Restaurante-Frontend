@@ -1,0 +1,8 @@
+.section_menu_index{
+    padding: 20px;
+    min-height: 80vh;
+}
+.menu_container--cards_container{
+    display: flex;
+    gap: 20px;
+}

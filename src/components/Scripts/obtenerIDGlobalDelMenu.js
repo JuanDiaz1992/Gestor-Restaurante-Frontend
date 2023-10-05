@@ -1,15 +1,12 @@
 import getDate from "./obtenerFechaActual";
-import getCookie from "./getCookies";
 
 async function obtenerIDMenu(url) {
   let formattedDate = getDate();
-
   try {
     const response = await fetch(`${url}menu?linkTo=date&equalTo=${formattedDate}`, {
       method: "GET",
       mode: "cors",
       headers: {
-        Authorization: "Token " + getCookie("token"),
         Module: "menu_management",
       },
     });

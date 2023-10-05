@@ -474,11 +474,12 @@
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
-    justify-content: center;
-    padding: 150px 15px 0 15px;
-    gap: 50px;
-    min-height: 100vh;
     flex-direction: row-reverse;
+    justify-content: center;
+    padding: 150px 15px 15px 15px;
+    gap: 50px;
+    min-height: 90vh;
+
 }
 
 .viewMore{
@@ -631,6 +632,9 @@
 }
 
 /********************************Menu del día en el creador de menú*************************/
+.section_menu{
+    min-height: 80vh;
+}
 
 .menu_of_day_container{
     display: flex;
@@ -648,6 +652,7 @@
     padding: 10px;
      
 }
+
 
   
 @media (min-width: 1000px) {

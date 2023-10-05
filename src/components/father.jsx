@@ -1,6 +1,7 @@
 import {React} from "react";
 import { Outlet } from 'react-router-dom';
-import NavBar from './navbar'
+import NavBar from './navbar';
+import Footer from './footer'
 import "../stylesheets/normalize.css"
 import "../stylesheets/generalStylesheets.css"
 import { useSelector , useDispatch } from "react-redux";
@@ -43,8 +44,9 @@ function FatherComponent(){
     
     return(
         <>
-            <NavBar/>
-            <Outlet/>
+            <NavBar />
+            <Outlet />
+            <Footer />
 
         </>
     )

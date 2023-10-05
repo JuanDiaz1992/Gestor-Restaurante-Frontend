@@ -4,6 +4,7 @@ import { logout } from "../redux/userSlice";
 import React, { useEffect, useState } from "react";
 import { Avatar } from "@nextui-org/react";
 import cerrarSesion from "./Scripts/cerrarSesion";
+import setCookie from "./Scripts/borrarCookies"
 import logo from "../img/logo4.png";
 import { Button, Tooltip  } from "@nextui-org/react";
 import {BiArrowBack} from "react-icons/bi"
@@ -62,6 +63,7 @@ function NavBar() {
 
     dispatch(logout());
     cerrarSesion();
+    setCookie("token")
     setNavActive(!navActive);
   }
   return (

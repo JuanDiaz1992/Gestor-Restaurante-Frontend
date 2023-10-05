@@ -120,7 +120,7 @@ function ManageMenu() {
 
   return (
     <>
-      <section className="section sectionMen">
+      <section className="section section_menu">
         {loadingPage? 
         <>
           <div className="spiner_container_creator_menu_principal">
