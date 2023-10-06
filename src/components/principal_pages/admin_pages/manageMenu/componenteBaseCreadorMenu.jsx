@@ -27,7 +27,7 @@ function Beginning(props){
     /*Inputs del formulario*/
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
-    const [price, setPrice] = useState(0);
+    const [price, setPrice] = useState("");
     const [photo, setPhoto] = useState();
 
   
@@ -81,9 +81,13 @@ function Beginning(props){
       const compressedImage = await compressImage(photo);
       console.log(compressedImage)
       let formData = new FormData();
+      let priceFull = 0
+      if(price!==""){
+        priceFull = price
+      }
       formData.append("name", name);
       formData.append("description", description);
-      formData.append("price", price);
+      formData.append("price", priceFull);
       formData.append("photo", new File([compressedImage], photo.name + '.webp', { type: 'image/webp' }));
       formData.append("menu_item_type", props.nameItem);
       formData.append("idProfile_user", idUser);
@@ -106,7 +110,7 @@ function Beginning(props){
             setUpdateItems(true);
             setName("");
             setDescription("");
-            setPrice(0);
+            setPrice();
             let formRegis = document.getElementById('formRegis');
             formRegis.reset();
           } else if (data.status === 404) {
@@ -268,13 +272,37 @@ return(
               <Textarea
                 value={description}
                 onChange={(e) => {
-                  setDescription(e.target.value);
+                setDescription(e.target.value);
                 }}
                 id="description"
                 rows="3"
                 placeholder={"Describa brevemente que incluye o de que trata " + props.labedescriptionItem}
               ></Textarea>
             </div>
+            
+            {props.type_menu === "especialities" &&
+              <div className="mb-3">
+              <label htmlFor="name">Precio de {props.labelNameItem}</label>
+              <Input
+                value={price}
+                onChange={(e) => {
+                  setPrice(e.target.value);
+                }}
+                id="name"
+                variant="faded"
+                radius="sm"
+                type="number"
+                placeholder="0.00"
+                
+                labelPlacement="outside"
+                startContent={
+                  <div className="pointer-events-none flex items-center">
+                    <span className="text-default-400 text-small">$</span>
+                  </div>
+                }
+              />
+            </div>
+            }
             <div className="mb-3">
               <label htmlFor="formFile" className="form-label colorBlack">
                 Foto

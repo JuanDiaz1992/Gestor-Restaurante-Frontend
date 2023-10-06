@@ -125,7 +125,7 @@ function NavBar() {
                 className={"collapse navbar-collapse divContainerUl" + (navActive ? "" : " show")}
                 id="navbarNav"
               >
-                <ul className="navbar-nav">
+                <ul className="navbar-nav nav_ul">
                   <li className="nav-item">
                     <NavLink className="nav-link active" to="/" as="a" onClick={handleChange}>
                       Inicio
@@ -189,7 +189,7 @@ function NavBar() {
                 </div>
               </div>
               <div className={navActive? "collapse navbar-collapse divContainerUl":"collapse navbar-collapse divContainerUl show"} id="navbarNav">
-                <ul className="navbar-nav">
+                <ul className="navbar-nav nav_ul">
                   <li className="nav-item">
                     <NavLink className="nav-link" to="/" as="a" onClick={handleChange}>
                       Inicio

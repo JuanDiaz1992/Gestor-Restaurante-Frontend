@@ -633,14 +633,13 @@
 
 /********************************Menu del día en el creador de menú*************************/
 .section_menu{
-    min-height: 80vh;
+    min-height: 100vh;
 }
 
 .menu_of_day_container{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 60Vh;
     gap: 25px;
 }
 

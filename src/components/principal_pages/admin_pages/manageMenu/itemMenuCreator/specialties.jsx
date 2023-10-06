@@ -20,6 +20,7 @@ function Specialities(props) {
               labedescriptionItem = {"la especialidad"}
               labelNameItem = {"la especialidad"}
               setChangeFather = {props.setChangeFather}
+              type_menu="especialities"
             />
           </>
       ) : (

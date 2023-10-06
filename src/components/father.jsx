@@ -44,9 +44,13 @@ function FatherComponent(){
     
     return(
         <>
+            <div className="app-container">
             <NavBar />
-            <Outlet />
+            <div className="content">
+                <Outlet />
+            </div>
             <Footer />
+            </div>
 
         </>
     )
