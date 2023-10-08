@@ -3,7 +3,8 @@ import { useSelector } from "react-redux";
 import getCookie from "../../../Scripts/getCookies";
 import {AiFillCloseCircle} from "react-icons/ai";
 import { confirmAlert } from "react-confirm-alert";
-import Compressor from 'compressorjs';
+import compressImage from "../../../Scripts/comprimirImg"
+
 import GoToTop from "../../../Scripts/OnTop"
 import {
   Button,
@@ -58,21 +59,6 @@ function Beginning(props){
       }
     };
 
-    const compressImage = (originalImage) => {
-      return new Promise((resolve, reject) => {
-        new Compressor(originalImage, {
-          quality: 0.9,
-          maxWidth: 374,
-          maxHeight:480,
-          success(result) {
-            resolve(result); // Devuelve la imagen comprimida
-          },
-          error(err) {
-            reject(err); // Devuelve un error en caso de fallo
-          },
-        });
-      });
-    };
 
   
     /*Función que crea nuevos elementos para el menú, este es el formulario*/

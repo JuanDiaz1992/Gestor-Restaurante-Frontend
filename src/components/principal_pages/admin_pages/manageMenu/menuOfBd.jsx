@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import getCookie from "../../../Scripts/getCookies";
 import obtenerIDMenu from "../../../Scripts/obtenerIDGlobalDelMenu";
 import EditMenuOfBD from "./EditMenuOfBD";
+import ManageSoftDrinks from "./ManageSoftDrinks"
 
 function MenuOfBd(props) {
   const url = useSelector((state) => state.auth.url);
@@ -160,8 +161,24 @@ function MenuOfBd(props) {
   /*Modal*/
 
   const [modalEditMenu, setModalIsOpenEditMenu] = useState(false);
+  const [modalConten,setModalContent] = useState();
 
-  const openModalEditMenu = () => {
+  const openModalEditMenu = (option) => {
+    if(option===1){
+      setModalContent(
+        <EditMenuOfBD
+        allResults={allResults}
+        idMenuFather={idMenu}
+        closeModalEdit={closeModalEditMenu}
+        setIsChangeFather={setIsChange}
+      />
+      )
+    }else if(option ===2){
+      setModalContent(
+        <ManageSoftDrinks 
+          closeModalEdit={closeModalEditMenu}
+      />)
+    }
     setModalIsOpenEditMenu(true);
   };
 
@@ -287,10 +304,9 @@ function MenuOfBd(props) {
           )}
         </div>
         <div className="menu_of_day_container--div2">
-          <Button  color="danger" onClick={deleteMenu} >
-            Eliminar Menú
-          </Button>
-          <Button color="secondary" onClick={openModalEditMenu}>Agregar elementos</Button>
+          <Button  color="danger" onClick={deleteMenu}> Eliminar Menú</Button>
+          <Button color="secondary" onClick={()=>openModalEditMenu(1)}>Agregar elementos</Button>
+          <Button  color="warning" onClick={()=>openModalEditMenu(2)}> Administrar Gaseosas</Button>
         </div>
       </div>
       <Modal
@@ -300,12 +316,7 @@ function MenuOfBd(props) {
         size="xl"
       >
         <ModalContent className="modal_content_edit_menu">
-          <EditMenuOfBD
-            allResults={allResults}
-            idMenuFather={idMenu}
-            closeModalEdit={closeModalEditMenu}
-            setIsChangeFather={setIsChange}
-          />
+          {modalConten}
         </ModalContent>
       </Modal>
     </>

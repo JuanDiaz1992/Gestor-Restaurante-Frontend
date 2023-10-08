@@ -652,8 +652,13 @@
      
 }
 
+.delete_softDrink{
+    display: flex;
+    font-size: 25px;
+    gap: 5px;
 
-  
+}
+
 @media (min-width: 1000px) {
 .menu_of_day_container--div1 {
     grid-template-columns: repeat(4, 1fr);
