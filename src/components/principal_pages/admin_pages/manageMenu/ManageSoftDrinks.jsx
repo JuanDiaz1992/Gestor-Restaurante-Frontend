@@ -57,6 +57,7 @@ function ManageSoftDrinks({ closeModalEdit }) {
 
   useEffect(() => {
     getMenu();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [haveChanges]);
 
   const sendForm = async (e) => {

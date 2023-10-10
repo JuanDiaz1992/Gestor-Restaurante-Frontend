@@ -1,11 +1,12 @@
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { Card, CardBody, Image, CardFooter, Spinner } from "@nextui-org/react";
+import { Card, CardBody, Spinner } from "@nextui-org/react";
 import obtenerIDMenu from "../Scripts/obtenerIDGlobalDelMenu";
 import "../../stylesheets/principal_pages/index.css";
 
 function Index() {
   const url = useSelector((state) => state.auth.url);
+  const business = useSelector((state) => state.auth);
   const [typeMenu, setTypeMenu] = useState([]);
   const [allItemsMenu, setAllItemsMenu] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -29,30 +30,28 @@ function Index() {
               ),
             ];
             const categorias = {
-              'especialities': 1,
-              'soups': 2,
-              'beginning': 3,
-              'meats': 4,
-              'drinks': 5
+              especialities: 1,
+              soups: 2,
+              beginning: 3,
+              meats: 4,
+              drinks: 5,
             };
             newArray.sort((a, b) => categorias[a] - categorias[b]);
             setTypeMenu(newArray);
             setAllItemsMenu(data.results);
             setLoading(false);
-          }else{
+          } else {
             setLoading(false);
           }
         });
     } catch (error) {
       console.log(error);
       setLoading(false);
-      
     }
-    
   };
   useEffect(() => {
     getMEnu();
-    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -64,11 +63,15 @@ function Index() {
               <Spinner label="Cargando" color="warning" labelColor="warning" />
             </div>
           </>
-        ) : typeMenu.length > 0 ? (
+        ) : typeMenu.length > 1 ? (
           <>
-            <h1 className="section_menu_index--tittle">MENÚ DEL DÍA</h1>
+            <header className="header">
+              <img src={url + business.logo} alt="" />
+            </header>
+
+
             {typeMenu.map((type_menu) => (
-              <div key={type_menu}>
+              <div key={type_menu} className="section_menu_index--title">
                 <h3 className="section_menu_index--subTittle">
                   {type_menu === "especialities"
                     ? "Especialidades"
@@ -80,6 +83,8 @@ function Index() {
                     ? "Carnes"
                     : type_menu === "drinks"
                     ? "Bebidas"
+                    : type_menu === "soft_drinks"
+                    ? "Gaseosas"
                     : ""}
                 </h3>
 
@@ -87,31 +92,29 @@ function Index() {
                   {allItemsMenu.map(
                     (item) =>
                       item.menu_item_type === type_menu && (
-                        <div
-                          className="menu_container--cards_container"
-                          key={item.id}
-                        >
-                          <Card
-                            className="cardEspecialities"
-                            shadow="sm"
-                            isPressable
-                          >
-                            <CardBody className="overflow-visible p-0">
-                              <Image
+                        <div className="menu_container-card" key={item.id}>
+                          <div className="card_text_container">
+                            <div className="card_text_container--info">
+                              <h5>{item.name}</h5>
+                              <p>{item.description}</p>
+                            </div>
+                            {item.menu_item_type === "especialities" ||
+                            item.menu_item_type === "soft_drinks" ? (
+                              <p className="price">${item.price}</p>
+                            ) : null}
+                          </div>
+                          <div className="card_img_container">
+                            <div>
+                              <img
                                 shadow="sm"
                                 radius="lg"
                                 alt={item.title}
-                                className="opacity-1 w-full object-cover h-[140px]"
+                                className="opacity-1"
                                 src={url + item.picture}
                               />
-                            </CardBody>
-                            <CardFooter className="text-small justify-between">
-                              <b>{item.name}</b>
-                              {item.menu_item_type === "especialities" && 
-                              <p className="text-default-500">${item.price}</p>
-                              }
-                            </CardFooter>
-                          </Card>
+                            </div>
+
+                          </div>
                         </div>
                       )
                   )}
@@ -125,7 +128,8 @@ function Index() {
               <Card>
                 <CardBody>
                   <p>
-                    Estamos preparando el menú, en instantes lo subiremos para tí.
+                    Estamos preparando el menú, en instantes lo subiremos para
+                    tí.
                   </p>
                 </CardBody>
               </Card>

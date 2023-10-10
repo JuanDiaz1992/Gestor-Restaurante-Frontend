@@ -67,6 +67,8 @@ function MenuOfBd(props) {
   useEffect(() => {
     getMenu();
     setIsChange(false);
+    
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isChange]);
 
   const deleteItemFromMenuBd = (id, name) => {
