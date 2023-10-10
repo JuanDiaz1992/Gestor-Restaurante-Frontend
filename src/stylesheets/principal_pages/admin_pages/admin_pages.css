@@ -1,5 +1,6 @@
 /*******************************Principal Page Admin**********************/
-
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+  
 .sectionAdmin{
     width: 100%;
     display: flex;
@@ -545,7 +546,9 @@
 .sectionMenu_div--container--tile_menu{
     text-align: center;
     font-size: 50px;
-    font-family:fantasy ;
+    font-family: 'Bebas Neue', sans-serif;
+    font-weight:bolder;
+    letter-spacing: 1px;
 }
 .menuContainer{
     top: 100px;

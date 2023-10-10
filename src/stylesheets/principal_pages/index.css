@@ -1,3 +1,11 @@
+@font-face {
+    font-family: 'HeadlinerNo45';
+    src: url('../../fonts/HEROES\ PERSONAL\ USE.ttf') format('woff2'),
+
+  }
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+  
+
 .section_menu_index{
     background-image: url("../../img/backgroundMenu.jpg");
     padding: 0 0 20px 0;
@@ -47,7 +55,9 @@
     border-top: 3px solid rgb(255, 255, 255);
     border-bottom: 3px solid rgb(255, 255, 255);
     width: fit-content;
-    font-family: fantasy;
+    font-family: 'Bebas Neue', sans-serif;
+    font-weight:900;
+    letter-spacing: 3px;
     color: white;
     font-size: 63px;
 
