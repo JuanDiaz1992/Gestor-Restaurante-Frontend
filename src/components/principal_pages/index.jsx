@@ -35,6 +35,7 @@ function Index() {
               beginning: 3,
               meats: 4,
               drinks: 5,
+              soft_drinks:6
             };
             newArray.sort((a, b) => categorias[a] - categorias[b]);
             setTypeMenu(newArray);

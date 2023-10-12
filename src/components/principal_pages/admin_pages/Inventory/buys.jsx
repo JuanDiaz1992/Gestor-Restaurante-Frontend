@@ -315,6 +315,9 @@ function InventoryAll() {
                 <option value="meet">Carnicería</option>
                 <option value="vegetables">Verduras</option>
                 <option value="cheeseMaker">Quesera</option>
+                <option value="investment">Inversión</option>
+                <option value="personal_expenses">Gastos Personales</option>
+                <option value="expenses_for_employee">Gastos para empleado</option>
                 <option value="other">Otros</option>
               </select>
             </div>

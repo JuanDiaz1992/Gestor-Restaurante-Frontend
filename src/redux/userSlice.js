@@ -59,7 +59,7 @@ const authSlice = createSlice({
 
 
 
-export const { login, logout, checkSession, initial, changeName } = authSlice.actions;
+export const { login, logout, initial, changeName } = authSlice.actions;
 
 
 

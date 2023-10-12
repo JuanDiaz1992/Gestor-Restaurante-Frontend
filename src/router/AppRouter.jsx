@@ -10,9 +10,7 @@ import AdminPage from '../components/principal_pages/admin_pages/admin';
 import WaiterPage from '../components/principal_pages/waiterPage';
 import ChefPage from '../components/principal_pages/chefPage';
 import ManageUser from "../components/principal_pages/admin_pages/manageUsers";
-import Inventory from "../components/principal_pages/admin_pages/Inventory/principalPageInventory";
-import Buys from "../components/principal_pages/admin_pages/Inventory/buys";
-import Bills from "../components/principal_pages/admin_pages/Inventory/bills";
+import Inventory from "../components/principal_pages/admin_pages/Inventory/buys";
 import ManageMenu from "../components/principal_pages/admin_pages/manageMenu";
 
 function AppRouter(){
@@ -32,8 +30,6 @@ function AppRouter(){
                                 <Route path="/AdminPage" element={ <AdminPage />}/>
                                 <Route path="/ManageUser" element={<ManageUser />}/>
                                 <Route path="/Inventory" element={<Inventory />}/>
-                                <Route path="/Buys" element={<Buys />}/>
-                                <Route path="/Bills" element={<Bills />}/>
                                 <Route path="/ManageMenu" element={<ManageMenu />}/>
                             </>
                             
