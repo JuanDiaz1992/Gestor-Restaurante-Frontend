@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import menu from '../../../img/menuDelDia.webp';
-import grapich from '../../../img/grapich.webp';
+import grapich from '../../../img/config.png';
 import user from '../../../img/usuario.png';
 import { motion } from "framer-motion";
 
@@ -75,7 +75,7 @@ function AdminPage(){
                         <p className="colorWhite">Lleva un control de tu inventario</p>
                     </motion.div>
 
-                    <motion.div className="element3" onClick={()=>{handleCiclik('RegistVent')}}
+                    <motion.div className="element3" onClick={()=>{handleCiclik('Config')}}
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
@@ -86,10 +86,6 @@ function AdminPage(){
                     
                     
                     >
-                        <div>
-                            <h3 className="colorBlack">Informes</h3>
-                            <p>Revisa aquí tus informes de ventas y gastos.</p>
-                        </div>
                         <img className="grapich" src={grapich} alt="" />
                     </motion.div>
                     

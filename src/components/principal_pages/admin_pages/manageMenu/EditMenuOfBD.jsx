@@ -14,6 +14,7 @@ import {
   Textarea,
   Select,
   SelectItem,
+  ModalFooter
 } from "@nextui-org/react";
 import date from "../../../Scripts/obtenerFechaActual";
 
@@ -133,10 +134,8 @@ function EditMenuOfBD(props) {
   };
 
   /*Función que crea nuevos elementos para el menú, este es el formulario*/
-  const sendForm = async (e) => {
-    e.preventDefault();
+  const sendForm = async () => {
     const compressedImage = await compressImage(photo);
-    console.log(compressedImage);
     let formData = new FormData();
     let priceFull = 0;
     if (price !== "") {
@@ -152,6 +151,7 @@ function EditMenuOfBD(props) {
     formData.append("menu_item_type", typeSelect);
     formData.append("idProfile_user", idUser);
     formData.append("new_item_menu", true);
+    
 
     fetch(url, {
       method: "POST",
@@ -183,8 +183,7 @@ function EditMenuOfBD(props) {
 
   return (
     <>
-      <div className="modal-dialog">
-        <div className="modal-content ">
+
           <ModalHeader className="flex flex-col gap-1">
             <h3 className="text-2xl">Agregar items al menú</h3>
           </ModalHeader>
@@ -408,17 +407,19 @@ function EditMenuOfBD(props) {
                       onChange={(e) => setPhoto(e.target.files[0])}
                     />
                   </div>
-                  <Button type="submit" color="primary">
+                </form>
+              </ModalBody>
+              <ModalFooter className="flex  flex-row gap-1 flex-wrap">
+                  <Button onClick={sendForm} color="primary">
                     Submit
                   </Button>
                   <Button color="danger" onClick={() => setCreateItem(false)}>
                     Atrás
                   </Button>
-                </form>
-              </ModalBody>
+              </ModalFooter>
             </>
           )}
-          <div className="flex  flex-row gap-1 flex-wrap">
+          <ModalFooter className="flex  flex-row gap-1 flex-wrap">
             {!createItem ? (
               <>
                 {allItems.length !== 0 && (
@@ -437,9 +438,8 @@ function EditMenuOfBD(props) {
                 </Button>
               </>
             ) : null}
-          </div>
-        </div>
-      </div>
+          </ModalFooter>
+
     </>
   );
 }

@@ -315,7 +315,7 @@ function MenuOfBd(props) {
       <Modal
         isOpen={modalEditMenu}
         onOpenChange={closeModalEditMenu}
-        scrollBehavior={true}
+        scrollBehavior={"inside"}
         size="xl"
       >
         <ModalContent className="modal_content_edit_menu">

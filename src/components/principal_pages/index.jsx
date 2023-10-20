@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Card, CardBody, Spinner } from "@nextui-org/react";
 import obtenerIDMenu from "../Scripts/obtenerIDGlobalDelMenu";
 import "../../stylesheets/principal_pages/index.css";
+import LogoDefault from "../../img/logo2.png"
 
 function Index() {
   const url = useSelector((state) => state.auth.url);
@@ -67,7 +68,12 @@ function Index() {
         ) : typeMenu.length > 1 ? (
           <>
             <header className="header">
+              {business.logo? 
               <img src={url + business.logo} alt="" />
+              :
+              <img src={LogoDefault} alt="" />
+               }
+              
             </header>
 
 

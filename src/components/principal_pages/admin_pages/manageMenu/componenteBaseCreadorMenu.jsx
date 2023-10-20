@@ -65,7 +65,6 @@ function Beginning(props){
     const sendForm = async  (e) => {
       e.preventDefault();
       const compressedImage = await compressImage(photo);
-      console.log(compressedImage)
       let formData = new FormData();
       let priceFull = 0
       if(price!==""){
@@ -74,7 +73,12 @@ function Beginning(props){
       formData.append("name", name);
       formData.append("description", description);
       formData.append("price", priceFull);
-      formData.append("photo", new File([compressedImage], photo.name + '.webp', { type: 'image/webp' }));
+      if (compressedImage !== "") {
+        formData.append(
+          "photo",
+          new File([compressedImage], photo.name + ".webp", { type: "image/webp" })
+        );
+      }
       formData.append("menu_item_type", props.nameItem);
       formData.append("idProfile_user", idUser);
       formData.append("new_item_menu", true);

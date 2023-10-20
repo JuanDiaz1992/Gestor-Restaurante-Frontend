@@ -63,7 +63,6 @@ function ManageSoftDrinks({ closeModalEdit }) {
   const sendForm = async (e) => {
     e.preventDefault();
     const compressedImage = await compressImage(photo);
-    console.log(compressedImage);
     let formData = new FormData();
     let priceFull = 0;
     if (price !== "") {
@@ -73,10 +72,12 @@ function ManageSoftDrinks({ closeModalEdit }) {
     formData.append("description", description);
     formData.append("amount", amount);
     formData.append("price", priceFull);
-    formData.append(
-      "photo",
-      new File([compressedImage], photo.name + ".webp", { type: "image/webp" })
-    );
+    if (compressedImage !== "") {
+      formData.append(
+        "photo",
+        new File([compressedImage], photo.name + ".webp", { type: "image/webp" })
+      );
+    }
     formData.append("menu_item_type", "soft_drinks");
     formData.append("idProfile_user", idUser);
     formData.append("new_item_menu", true);

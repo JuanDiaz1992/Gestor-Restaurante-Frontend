@@ -1,5 +1,6 @@
 import Compressor from 'compressorjs';
 const compressImage = (originalImage) => {
+  if (originalImage) {
     return new Promise((resolve, reject) => {
       new Compressor(originalImage, {
         quality: 0.9,
@@ -13,6 +14,12 @@ const compressImage = (originalImage) => {
         },
       });
     });
+  }else{
+    return new Promise((resolve, reject) => {
+      resolve(""); 
+    })
+  }
+
   };
 
 export default compressImage;

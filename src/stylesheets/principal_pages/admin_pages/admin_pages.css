@@ -73,10 +73,10 @@
     cursor: pointer;
     grid-area: 1 / 4 / 2 / 5; 
 
-    background-color: #ffffff;
+    background-color: #cecece;
     border-radius: 16px;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     padding: 40px;
     display: flex;
@@ -193,9 +193,6 @@
 
 .grapich{
     width: 150px;
-    position: absolute;
-    right:  0;
-    bottom: 0;
 }
 
 

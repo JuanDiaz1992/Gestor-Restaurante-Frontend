@@ -12,6 +12,7 @@ import ChefPage from '../components/principal_pages/chefPage';
 import ManageUser from "../components/principal_pages/admin_pages/manageUsers";
 import Inventory from "../components/principal_pages/admin_pages/Inventory/buys";
 import ManageMenu from "../components/principal_pages/admin_pages/manageMenu";
+import Config from "../components/principal_pages/admin_pages/configApp"
 
 function AppRouter(){
     const type_user = useSelector(state => state.auth.type_user )
@@ -31,6 +32,7 @@ function AppRouter(){
                                 <Route path="/ManageUser" element={<ManageUser />}/>
                                 <Route path="/Inventory" element={<Inventory />}/>
                                 <Route path="/ManageMenu" element={<ManageMenu />}/>
+                                <Route path="/Config" element={<Config />}/>
                             </>
                             
                             ) : (
