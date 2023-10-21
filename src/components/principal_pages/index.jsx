@@ -1,16 +1,37 @@
+import { useEffect, useState, useContext } from "react";
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { SocketContext } from "../../context/SocketContex";
 import { Card, CardBody, Spinner } from "@nextui-org/react";
 import obtenerIDMenu from "../Scripts/obtenerIDGlobalDelMenu";
 import "../../stylesheets/principal_pages/index.css";
 import LogoDefault from "../../img/logo2.png"
 
 function Index() {
+  const socket = useContext(SocketContext)
   const url = useSelector((state) => state.auth.url);
   const business = useSelector((state) => state.auth);
   const [typeMenu, setTypeMenu] = useState([]);
   const [allItemsMenu, setAllItemsMenu] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [change, setChange] = useState(false)
+
+
+  //Conexión con socket para actualizar cambios en el menú
+  useEffect(() => {
+    if (socket) {
+      socket.on('change_state', (data) => {
+        setChange(data["change_menu"])
+      });
+    }
+
+    // Importante: No olvides limpiar el listener cuando el componente se desmonte.
+    return () => {
+      if (socket) {
+        socket.off('change_state');
+      }
+    };
+  }, [socket]);
+  //***************************** */
 
   const getMEnu = async () => {
     try {
@@ -53,8 +74,9 @@ function Index() {
   };
   useEffect(() => {
     getMEnu();
+    setChange(false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [change]);
 
   return (
     <>
@@ -104,6 +126,7 @@ function Index() {
                             <div className="card_text_container--info">
                               <h5>{item.name}</h5>
                               <p>{item.description}</p>
+                              {item.state === 0 && <p className="agotadoP">Agotado</p>}
                             </div>
                             {item.menu_item_type === "especialities" ||
                             item.menu_item_type === "soft_drinks" ? (
@@ -116,7 +139,7 @@ function Index() {
                                 shadow="sm"
                                 radius="lg"
                                 alt={item.title}
-                                className="opacity-1"
+                                className={"opacity-1 " + (item.state === 0 && "agotado")}
                                 src={url + item.picture}
                               />
                             </div>

@@ -14,7 +14,7 @@ const initialState = {
   Description:'',
   office_hours:'',
   address:'',
-  number_phone: ''
+  number_phone: '',
 };
 
 
@@ -57,13 +57,7 @@ const authSlice = createSlice({
   },
 });
 
-
-
 export const { login, logout, initial, changeName } = authSlice.actions;
-
-
-
-
 export const selectAuth = state => state.auth;
 export const selectIsLoggedIn = state => state.auth.is_logged_in;
 export const selectName = state => state.auth.username;

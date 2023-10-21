@@ -120,6 +120,10 @@
     color: yellow;
 }
 
+.agotadoP{
+    color: rgb(255, 1, 1);
+    font-weight: bold;
+}
 
 @media (max-width: 792px) {
 

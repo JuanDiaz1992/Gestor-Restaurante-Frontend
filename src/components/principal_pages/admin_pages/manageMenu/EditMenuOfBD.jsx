@@ -127,6 +127,7 @@ function EditMenuOfBD(props) {
           toast.success("Los items se agregaron correctamente al menú");
           closeModalEdit();
           setIsChangeFather(true);
+          props.sendState_socket()
         } else {
           toast.error("a ocurrido un error");
         }

@@ -21,7 +21,7 @@ import {
 } from "@nextui-org/react";
 
 
-function ManageSoftDrinks({ closeModalEdit }) {
+function ManageSoftDrinks({ closeModalEdit, sendState }) {
   const [createNewSoftDrink, setSreateNewSoftDrink] = useState(true)
   const [softDrinks, setSoftDrinks] = useState([]);
   const [haveChanges,setChanges] = useState(false)
@@ -106,6 +106,7 @@ function ManageSoftDrinks({ closeModalEdit }) {
         }
       });
       setChanges(true)
+      sendState()
   };
 
   const deleteItemFromMenuBd=(id, name)=>{
@@ -135,6 +136,7 @@ function ManageSoftDrinks({ closeModalEdit }) {
                    toast.success(name + " se eliminó correctamente");
                 }
               });
+              sendState()
           },
         },
         {

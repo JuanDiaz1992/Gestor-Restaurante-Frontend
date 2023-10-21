@@ -28,6 +28,7 @@ function Specialities(props) {
           <h4>¿El menú de hoy incluye especialidades?</h4>
           <Button
             color="primary"
+            variant="bordered"
             onClick={() => {
               setSpecialitiesInclude(true);
             }}

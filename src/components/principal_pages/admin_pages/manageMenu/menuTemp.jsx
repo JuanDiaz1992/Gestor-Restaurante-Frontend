@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Button, Tooltip } from "@nextui-org/react";
+import { Button,ButtonGroup, Tooltip } from "@nextui-org/react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { toast } from "react-hot-toast";
 import getCookie from "../../../Scripts/getCookies";
@@ -86,36 +86,49 @@ function MenuTemp(props) {
           <div className="menuContainer sticky">
             <h4>Menú para hoy:</h4>
             <div className="buttomsEspcialitiesContainer">
-              {menuTemp.map((item) => (
-                <Tooltip
-                  key={item.id}
-                  content="Eliminar del menú"
-                  color="danger"
-                  placement="right"
-                >
-                  <Button
-                    color={
-                      item.menu_item_type === "especialities"
-                        ? "primary"
-                        : item.menu_item_type === "soups"
-                        ? "warning"
-                        : item.menu_item_type === "beginning"
-                        ? "success"
-                        : item.menu_item_type === "meats"
-                        ? "danger"
-                        : item.menu_item_type === "drinks"
-                        ? "secondary"
-                        : ""
-                    }
-                    variant="flat"
-                    endContent={<AiFillCloseCircle />}
-                    onClick={() => {
-                      deleteItemOfMenu(item.id, item.name);
-                    }}
-                  >
-                    {item.name}
-                  </Button>
-                </Tooltip>
+              {menuTemp.map((item, index) => (
+                  <ButtonGroup key = {index}>
+                    <Button
+
+                      color={
+                        item.menu_item_type === "especialities"
+                          ? "primary"
+                          : item.menu_item_type === "soups"
+                          ? "warning"
+                          : item.menu_item_type === "beginning"
+                          ? "success"
+                          : item.menu_item_type === "meats"
+                          ? "danger"
+                          : item.menu_item_type === "drinks"
+                          ? "secondary"
+                          : ""
+                      }
+                      variant="flat"
+                    >
+                      {item.name}
+                    </Button>
+                    <Button 
+                        color={
+                          item.menu_item_type === "especialities"
+                            ? "primary"
+                            : item.menu_item_type === "soups"
+                            ? "warning"
+                            : item.menu_item_type === "beginning"
+                            ? "success"
+                            : item.menu_item_type === "meats"
+                            ? "danger"
+                            : item.menu_item_type === "drinks"
+                            ? "secondary"
+                            : ""
+                        }
+                      endContent={<AiFillCloseCircle />}
+                      onClick={() => {
+                        deleteItemOfMenu(item.id, item.name);
+                      }}>
+
+                    </Button>
+                  </ButtonGroup>
+
               ))}
             </div>
           </div>

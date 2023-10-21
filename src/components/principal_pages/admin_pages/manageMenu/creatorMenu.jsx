@@ -78,12 +78,12 @@ function MenuCreator(props) {
 
         {seeMEnuOption}
 
-        <div className="buttomsContainer">
+        <div className="buttomsContainer" >
           {menuSection === 0 ? (
             <></>
           ) : (
             <Button
-              color="danger"
+              color="warning"
               onClick={() => {
                 viewSectionMenu(false);
               }}
@@ -105,7 +105,7 @@ function MenuCreator(props) {
           ) : (
             <>
               <Button
-                color="success"
+                color="primary"
                 onClick={() => {
                   viewSectionMenu(true);
                 }}

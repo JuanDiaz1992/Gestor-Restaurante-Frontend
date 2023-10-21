@@ -304,8 +304,8 @@ return(
                 onChange={(e) => setPhoto(e.target.files[0])}
               />
             </div>
-            <Button type="submit" color="primary">
-              Submit
+            <Button type="submit" color="primary" variant="bordered">
+              Crear item
             </Button>
           </form>
         </div>

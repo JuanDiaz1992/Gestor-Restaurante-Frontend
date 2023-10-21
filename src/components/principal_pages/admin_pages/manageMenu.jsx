@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { SocketContext } from "../../../context/SocketContex";
 import { useSelector } from "react-redux";
 import { Toaster } from "react-hot-toast";
 import {Spinner} from "@nextui-org/react";
@@ -13,6 +14,12 @@ import MenuOfBd from "./manageMenu/menuOfBd";
 
 
 function ManageMenu() {
+  const socket = useContext(SocketContext)
+  const sendState = ()=>{
+    socket.emit('change_state',{
+      change_menu:true
+    })
+  }
   const url = useSelector((state) => state.auth.url);
   /*Este estado actualiza la mayoria de los componentes del creador del menú*/
   const [isChange,setChange] = useState(false);
@@ -109,6 +116,7 @@ function ManageMenu() {
           setMenuCreate(true);
           setChange(true);
           setNewlyCreatedMenu(true)
+          sendState()
         }
       })
     }
@@ -120,7 +128,10 @@ function ManageMenu() {
 
   return (
     <>
-      <section className="section section_menu">
+      <section className={
+          "section_menu " +
+          (menuTempFather.length !== 0 ? "" : "sectionMenuCenter")
+        }>
         {loadingPage? 
         <>
           <div className="spiner_container_creator_menu_principal">
@@ -130,7 +141,7 @@ function ManageMenu() {
         </>
         :
         <>
-          <h2 className="textoCentrado principalTitle">Gestionar el menú del día</h2>
+
           <div className="sectionMenu_div--container">
             <MenuTemp 
             isMenuCreated = {isMenuCreated}
@@ -142,7 +153,6 @@ function ManageMenu() {
             {isMenuCreated === true? 
               <>
               <div>
-                <h1 className="sectionMenu_div--container--tile_menu">MENÚ DEL DÍA</h1>
                 <MenuOfBd 
                 isMenuCreated={isMenuCreated}
                 setMenuCreate={setMenuCreate}

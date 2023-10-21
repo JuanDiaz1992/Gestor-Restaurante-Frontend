@@ -1,6 +1,6 @@
 /*******************************Principal Page Admin**********************/
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
-  
+
 .sectionAdmin{
     width: 100%;
     display: flex;
@@ -534,6 +534,7 @@
 }
 
 .sectionMenu_div--container{
+
     display: flex;
     justify-content: center;
     gap: 25px;
@@ -560,7 +561,9 @@
 
 }
 .menuCreator100{
-    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .menuCreator70{
     width: 70%;
@@ -570,9 +573,10 @@
     width: 100%;
     display: flex;
     gap: 10px;
-    justify-content: flex-end;
+    justify-content: center;
     padding: 0 35px 0 0;
 }
+
 
 .buttomsEspcialitiesContainer{
 
@@ -632,8 +636,19 @@
 }
 
 /********************************Menu del día en el creador de menú*************************/
+
+table p{
+    padding: 0;
+    margin: 0;
+}
 .section_menu{
-    min-height: 100vh;
+    margin: 100px 30px;
+    min-height: 72vh;
+}
+.sectionMenuCenter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .menu_of_day_container{
@@ -646,8 +661,6 @@
 
 .menu_of_day_container--div1{
     width: 100%;
-    display: grid;
-    grid-gap: 10px;
     padding: 10px;
      
 }
@@ -658,25 +671,27 @@
     gap: 5px;
 
 }
-
-@media (min-width: 1000px) {
-.menu_of_day_container--div1 {
-    grid-template-columns: repeat(4, 1fr);
+.img_bd_item_menu{
+    opacity: 1 !important;
 }
+.agotado{
+    filter: grayscale(100%);
 }
-
-@media (max-width: 980px) {
-.menu_of_day_container--div1 {
-    grid-template-columns: repeat(2, 1fr);
+.avata_and_name_container{
+    display: flex;
+    align-items: center;
+    gap:5px;
 }
+.icon_container{
+    font-size: 20px;
+    cursor: pointer;
 }
-
-@media (max-width: 500px) {
-.menu_of_day_container--div1 {
-    grid-template-columns: repeat(1, 1fr);
+.icon_container:nth-child(1){
+    color: rgb(131, 131, 131);
 }
+.icon_container:nth-child(2){
+    color: rgb(187, 0, 0);
 }
-
 
 .buttons_menu_container{
     display: flex;
