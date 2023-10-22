@@ -171,7 +171,8 @@ function ManageSoftDrinks({ closeModalEdit, sendState }) {
             <h3 className="text-2xl">Gestión Gaseosas</h3>
           </ModalHeader>
           <ModalBody>
-            {createNewSoftDrink?             <Table aria-label="Example static collection table">
+            {createNewSoftDrink?             
+            <Table aria-label="Example static collection table">
               <TableHeader>
                 <TableColumn>Nombre</TableColumn>
                 <TableColumn>Precio</TableColumn>
