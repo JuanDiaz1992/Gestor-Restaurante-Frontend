@@ -75,7 +75,8 @@
 .menu_container-card{
     background-color: rgba(0, 0, 0, 0.849);
     color: white;
-    width: 750px;
+    width: 95%;
+    max-width: 750px;
     height: 200px;
     border-radius: 15px;
     border: 2px solid rgba(165, 165, 165, 0.418);
@@ -125,6 +126,25 @@
     font-weight: bold;
 }
 
-@media (max-width: 792px) {
-
+@media (max-width: 542px) {
+    .menu_container-card{
+        height: fit-content;
+        flex-direction: column-reverse;
+        padding-top: 25px;
+    }
+    .card_img_container{
+        width: 95%;
+    }
+    .card_img_container div{
+        width: 100%;
+    }
+    .card_img_container img{
+        height: 200px;
+    }
+    .card_text_container{
+        width: 95%;
+    }
+    .card_text_container--info h5{
+        text-align: center;
+    }
     }

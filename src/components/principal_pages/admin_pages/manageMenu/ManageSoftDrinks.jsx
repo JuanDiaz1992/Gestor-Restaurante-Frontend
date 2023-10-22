@@ -17,7 +17,8 @@ import {
   Image,
   Button,
   Input,
-  Textarea
+  Textarea,
+  ModalFooter
 } from "@nextui-org/react";
 
 
@@ -60,8 +61,7 @@ function ManageSoftDrinks({ closeModalEdit, sendState }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [haveChanges]);
 
-  const sendForm = async (e) => {
-    e.preventDefault();
+  const sendForm = async () => {
     const compressedImage = await compressImage(photo);
     let formData = new FormData();
     let priceFull = 0;
@@ -165,8 +165,6 @@ function ManageSoftDrinks({ closeModalEdit, sendState }) {
   }
   return (
     <>
-      <div className="modal-dialog">
-        <div className="modal-content ">
           <ModalHeader className="flex flex-col gap-1">
             <h3 className="text-2xl">Gestión Gaseosas</h3>
           </ModalHeader>
@@ -228,9 +226,7 @@ function ManageSoftDrinks({ closeModalEdit, sendState }) {
                 <form
                   id="formRegis"
                   encType="multipart/form-data"
-                  onSubmit={(e) => {
-                    sendForm(e);
-                  }}
+
                 >
                   <div className="mb-3">
                     <label htmlFor="name">Nombre</label>
@@ -307,28 +303,28 @@ function ManageSoftDrinks({ closeModalEdit, sendState }) {
                       onChange={(e) => setPhoto(e.target.files[0])}
                     />
                   </div>
-                  <Button type="submit" color="primary">
-                    Submit
-                  </Button>
-                  <Button color="danger" onClick={comeBack}>
-                    Atrás
-                  </Button>
+
                 </form>
               </ModalBody>
             </>
             }
-
-            <div className="flex  flex-row gap-1 flex-wrap">
-              {createNewSoftDrink &&
-                <>
-                  <Button color="warning" onClick={()=>setSreateNewSoftDrink(false)}>Crear nuevo</Button>
-                  <Button color="danger" onClick={closeModalEdit}> Cerrar</Button>
-                </>
-              }
-            </div>
           </ModalBody>
-        </div>
-      </div>
+          <ModalFooter className="flex  flex-row gap-1 flex-wrap">
+            {createNewSoftDrink ?
+                  <>
+                    <Button color="warning" onClick={()=>setSreateNewSoftDrink(false)}>Crear nuevo</Button>
+                    <Button color="danger" onClick={closeModalEdit}> Cerrar</Button>
+                  </>:
+                  <>
+                    <Button onClick={sendForm} color="primary">
+                      Submit
+                    </Button>
+                    <Button color="danger" onClick={comeBack}>
+                      Atrás
+                    </Button>
+                  </>
+            }
+          </ModalFooter>
     </>
   );
 }

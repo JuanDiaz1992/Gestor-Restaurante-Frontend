@@ -534,7 +534,7 @@
 }
 
 .sectionMenu_div--container{
-
+    position: relative;
     display: flex;
     justify-content: center;
     gap: 25px;
@@ -542,11 +542,14 @@
 }
 
 .sectionMenu_div--container--tile_menu{
-    text-align: center;
+    width: fit-content;
     font-size: 50px;
     font-family: 'Bebas Neue', sans-serif;
     font-weight:bolder;
     letter-spacing: 1px;
+    z-index: 1032;
+    position: sticky;
+    top: 15px;
 }
 .menuContainer{
     top: 100px;
@@ -662,6 +665,9 @@ table p{
 .menu_of_day_container--div1{
     width: 100%;
     padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
      
 }
 
