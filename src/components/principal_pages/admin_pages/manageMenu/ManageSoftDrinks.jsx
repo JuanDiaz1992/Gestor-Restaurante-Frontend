@@ -61,7 +61,8 @@ function ManageSoftDrinks({ closeModalEdit, sendState }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [haveChanges]);
 
-  const sendForm = async () => {
+  const sendForm = async (e) => {
+    e.preventDefault();
     const compressedImage = await compressImage(photo);
     let formData = new FormData();
     let priceFull = 0;
@@ -226,7 +227,9 @@ function ManageSoftDrinks({ closeModalEdit, sendState }) {
                 <form
                   id="formRegis"
                   encType="multipart/form-data"
-
+                  onSubmit={(e) => {
+                    sendForm(e);
+                  }}
                 >
                   <div className="mb-3">
                     <label htmlFor="name">Nombre</label>
@@ -303,11 +306,15 @@ function ManageSoftDrinks({ closeModalEdit, sendState }) {
                       onChange={(e) => setPhoto(e.target.files[0])}
                     />
                   </div>
-
+                  <Button type="submit" color="primary">
+                    Submit
+                  </Button>
                 </form>
               </ModalBody>
             </>
             }
+
+
           </ModalBody>
           <ModalFooter className="flex  flex-row gap-1 flex-wrap">
             {createNewSoftDrink ?
@@ -316,9 +323,6 @@ function ManageSoftDrinks({ closeModalEdit, sendState }) {
                     <Button color="danger" onClick={closeModalEdit}> Cerrar</Button>
                   </>:
                   <>
-                    <Button onClick={sendForm} color="primary">
-                      Submit
-                    </Button>
                     <Button color="danger" onClick={comeBack}>
                       Atrás
                     </Button>
