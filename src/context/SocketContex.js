@@ -9,7 +9,7 @@ const SocketProvider = ({ children }) => {
 
 
   useEffect(() => {
-    const socket = io('http://192.168.1.49:4000');
+    const socket = io('http://192.168.1.159:4000');
     setSocket(socket);
 
     return () => socket.disconnect();

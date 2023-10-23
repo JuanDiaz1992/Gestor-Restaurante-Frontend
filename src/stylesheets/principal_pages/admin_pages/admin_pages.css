@@ -534,7 +534,6 @@
 }
 
 .sectionMenu_div--container{
-    position: relative;
     display: flex;
     justify-content: center;
     gap: 25px;
@@ -547,9 +546,7 @@
     font-family: 'Bebas Neue', sans-serif;
     font-weight:bolder;
     letter-spacing: 1px;
-    z-index: 1032;
-    position: sticky;
-    top: 15px;
+
 }
 .menuContainer{
     top: 100px;
