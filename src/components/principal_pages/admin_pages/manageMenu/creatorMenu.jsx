@@ -1,16 +1,18 @@
 import { useState, useEffect } from "react";
-import { Button } from "@nextui-org/react";
+import { Button, Modal, ModalContent, useDisclosure } from "@nextui-org/react";
 import Specialities from "./itemMenuCreator/specialties";
 import Soups from "./itemMenuCreator/soup";
 import Beginnings from "./itemMenuCreator/beginning";
 import Meats from "./itemMenuCreator/meat";
 import Drinks from "./itemMenuCreator/drinks";
+import ManageSoftDrinks from "./ManageSoftDrinks";
 
 function MenuCreator(props) {
   const [menuSection, setMenuSection] = useState(0);
   const [seeMEnuOption, setSeeMenuOption] = useState();
   const [childrenUpdate, setChildrenUpdate] = useState(false);
-
+  const {isOpen, onOpen, onOpenChange} = useDisclosure();
+  const [btnCreateMenuAvalaible, setBtnCreateMenuAvalaible] = useState(true)
   /*Función que define si debe ir adelante el menú o atrás*/
   const viewSectionMenu = (backOrForward) => {
     if (backOrForward) {
@@ -64,6 +66,12 @@ function MenuCreator(props) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [childrenUpdate]);
+
+
+  const createMenuPrevious=()=>{
+    setBtnCreateMenuAvalaible(false)
+    props.createMenu();
+  }
   return (
     <>
       <div
@@ -72,7 +80,7 @@ function MenuCreator(props) {
           (props.menuTemp.length !== 0 ? "menuCreator70" : "menuCreator100")
         }
       >
-        {menuSection === 0 ? <h4>Deseas crear el menú para hoy?</h4> : <></>}
+        {menuSection === 0 && <h4>¿Que deseas realizar?</h4>}
         {seeMEnuOption}
         <div className="buttomsContainer" >
           {menuSection === 0 ? (
@@ -90,12 +98,12 @@ function MenuCreator(props) {
           {menuSection >= 5 ? (
             <>
               <Button
-                color="success"
+                color={btnCreateMenuAvalaible? "success" : "default"}
                 onClick={() => {
-                  props.createMenu();
+                  btnCreateMenuAvalaible && createMenuPrevious()
                 }}
               >
-                Crear Menú
+                {btnCreateMenuAvalaible? "Crear Menú" : "Creando..."}
               </Button>
             </>
           ) : (
@@ -106,10 +114,43 @@ function MenuCreator(props) {
                   viewSectionMenu(true);
                 }}
               >
-                {menuSection === 0 ? "Iniciar" : "Siguiente"}
+                {menuSection === 0 ? "Crear Menú del día" : "Siguiente"}
               </Button>
+              {menuSection === 0 && <Button onClick={onOpen}>Administrar Gaseosas</Button>}
             </>
           )}
+        <Modal
+          isOpen={isOpen}
+          onOpenChange={onOpenChange}
+          scrollBehavior={"inside"}
+          size="xl"
+          motionProps={{
+            variants: {
+              enter: {
+                y: 0,
+                opacity: 1,
+                transition: {
+                  duration: 0.3,
+                  ease: "easeOut",
+                },
+              },
+              exit: {
+                y: -20,
+                opacity: 0,
+                transition: {
+                  duration: 0.2,
+                  ease: "easeIn",
+                },
+              },
+            }
+          }}
+        >
+          <ModalContent className="modal_content_edit_menu">
+            {<ManageSoftDrinks
+                closeModalEdit={onOpenChange}
+            />}
+          </ModalContent>
+        </Modal>
         </div>
       </div>
     </>

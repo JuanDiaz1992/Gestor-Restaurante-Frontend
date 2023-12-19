@@ -6,10 +6,10 @@ import Swal from "sweetalert2";
 import getDate from "../../Scripts/obtenerFechaActual";
 import getCookie from "../../Scripts/getCookies";
 import obtenerIDMenu from "../../Scripts/obtenerIDGlobalDelMenu"
-
 import CreatorMenu from "./manageMenu/creatorMenu";
 import MenuTemp from "./manageMenu/menuTemp";
 import MenuOfBd from "./manageMenu/menuOfBd";
+
 
 
 function ManageMenu() {

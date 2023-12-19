@@ -132,6 +132,7 @@ function Beginning(props){
         console.log(error);
       }
     };
+
     const deleteItem = (id, name) => {
       confirmAlert({
         title: "Confirmación de eliminación",

@@ -9,7 +9,7 @@ import getCookie from "../../../Scripts/getCookies";
 import obtenerIDMenu from "../../../Scripts/obtenerIDGlobalDelMenu";
 import EditMenuOfBD from "./EditMenuOfBD";
 import ManageSoftDrinks from "./ManageSoftDrinks";
-
+import GoToTop from "../../../Scripts/OnTop"
 
 function MenuOfBd(props) {
   const url = process.env.REACT_APP_URL_HOST;
@@ -271,12 +271,9 @@ function MenuOfBd(props) {
                           ? "Carnes"
                           : item.menu_item_type === "drinks"
                           ? "Bebidas"
-                          : item.menu_item_type === "soft_drinks"
-                          ? "Gaseosas"
                           : ""
                         }
                       </p>
-
                     </TableCell>
                     <TableCell>{item.menu_item_type === "especialities"? (
                               <p>${item.price}</p>
@@ -322,6 +319,7 @@ function MenuOfBd(props) {
           {modalConten}
         </ModalContent>
       </Modal>
+      <GoToTop/>
     </>
   );
 }

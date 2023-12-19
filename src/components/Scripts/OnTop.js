@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-  
+
 export default function GoToTop() {
   const routePath = useLocation();
   const onTop = () => {
@@ -9,6 +9,6 @@ export default function GoToTop() {
   useEffect(() => {
     onTop()
   }, [routePath]);
-  
+
   return null;
 }

@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import getCookie from "../../../Scripts/getCookies";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import compressImage from "../../../Scripts/comprimirImg"
 import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
 import { confirmAlert } from "react-confirm-alert";
+import { SocketContext } from "../../../../context/SocketContex";
 import {
   ModalHeader,
   ModalBody,
@@ -22,7 +23,7 @@ import {
 } from "@nextui-org/react";
 
 
-function ManageSoftDrinks({ closeModalEdit, sendState }) {
+function ManageSoftDrinks({ closeModalEdit }) {
   const [createNewSoftDrink, setSreateNewSoftDrink] = useState(true)
   const [softDrinks, setSoftDrinks] = useState([]);
   const [haveChanges,setChanges] = useState(false)
@@ -35,7 +36,12 @@ function ManageSoftDrinks({ closeModalEdit, sendState }) {
   const [amount, setAmount] = useState();
   /*****************************************/
 
-
+  const socket = useContext(SocketContext);
+  const sendState = ()=>{
+    socket.emit('change_state',{
+      change_menu:true
+    })
+  }
 
   const getMenu = async () => {
     fetch(
