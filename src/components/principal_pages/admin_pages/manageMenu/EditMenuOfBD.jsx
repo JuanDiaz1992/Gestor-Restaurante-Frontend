@@ -21,7 +21,7 @@ import date from "../../../Scripts/obtenerFechaActual";
 function EditMenuOfBD(props) {
   const { idMenuFather, setIsChangeFather, closeModalEdit } = props;
   const idUser = useSelector((state) => state.auth.id_user);
-  const url = useSelector((state) => state.auth.url);
+  const url = process.env.REACT_APP_URL_HOST;
   const [allItems, setAllItems] = useState([]);
   const [specialities, setEspecialities] = useState([]);
   const [soups, setSoups] = useState([]);
@@ -95,6 +95,7 @@ function EditMenuOfBD(props) {
   useEffect(() => {
     menu_data();
     setChanges(false)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [haveChanges]);
 
   const [selectedKeys, setSelectedKeys] = useState([]);

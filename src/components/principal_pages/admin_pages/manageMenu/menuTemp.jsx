@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { Button,ButtonGroup, Tooltip } from "@nextui-org/react";
+import { Button,ButtonGroup } from "@nextui-org/react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { toast } from "react-hot-toast";
 import getCookie from "../../../Scripts/getCookies";
@@ -8,9 +7,9 @@ import getCookie from "../../../Scripts/getCookies";
 function MenuTemp(props) {
   const [menuTemp, setMenuTemp] = useState([]);
   const [changesLocal, setChangesLocal] = useState(false);
-  const url = useSelector((state) => state.auth.url);
+  const url = process.env.REACT_APP_URL_HOST;
 
-  
+
   /*Este bloque de codigo obtiene los elementos del creador de menú temporal*/
   const menu_data_temp = () => {
     fetch(`${url}items_menu_temp/`, {
@@ -20,15 +19,13 @@ function MenuTemp(props) {
         Authorization: "Token " + getCookie("token"),
         Module: "menu_management",
       },
-    })     
+    })
       .then((response) => response.json())
       .then((data) => {
-        
         if (data.status === 200) {
           setMenuTemp(data.results);
           props.setMenuTempFather(data.results);
         } else {
-          
           props.setMenuTempFather([]);
           setMenuTemp([]);
         }

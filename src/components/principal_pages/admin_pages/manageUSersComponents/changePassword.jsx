@@ -15,11 +15,11 @@ function ChangePassword(props){
     const [isOkConfirmPassword,setIsOkConfirmPassword] = useState(true);
     const [isValidForm,setFormIsOk] = useState(false);
 
-    const url = useSelector((state) => state.auth.url);
+    const url = process.env.REACT_APP_URL_HOST;
     const username = useSelector((state) => state.auth.username);
 
 
-    /*Validador contraseña*/   
+    /*Validador contraseña*/
     const handleChangePassword = (e)=>{
         let passwordH = e.target.value;
         setPassword(passwordH);
@@ -31,7 +31,7 @@ function ChangePassword(props){
             }
     }
 
-    /*Validador comfirmar contraseña*/   
+    /*Validador comfirmar contraseña*/
     const handleChangeConfirmPassword = (e)=>{
         let confirmPasswordH = e.target.value;
         setConfirmPassword(confirmPasswordH);

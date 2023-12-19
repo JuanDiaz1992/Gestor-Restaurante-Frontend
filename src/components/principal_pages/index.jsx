@@ -8,7 +8,7 @@ import LogoDefault from "../../img/logo2.png"
 
 function Index() {
   const socket = useContext(SocketContext)
-  const url = useSelector((state) => state.auth.url);
+  const url = process.env.REACT_APP_URL_HOST;
   const business = useSelector((state) => state.auth);
   const [typeMenu, setTypeMenu] = useState([]);
   const [allItemsMenu, setAllItemsMenu] = useState([]);

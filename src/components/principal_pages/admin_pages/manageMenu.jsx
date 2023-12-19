@@ -1,12 +1,11 @@
 import { useState, useEffect, useContext } from "react";
 import { SocketContext } from "../../../context/SocketContex";
-import { useSelector } from "react-redux";
 import { Toaster } from "react-hot-toast";
 import {Spinner} from "@nextui-org/react";
 import Swal from "sweetalert2";
 import getDate from "../../Scripts/obtenerFechaActual";
 import getCookie from "../../Scripts/getCookies";
-import obtenerIDMenu from "../../Scripts/obtenerIDGlobalDelMenu" 
+import obtenerIDMenu from "../../Scripts/obtenerIDGlobalDelMenu"
 
 import CreatorMenu from "./manageMenu/creatorMenu";
 import MenuTemp from "./manageMenu/menuTemp";
@@ -20,7 +19,7 @@ function ManageMenu() {
       change_menu:true
     })
   }
-  const url = useSelector((state) => state.auth.url);
+  const url = process.env.REACT_APP_URL_HOST;
   /*Este estado actualiza la mayoria de los componentes del creador del menú*/
   const [isChange,setChange] = useState(false);
 
@@ -49,12 +48,6 @@ function ManageMenu() {
     validateMenu();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[newlyCreatedMenu])
-
-
-
-  
-  
-
 /*********************************************************/
   /*Función que se ejecuta cuando el menú temporal está completo y lo guarda en la bd*/
   const createMenu =()=>{
@@ -84,7 +77,6 @@ function ManageMenu() {
         }else if (i < emptyItems.length && i > 0) {
           message += ", " + emptyItems[i];
         }
-        
       }
       message += " para terminar de crear el menú"
       Swal.fire({
@@ -120,8 +112,6 @@ function ManageMenu() {
         }
       })
     }
-    
-   
   }
 
 
@@ -132,36 +122,33 @@ function ManageMenu() {
           "section_menu " +
           (menuTempFather.length !== 0 ? "" : "sectionMenuCenter")
         }>
-        {loadingPage? 
+        {loadingPage?
         <>
           <div className="spiner_container_creator_menu_principal">
             <Spinner label="Loading..." color="success" />
           </div>
-          
         </>
         :
         <>
 
           <div className="sectionMenu_div--container">
-            <MenuTemp 
+            <MenuTemp
             isMenuCreated = {isMenuCreated}
             setMenuTempFather={setMenuTempFather}
             setChange = {setChange}
             isChange = {isChange}
             menuTempFather = {menuTempFather}
             />
-            {isMenuCreated === true? 
+            {isMenuCreated === true?
               <>
               <div>
-                <MenuOfBd 
+                <MenuOfBd
                 isMenuCreated={isMenuCreated}
                 setMenuCreate={setMenuCreate}
-                
                 />
               </div>
-
               </>
-            : 
+            :
                 <CreatorMenu
                 menuTemp = {menuTempFather}
                 createMenu = {createMenu}

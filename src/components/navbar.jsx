@@ -8,7 +8,6 @@ import setCookie from "./Scripts/borrarCookies"
 import logo from "../img/logo4.png";
 import { Button, Tooltip  } from "@nextui-org/react";
 import {BiArrowBack} from "react-icons/bi"
-
 import  '../stylesheets/navbar.css'
 
 
@@ -20,7 +19,7 @@ function NavBar() {
   const dispatch = useDispatch();
 
   const infoBusiness = useSelector((state) => state.auth);
-  const url = useSelector((state) => state.auth.url);
+  const url = process.env.REACT_APP_URL_HOST;
   const isLoggedIn = useSelector((state) => state.auth.is_logged_in);
   const type_user = useSelector((state) => state.auth.type_user);
   const name = useSelector((state) => state.auth.name);
@@ -30,7 +29,6 @@ function NavBar() {
   const [navActive,setNavActive] = useState(true)
   const [setLogo, getLogo] = useState(false);
   const [buttonNavigate, setbuttonNavigate] = useState(false)
-  
   const handleChange =()=>{
     setNavActive(!navActive);
   }
@@ -40,9 +38,7 @@ function NavBar() {
     }else{
       navigate(-1)
     }
-    
   }
-  
   useEffect(()=>{
     if(location.pathname === "/" || location.pathname === "/AdminPAge"
       || location.pathname === "/ChefPage" || location.pathname === "/WaiterPage" ){
@@ -77,22 +73,21 @@ function NavBar() {
               alt="logo"
             />
           </NavLink>
-          
           {isLoggedIn ? (
             <>
               <div className="profileAndButtonContainer">
-                {buttonNavigate? 
-                  <Tooltip content="Volver atrás" placement="bottom"> 
+                {buttonNavigate?
+                  <Tooltip content="Volver atrás" placement="bottom">
                     <Button isIconOnly color="danger" variant="ligth"  onClick={navigateTo}>
                       <BiArrowBack />
-                    </Button> 
-                  </Tooltip> 
+                    </Button>
+                  </Tooltip>
                   : <></> }
                 <div className="navbar-nav ulProfileContainer">
                   <div className="nav-item ">
                     <div className="nav-link ">
                       <Avatar
-                        isBordered 
+                        isBordered
                         color="success"
                         size="md"
                         classNames={{
@@ -108,9 +103,9 @@ function NavBar() {
                       {name}
                     </p>
                     <p className="typeUserNav">
-                      {type_user === "Admin"? "Administrador": 
-                      type_user === "Waiter"? "Mesero":
-                      type_user === "Chef"? "Cocinero": ""}
+                      {type_user === 1? "Administrador":
+                      type_user === 2? "Mesero":
+                      type_user === 3? "Cocinero": ""}
                     </p>
                   </div>
                 </div>
@@ -131,7 +126,7 @@ function NavBar() {
                       Inicio
                     </NavLink>
                   </li>
-                  {type_user === "Admin" ? (
+                  {type_user === 1? (
                     <>
                       <li className="nav-item">
                         <NavLink className="nav-link" to="/WaiterPage" as="a" onClick={handleChange}>
@@ -152,7 +147,7 @@ function NavBar() {
                   ) : (
                     <></>
                   )}
-                  {type_user === "Waiter" ? (
+                  {type_user === 2? (
                     <li className="nav-item">
                       <NavLink className="nav-link" to="/WaiterPage" as="a" onClick={handleChange}>
                         Tomar pedidos
@@ -161,7 +156,7 @@ function NavBar() {
                   ) : (
                     <></>
                   )}
-                  {type_user === "Chef" ? (
+                  {type_user === 3? (
                     <li className="nav-item">
                       <NavLink className="nav-link" to="/ChefPage" as="a" onClick={handleChange}>
                         Pedidos pendientes

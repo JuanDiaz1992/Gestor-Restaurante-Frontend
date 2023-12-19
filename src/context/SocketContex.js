@@ -7,13 +7,13 @@ const SocketContext = createContext();
 const SocketProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
 
-
+  const url = process.env.REACT_APP_URL_HOST_NODE;
   useEffect(() => {
-    const socket = io('http://192.168.1.159:4000');
+    const socket = io(url);
     setSocket(socket);
 
     return () => socket.disconnect();
-  }, []);
+  }, [url]);
 
   return (
     <SocketContext.Provider value={socket}>

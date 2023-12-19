@@ -5,9 +5,8 @@ const initialState = {
   id_user:'',
   username: '',
   name:'',
-  type_user:'waiter',
+  type_user:'',
   photo:'',
-  url: 'http://192.168.1.159:80/gestion_restaurante/',
   id_business:'',
   name_business: '',
   logo: '',
@@ -36,7 +35,7 @@ const authSlice = createSlice({
       state.is_logged_in = false;
       state.username = '';
       state.name = '';
-      state.type_user = 'waiter';
+      state.type_user = '';
       state.photo = '';
       state.id_user = '';
     },

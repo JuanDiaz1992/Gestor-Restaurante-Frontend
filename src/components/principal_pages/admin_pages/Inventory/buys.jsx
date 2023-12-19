@@ -13,7 +13,7 @@ function InventoryAll() {
   const [observations, setObservations] = useState("");
 
   const idProfile_user = useSelector((state) => state.auth.id_user);
-  const url = useSelector((state) => state.auth.url);
+  const url = process.env.REACT_APP_URL_HOST;
   const [isThereInventory, setIsThereInventory] = useState(false);
   const [inventoryData, setInventoryData] = useState("");
   const [totalInventory, setTotalInventory] = useState(0);

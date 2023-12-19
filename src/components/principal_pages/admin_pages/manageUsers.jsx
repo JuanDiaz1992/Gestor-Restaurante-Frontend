@@ -15,7 +15,7 @@ Modal.setAppElement("#root");
 
 function ManageUser() {
   const userNAme = useSelector((state) => state.auth.username);
-  const url = useSelector((state) => state.auth.url);
+  const url = process.env.REACT_APP_URL_HOST;
   const [setUsers, setAllUsers] = useState([]);
   const [loading,setLoading] = useState(false)
 
@@ -171,11 +171,11 @@ function ManageUser() {
                     <td>{user.username}</td>
                     <td>{user.name}</td>
                     <td>
-                      {user.type_user === "Admin"
+                      {user.type_user === 1
                         ? "Administrador"
-                        : user.type_user === "Chef"
+                        : user.type_user === 3
                         ? "Cocinero"
-                        : user.type_user === "Waiter"
+                        : user.type_user === 2
                         ? "Mesero"
                         : "Otro"}
                     </td>
@@ -262,12 +262,9 @@ function ManageUser() {
                 </g>
             </svg>
             <p>Cargando...</p>
-
           </div>
           }
-
         </div>
-
         <Modal
           isOpen={modalIsOpenEditUser}
           onRequestClose={closeModal}

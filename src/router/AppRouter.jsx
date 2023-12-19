@@ -21,12 +21,11 @@ function AppRouter(){
             <HashRouter>
                 <Routes>
                     <Route path="/" element={<FatherComponent />}>
-                        
                         <Route index element={<Index/>}/>
                         <Route path="/Login" element={<Login />}/>
                         <Route path="*" element={<Error404 />}/>
                         <Route path="/Error404" element={<Error404 />}/>
-                        {type_user === 'Admin' ? (
+                        {type_user === 1 ? (
                             <>
                                 <Route path="/AdminPage" element={ <AdminPage />}/>
                                 <Route path="/ManageUser" element={<ManageUser />}/>
@@ -34,21 +33,19 @@ function AppRouter(){
                                 <Route path="/ManageMenu" element={<ManageMenu />}/>
                                 <Route path="/Config" element={<Config />}/>
                             </>
-                            
                             ) : (
                             <Route path='*' element={<Navigate to='/Error404' replace />} />
                         )}
-                        {type_user === 'Waiter' || type_user === 'Admin' ? (
+                        {type_user === 2 || type_user === 1 ? (
                             <Route path="/WaiterPage" element={<WaiterPage />}/>
                             ) : (
                             <Route path='*' element={<Navigate to='/Error404' replace />} />
                         )}
-                        {type_user === 'Chef' || type_user === 'Admin' ? (
+                        {type_user === 3 || type_user === 1 ? (
                             <Route path="/ChefPage" element={<ChefPage />}/>
                             ) : (
                             <Route path='*' element={<Navigate to='/Error404' replace />} />
                         )}
-                                            
                     </Route>
                 </Routes>
             </HashRouter>

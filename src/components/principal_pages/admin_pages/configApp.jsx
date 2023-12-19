@@ -1,11 +1,11 @@
 import "../../../stylesheets/principal_pages/admin_pages/config.css";
 import {Modal, ModalContent, Button} from "@nextui-org/react";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import ModalEdit from "./configComponents/modalEditInfoBussiness";
 import { FaEdit } from 'react-icons/fa';
 
 function ConfigApp() {
+  const url = process.env.REACT_APP_URL_HOST;
   const [bussinessInfo, setBussinessInfo] = useState([{}]);
   useEffect(() => {
     fetch(`${url}business/`, {
@@ -24,11 +24,9 @@ function ConfigApp() {
       .catch((error) => {
         console.error(error);
       });
-  },[]);
-
+  },[url]);
     /*Manejador Modal*/
     const [modalEditMenu, setModalIsOpenEditMenu] = useState(false);
-    const url = useSelector((state) => state.auth.url);
     const closeModalEditMenu = () => {
       setModalIsOpenEditMenu(false);
     };

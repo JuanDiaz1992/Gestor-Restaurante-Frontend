@@ -18,23 +18,17 @@ import {
 import { toast } from "react-hot-toast";
 
 function Beginning(props){
-    const url = useSelector((state) => state.auth.url);
+    const url = process.env.REACT_APP_URL_HOST;
     const idUser = useSelector((state) => state.auth.id_user);
-  
     /*Sección de estados*/
     const [item, setItem] = useState([]); /*Aquí se almacenan los elementos creados en la bd*/
     const [updateItems, setUpdateItems] = useState(false); /*Este estado se usa para el useEffect para el momento en que se agrego una especialidad a la bd*/
-  
     /*Inputs del formulario*/
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
     const [photo, setPhoto] = useState();
-
-  
     /*Sección de funciones*/
-  
-
     /*Función que trae solo el item de la bd*/
     const menu_data = async () => {
       try {
@@ -58,9 +52,6 @@ function Beginning(props){
         console.error("Error fetching data:", error);
       }
     };
-
-
-  
     /*Función que crea nuevos elementos para el menú, este es el formulario*/
     const sendForm = async  (e) => {
       e.preventDefault();
@@ -82,7 +73,6 @@ function Beginning(props){
       formData.append("menu_item_type", props.nameItem);
       formData.append("idProfile_user", idUser);
       formData.append("new_item_menu", true);
-  
       fetch(url, {
         method: "POST",
         mode: "cors",
@@ -108,15 +98,13 @@ function Beginning(props){
           }
         });
     };
-  
     /*Cuando se agrega un nuevo elemento, se actualizan con este hook*/
     useEffect(() => {
       menu_data();
       setUpdateItems(false);
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [updateItems]);
-  
-  
+
     /*Esta función es la que selecciona que elementos que van a ir en el menú del día*/
     const selectItem = async (id, name) => {
       const selectedSpeciality = item.find((items) => items.id === id);
@@ -144,8 +132,6 @@ function Beginning(props){
         console.log(error);
       }
     };
-  
-  
     const deleteItem = (id, name) => {
       confirmAlert({
         title: "Confirmación de eliminación",
@@ -183,7 +169,6 @@ function Beginning(props){
         ],
       });
     };
-  
 return(
 
     <>
@@ -198,15 +183,12 @@ return(
                   <Card
                     className="cardEspecialities"
                     shadow="sm"
-
                     isPressable
                     onClick={() => {
                       selectItem(item.id, item.name);
                     }}
                   >
-
                     <CardBody className="overflow-visible p-0 cardContainerImg">
-                      
                       <Image
                         shadow="sm"
                         radius="lg"
@@ -220,7 +202,6 @@ return(
                     </CardFooter>
                   </Card>
                 </div>
-
               ))}
             </div>
           </>
@@ -256,7 +237,6 @@ return(
                 type="text"
               />
             </div>
-
             <div className="mb-3">
               <label htmlFor="description">Descripción</label>
               <Textarea
@@ -269,7 +249,6 @@ return(
                 placeholder={"Describa brevemente que incluye o de que trata " + props.labedescriptionItem}
               ></Textarea>
             </div>
-            
             {props.type_menu === "especialities" &&
               <div className="mb-3">
               <label htmlFor="name">Precio de {props.labelNameItem}</label>
@@ -283,7 +262,6 @@ return(
                 radius="sm"
                 type="number"
                 placeholder="0.00"
-                
                 labelPlacement="outside"
                 startContent={
                   <div className="pointer-events-none flex items-center">
@@ -299,6 +277,7 @@ return(
               </label>
               <input
                 type="file"
+                accept="image/*"
                 id="formFile"
                 className="form-control"
                 onChange={(e) => setPhoto(e.target.files[0])}

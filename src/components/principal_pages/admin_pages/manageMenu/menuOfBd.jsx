@@ -1,8 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { useSelector } from "react-redux";
 import { SocketContext } from "../../../../context/SocketContex";
-
-
 import { Button,ModalContent, Modal, Spinner, Avatar, Tooltip, Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from "@nextui-org/react";
 import { AiFillDelete, AiOutlinePauseCircle } from "react-icons/ai";
 import { toast } from "react-hot-toast";
@@ -15,7 +12,7 @@ import ManageSoftDrinks from "./ManageSoftDrinks";
 
 
 function MenuOfBd(props) {
-  const url = useSelector((state) => state.auth.url);
+  const url = process.env.REACT_APP_URL_HOST;
   const [allItemsMenu, setAllItemsMenu] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isChange, setIsChange] = useState(false);
@@ -28,7 +25,6 @@ function MenuOfBd(props) {
       change_menu:true
     })
   }
-  
   const getMenu = async () => {
     try {
       let idMenu = await obtenerIDMenu(url);
@@ -69,7 +65,6 @@ function MenuOfBd(props) {
   useEffect(() => {
     getMenu();
     setIsChange(false);
-    
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isChange]);
 
@@ -157,7 +152,7 @@ function MenuOfBd(props) {
         });
     } catch (error) {
       console.log(error);
-    } 
+    }
   }
 
   const deleteMenu = () => {
@@ -224,7 +219,7 @@ function MenuOfBd(props) {
       )
     }else if(option ===2){
       setModalContent(
-        <ManageSoftDrinks 
+        <ManageSoftDrinks
           closeModalEdit={closeModalEditMenu}
           sendState = {sendState}
       />)
@@ -239,7 +234,7 @@ function MenuOfBd(props) {
     <>
       <div className="menu_of_day_container">
         <div className="menu_of_day_container--div1">
-          {loading? 
+          {loading?
           <>
           <div className="spiner_container_creator_menu_principal">
             <Spinner label="Loading..." color="success" />
@@ -301,7 +296,6 @@ function MenuOfBd(props) {
                           <AiFillDelete />
                         </span>
                       </Tooltip>
-                      
                       </div>
                     </TableCell>
                   </TableRow>
@@ -309,9 +303,7 @@ function MenuOfBd(props) {
                 </TableBody>
           </Table>
           </>
-
           }
-
         </div>
         {loading? <></>
         :
@@ -321,7 +313,6 @@ function MenuOfBd(props) {
           <Button  color="warning" onClick={()=>openModalEditMenu(2)}> Administrar Gaseosas</Button>
         </div>
         }
-
       </div>
       <Modal
         isOpen={modalEditMenu}

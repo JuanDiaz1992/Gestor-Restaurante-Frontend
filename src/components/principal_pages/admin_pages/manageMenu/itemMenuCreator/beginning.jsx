@@ -1,10 +1,10 @@
 
 import ComponenteBaseCreadorMenu from "../componenteBaseCreadorMenu";
-function Beginning(props){ 
+function Beginning(props){
 return(
 
     <>
-        <ComponenteBaseCreadorMenu 
+        <ComponenteBaseCreadorMenu
             nameCategoryItem = {"los principios"}
             onlyNameCategory = {"principio"}
             nameItem = {"beginning"}
@@ -13,7 +13,6 @@ return(
             setChangeFather = {props.setChangeFather}
         />
     </>
-    
 )
 }
 

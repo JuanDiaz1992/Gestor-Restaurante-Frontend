@@ -1,10 +1,9 @@
 import ComponenteBaseCreadorMenu from "../componenteBaseCreadorMenu";
 function Meat(props){
-  
   return(
 
       <>
-        <ComponenteBaseCreadorMenu 
+        <ComponenteBaseCreadorMenu
         nameCategoryItem = {"las carnes"}
         onlyNameCategory = {"carne"}
         nameItem = {"meats"}

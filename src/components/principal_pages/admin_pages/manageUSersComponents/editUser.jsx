@@ -8,13 +8,12 @@ function EditUser(props) {
   const { setChangeState } = props;
   const userNAme = useSelector((state) => state.auth.username);
   const name = useSelector((state) => state.auth.name);
-  const url = useSelector((state) => state.auth.url);
+  const url = process.env.REACT_APP_URL_HOST;
   const dispatch = useDispatch();
   const [nameUSer, setnameUSer] = useState(props.nameUSer);
   const [nameIsOK, setNameIsOk] = useState(true);
   const [typeUser, settypeUser] = useState(props.typeUser);
   const [photoInput, getPhoto] = useState();
-
   const handlreChange = (e) => {
     let nUser = e.target.value;
     setnameUSer(nUser);
@@ -25,9 +24,9 @@ function EditUser(props) {
       setNameIsOk(false);
     }
   };
-
   const sendForm = (e) => {
     e.preventDefault();
+    let type_user = typeof typeUser === "number"? typeUser : parseInt(typeUser);
     if (
       nameUSer === props.nameUSer &&
       typeUser === props.typeUser &&
@@ -49,7 +48,7 @@ function EditUser(props) {
       formData.append("name", nameUSer);
       formData.append("username", props.userNameEdited);
       formData.append("photo", photoInput);
-      formData.append("type_user", typeUser);
+      formData.append("type_user", type_user);
       formData.append("edit_user_request", true);
       fetch(url, {
         method: "POST",
@@ -83,7 +82,6 @@ function EditUser(props) {
         });
     }
   };
-
   return (
     <>
       <div className="modal-dialog">
@@ -150,9 +148,9 @@ function EditUser(props) {
                   }}
                   required
                 >
-                  <option value="Admin">Administrador</option>
-                  <option value="Waiter">Mesero</option>
-                  <option value="Chef">Cocinero</option>
+                  <option value="1">Administrador</option>
+                  <option value="2">Mesero</option>
+                  <option value="3">Cocinero</option>
                 </select>
               </div>
             ) : (
@@ -164,6 +162,7 @@ function EditUser(props) {
               </label>
               <input
                 type="file"
+                accept="image/*"
                 className="form-control"
                 id="photo"
                 onChange={(e) => getPhoto(e.target.files[0])}

@@ -1,9 +1,9 @@
 import ComponenteBaseCreadorMenu from "../componenteBaseCreadorMenu";
 
-function Soups(props){     
+function Soups(props){
     return(
         <>
-          <ComponenteBaseCreadorMenu 
+          <ComponenteBaseCreadorMenu
           nameCategoryItem = {"las sopas"}
           onlyNameCategory = {"sopa"}
           nameItem = {"soups"}

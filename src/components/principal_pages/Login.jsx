@@ -14,7 +14,7 @@ import '../../stylesheets/principal_pages/login.css'
 function Login() {
   const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.auth.is_logged_in);
-  const url = useSelector((state) => state.auth.url);
+  const url = process.env.REACT_APP_URL_HOST;
   const companyName = useSelector((state) => state.auth.name_business);
   const [isLoading, setIsLoading] = useState(false);
   const [company,setCompany] = useState('Food Ease');

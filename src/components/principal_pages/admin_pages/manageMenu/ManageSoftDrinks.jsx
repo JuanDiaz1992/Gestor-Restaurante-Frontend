@@ -26,14 +26,13 @@ function ManageSoftDrinks({ closeModalEdit, sendState }) {
   const [createNewSoftDrink, setSreateNewSoftDrink] = useState(true)
   const [softDrinks, setSoftDrinks] = useState([]);
   const [haveChanges,setChanges] = useState(false)
-  const url = useSelector((state) => state.auth.url);
+  const url = process.env.REACT_APP_URL_HOST;
   const idUser = useSelector((state) => state.auth.id_user);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [photo, setPhoto] = useState();
   const [amount, setAmount] = useState();
-  
   /*****************************************/
 
 

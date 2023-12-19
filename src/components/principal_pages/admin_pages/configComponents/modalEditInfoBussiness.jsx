@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import getCookie from "../../../Scripts/getCookies";
 import {
   ModalHeader,
@@ -11,7 +10,7 @@ import {
 import compressImage from "../../../Scripts/comprimirImg";
 
 export default function App({ closeModalEdit, bussinessInfo }) {
-  const url = useSelector((state) => state.auth.url);
+  const url = process.env.REACT_APP_URL_HOST;
   const [nameBusiness, setNameBusiness] = useState( bussinessInfo[0]["name_business"] || "" );
   const [documentBusiness, setDocumentBusiness] = useState(bussinessInfo[0]["document_business"] || "");
   const [description, setDescription] = useState(bussinessInfo[0]["Description"] || "");

@@ -1,8 +1,8 @@
 import ComponenteBaseCreadorMenu from "../componenteBaseCreadorMenu";
-function Drinks(props){  
+function Drinks(props){
     return(
         <>
-        <ComponenteBaseCreadorMenu 
+        <ComponenteBaseCreadorMenu
             nameCategoryItem = {"las bebidas"}
             onlyNameCategory = {"bebida"}
             nameItem = {"drinks"}

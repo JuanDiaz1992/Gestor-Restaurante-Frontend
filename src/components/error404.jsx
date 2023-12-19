@@ -7,7 +7,6 @@ function Error404(){
             <section className="sectionError404">
                 <img className="sectionError404_img" src={img404} alt="Error 404" />
             </section>
-            
         </>
     )
 }

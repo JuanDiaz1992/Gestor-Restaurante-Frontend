@@ -33,7 +33,6 @@ function MenuCreator(props) {
             setChangeFather={props.setChange}
             setChildrenUpdate={setChildrenUpdate}
             viewSectionMenu={viewSectionMenu}
-            
           />
         );
         break;
@@ -43,7 +42,6 @@ function MenuCreator(props) {
       case 3:
         setSeeMenuOption(<Beginnings setChangeFather={props.setChange} />);
         break;
-
       case 4:
         setSeeMenuOption(<Meats setChangeFather={props.setChange} />);
         break;
@@ -75,9 +73,7 @@ function MenuCreator(props) {
         }
       >
         {menuSection === 0 ? <h4>Deseas crear el menú para hoy?</h4> : <></>}
-
         {seeMEnuOption}
-
         <div className="buttomsContainer" >
           {menuSection === 0 ? (
             <></>
