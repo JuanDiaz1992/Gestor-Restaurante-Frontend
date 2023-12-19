@@ -48,7 +48,7 @@ function MenuTemp(props) {
   const deleteItemOfMenu = async (id, name) => {
     try {
       const response = await fetch(url, {
-        method: "DELETE",
+        method: "POST",
         mode: "cors",
         body: JSON.stringify({
           idItemMenu: id,
@@ -86,7 +86,6 @@ function MenuTemp(props) {
               {menuTemp.map((item, index) => (
                   <ButtonGroup key = {index}>
                     <Button
-
                       color={
                         item.menu_item_type === "especialities"
                           ? "primary"
@@ -104,7 +103,7 @@ function MenuTemp(props) {
                     >
                       {item.name}
                     </Button>
-                    <Button 
+                    <Button
                         color={
                           item.menu_item_type === "especialities"
                             ? "primary"
@@ -122,10 +121,8 @@ function MenuTemp(props) {
                       onClick={() => {
                         deleteItemOfMenu(item.id, item.name);
                       }}>
-
                     </Button>
                   </ButtonGroup>
-
               ))}
             </div>
           </div>

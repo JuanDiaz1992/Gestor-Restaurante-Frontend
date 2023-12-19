@@ -2,21 +2,20 @@ import getCookie from './getCookies'
 import setCookie from './borrarCookies'
 
 export const cerrarSesion = async () => {
+  const url = process.env.REACT_APP_URL_HOST;
   try {
-
-    const response = await fetch('http://192.168.1.49:80/gestion_restaurante/', {
-      method: 'DELETE',
-      mode: 'cors',
+    const response = await fetch(url, {
+      method:'POST',
+      mode:'cors',
       body:JSON.stringify({
-        'token':getCookie("token"),
         'logout_request':true
       }),
       headers: {
-        'Content-Type': 'application/json',
-        'Module': 'user'
+        'Module': 'user',
+        Authorization: "Token " + getCookie("token"),
       },
     });
-    if (response.ok) {
+    if (response["status"] === 200) {
       setCookie('loggedIn', false);
       return true;
     } else {

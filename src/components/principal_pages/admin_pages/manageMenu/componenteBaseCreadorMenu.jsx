@@ -141,7 +141,7 @@ function Beginning(props){
             label: "Sí",
             onClick: () => {
               fetch(url, {
-                method: "DELETE",
+                method: "POST",
                 mode: "cors",
                 headers: {
                   Authorization: "Token " + getCookie("token"),

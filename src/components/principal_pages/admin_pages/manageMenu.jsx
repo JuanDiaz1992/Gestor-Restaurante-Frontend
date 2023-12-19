@@ -22,18 +22,11 @@ function ManageMenu() {
   const url = process.env.REACT_APP_URL_HOST;
   /*Este estado actualiza la mayoria de los componentes del creador del menú*/
   const [isChange,setChange] = useState(false);
-
   /*El siguiente es el menú temporal el cual se guarda en la sesión antes de guardarlo en la bd*/
   const [menuTempFather,setMenuTempFather] = useState([]);
   const [newlyCreatedMenu, setNewlyCreatedMenu]= useState(false);
   const [isMenuCreated, setMenuCreate] = useState();
-
   const [loadingPage, setLoadingPage] = useState(true)
-
-
-
-
-
   /*Función que valida si ya existe un menú con la fecha actual creado*/
   const validateMenu = async ()=>{
       let getId = await obtenerIDMenu(url)
@@ -130,7 +123,6 @@ function ManageMenu() {
         </>
         :
         <>
-
           <div className="sectionMenu_div--container">
             <MenuTemp
             isMenuCreated = {isMenuCreated}
@@ -158,7 +150,6 @@ function ManageMenu() {
           </div>
         </>
         }
-
         <Toaster position="top-center" reverseOrder={true} />
       </section>
     </>

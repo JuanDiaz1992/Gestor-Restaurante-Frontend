@@ -2,8 +2,6 @@ import { useEffect, useState} from "react"
 import formatPesosCop from "../../../Scripts/formatearPesos";
 import { motion } from "framer-motion";
 
-
-
 function Compras(props){
   const isLoading = props.isLoading;
   const [pagExist,setPagExist] = useState(false)
@@ -14,9 +12,7 @@ function Compras(props){
       setPagExist(false)
     }
   },[props.cantData,props.ITEMS_PER_PAGE])
-  
   const [viewMore,setViewMore] = useState(true);
-  
   const toggleState = (id) => {
     setViewMore(prevStates => ({
       ...prevStates,
@@ -25,7 +21,7 @@ function Compras(props){
   };
     return(
         <>
-          {isLoading? 
+          {isLoading?
                   props.isThereInventory === true ? (
             <>
               <div>
@@ -62,7 +58,7 @@ function Compras(props){
                             ? "Otros"
                             : "Otros"}
                         </td>
-                        <td className="valueObservations">{value.observations.length > 20 ? 
+                        <td className="valueObservations">{value.observations.length > 20 ?
                             <>
                               {viewMore[value.id] === true
                                 ? value.observations
@@ -72,17 +68,15 @@ function Compras(props){
                                 {viewMore[value.id] === true ? "Ver menos"  : "Ver más" }
                               </p>
                             </>
-                            
-                            : 
+                            :
                             value.observations }</td>
                         <td>{value.date}</td>
                         <td>
                           <motion.button
                             onClick={() => {
                               props.deleteItemInv(value.id);
-                            
                             }}
-                            whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }} 
+                            whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}
                             className="btn btn-danger"
                           >
                             X
@@ -93,7 +87,7 @@ function Compras(props){
                   </tbody>
                 </table>
                 <div>
-                  {pagExist? 
+                  {pagExist?
                     <nav aria-label="...">
                       <ul className="pagination">
                         <li className={props.isPreviusDisabled? "page-item" :  "page-item disabled" }>
@@ -106,12 +100,10 @@ function Compras(props){
                         ))}
                         <li className={props.isNextDisabled? "page-item disabled" :  "page-item" }>
                           <button onClick={props.handleClickNext} className="page-link">Next</button>
-                        
                         </li>
                       </ul>
                     </nav>
                 : <></>}
-
                   <h4>Total {props.tittle} en el día</h4>
                   {formatPesosCop(props.totalInventory)}
                 </div>
@@ -128,10 +120,9 @@ function Compras(props){
                     </p>
                 </div>
                 </div>
-
             </>
           )
-          : 
+          :
           <div className="loading_container">
             <svg width="100" height="100" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" stroke="#1ae743">
                 <g fill="none" fillRule="evenodd" strokeWidth="2">
@@ -170,9 +161,7 @@ function Compras(props){
                 </g>
             </svg>
             <p>Cargando...</p>
-
           </div>
-
       }
         </>
     )

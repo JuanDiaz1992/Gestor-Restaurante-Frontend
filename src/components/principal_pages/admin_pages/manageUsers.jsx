@@ -52,7 +52,7 @@ function ManageUser() {
           label: "Sí",
           onClick: () => {
             fetch(url, {
-              method: "delete",
+              method: "POST",
               mode: "cors",
               headers: {
                 Authorization: "Token " + getCookie("token"),
@@ -141,7 +141,7 @@ function ManageUser() {
     <>
       <section className="section_editUser">
         <div className="section_editUser--div">
-          {loading === true? 
+          {loading === true?
           <>
             <button className="btn btn-dark" onClick={()=>{openModalCreateUser()}}>
                 Crear Usuario

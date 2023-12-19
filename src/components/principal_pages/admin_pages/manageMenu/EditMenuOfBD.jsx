@@ -54,7 +54,6 @@ function EditMenuOfBD(props) {
       const data = await response.json();
       if (data.status === 200) {
         const results = data.results;
-
         const resultFilter = results.filter((result) => {
           return !props.allResults.some(
             (isInMenuresult) => isInMenuresult.name === result.name
@@ -153,8 +152,6 @@ function EditMenuOfBD(props) {
     formData.append("menu_item_type", typeSelect);
     formData.append("idProfile_user", idUser);
     formData.append("new_item_menu", true);
-    
-
     fetch(url, {
       method: "POST",
       mode: "cors",
@@ -185,7 +182,6 @@ function EditMenuOfBD(props) {
 
   return (
     <>
-
           <ModalHeader className="flex flex-col gap-1">
             <h3 className="text-2xl">Agregar items al menú</h3>
           </ModalHeader>
@@ -361,7 +357,6 @@ function EditMenuOfBD(props) {
                       type="text"
                     />
                   </div>
-
                   <div className="mb-3">
                     <label htmlFor="description">Descripción</label>
                     <Textarea
@@ -376,7 +371,6 @@ function EditMenuOfBD(props) {
                       }
                     ></Textarea>
                   </div>
-
                   <div className="mb-3">
                     <label htmlFor="name">Precio</label>
                     <Input
@@ -397,7 +391,6 @@ function EditMenuOfBD(props) {
                       }
                     />
                   </div>
-
                   <div className="mb-3">
                     <label htmlFor="formFile" className="form-label colorBlack">
                       Foto
@@ -441,7 +434,6 @@ function EditMenuOfBD(props) {
               </>
             ) : null}
           </ModalFooter>
-
     </>
   );
 }

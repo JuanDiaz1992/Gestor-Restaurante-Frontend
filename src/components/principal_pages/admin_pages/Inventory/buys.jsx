@@ -85,7 +85,7 @@ function InventoryAll() {
           onClick: async () => {
             try {
               const response = await fetch(url, {
-                method: "DELETE",
+                method: "POST",
                 mode: "cors",
                 body: JSON.stringify({
                   idItem: idItem,
@@ -140,7 +140,6 @@ function InventoryAll() {
           idProfile_user: idProfile_user,
           dateTime:formattedDate,
           record_buys: true
-          
         }),
         headers: {
           Authorization: "Token " + getCookie("token"),
@@ -338,7 +337,6 @@ function InventoryAll() {
             <button className={"btn btn-primary"}>Submit</button>
           </form>
         </div>
-
         <Toaster position="top-center" reverseOrder={true} />
       </section>
     </>

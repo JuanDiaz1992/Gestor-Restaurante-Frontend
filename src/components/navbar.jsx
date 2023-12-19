@@ -4,7 +4,6 @@ import { logout } from "../redux/userSlice";
 import React, { useEffect, useState } from "react";
 import { Avatar } from "@nextui-org/react";
 import cerrarSesion from "./Scripts/cerrarSesion";
-import setCookie from "./Scripts/borrarCookies"
 import logo from "../img/logo4.png";
 import { Button, Tooltip  } from "@nextui-org/react";
 import {BiArrowBack} from "react-icons/bi"
@@ -13,19 +12,15 @@ import  '../stylesheets/navbar.css'
 
 
 function NavBar() {
-
   const location = useLocation()
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const infoBusiness = useSelector((state) => state.auth);
   const url = process.env.REACT_APP_URL_HOST;
   const isLoggedIn = useSelector((state) => state.auth.is_logged_in);
   const type_user = useSelector((state) => state.auth.type_user);
   const name = useSelector((state) => state.auth.name);
   let img = useSelector((state) => state.auth.photo);
-
-
   const [navActive,setNavActive] = useState(true)
   const [setLogo, getLogo] = useState(false);
   const [buttonNavigate, setbuttonNavigate] = useState(false)
@@ -56,10 +51,8 @@ function NavBar() {
   }, [infoBusiness]);
 
   const cerraS = ()=> {
-
     dispatch(logout());
     cerrarSesion();
-    setCookie("token")
     setNavActive(!navActive);
   }
   return (

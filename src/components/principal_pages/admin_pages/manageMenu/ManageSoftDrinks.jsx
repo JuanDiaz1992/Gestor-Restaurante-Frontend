@@ -118,7 +118,7 @@ function ManageSoftDrinks({ closeModalEdit, sendState }) {
           label: "Sí",
           onClick: () => {
             fetch(url, {
-              method: "DELETE",
+              method: "POST",
               mode: "cors",
               headers: {
                 Authorization: "Token " + getCookie("token"),
@@ -133,7 +133,7 @@ function ManageSoftDrinks({ closeModalEdit, sendState }) {
               .then((data) => {
                 if (data.status === 200) {
                   setChanges(true);
-                   toast.success(name + " se eliminó correctamente");
+                  toast.success(name + " se eliminó correctamente");
                 }
               });
               sendState()
@@ -154,7 +154,6 @@ function ManageSoftDrinks({ closeModalEdit, sendState }) {
     setPrice(price)
     setAmount(amount)
   }
-  
   const comeBack=()=>{
     setSreateNewSoftDrink(true)
     setName("")
@@ -169,7 +168,7 @@ function ManageSoftDrinks({ closeModalEdit, sendState }) {
             <h3 className="text-2xl">Gestión Gaseosas</h3>
           </ModalHeader>
           <ModalBody>
-            {createNewSoftDrink?             
+            {createNewSoftDrink?
             <Table aria-label="Example static collection table">
               <TableHeader>
                 <TableColumn>Nombre</TableColumn>
@@ -202,7 +201,6 @@ function ManageSoftDrinks({ closeModalEdit, sendState }) {
                             softDrink.price,
                             softDrink.picture,
                             softDrink.amount
-                            
                             )}  >
                         <AiFillEdit/>
                         </Button>
@@ -212,7 +210,6 @@ function ManageSoftDrinks({ closeModalEdit, sendState }) {
                           }>
                         <AiFillDelete />
                         </Button>
-
                       </span>
                     </TableCell>
                   </TableRow>
@@ -243,7 +240,6 @@ function ManageSoftDrinks({ closeModalEdit, sendState }) {
                       type="text"
                     />
                   </div>
-
                   <div className="mb-3">
                     <label htmlFor="description">Descripción</label>
                     <Textarea
@@ -258,7 +254,6 @@ function ManageSoftDrinks({ closeModalEdit, sendState }) {
                       }
                     ></Textarea>
                   </div>
-
                   <div className="mb-3">
                     <label htmlFor="name">Precio</label>
                     <Input
@@ -293,7 +288,6 @@ function ManageSoftDrinks({ closeModalEdit, sendState }) {
                       placeholder="0"
                     />
                   </div>
-
                   <div className="mb-3">
                     <label htmlFor="formFile" className="form-label colorBlack">
                       Foto
@@ -312,8 +306,6 @@ function ManageSoftDrinks({ closeModalEdit, sendState }) {
               </ModalBody>
             </>
             }
-
-
           </ModalBody>
           <ModalFooter className="flex  flex-row gap-1 flex-wrap">
             {createNewSoftDrink ?

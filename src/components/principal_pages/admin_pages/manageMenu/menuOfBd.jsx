@@ -78,7 +78,7 @@ function MenuOfBd(props) {
     }
     try {
       fetch(url, {
-        method: "DELETE",
+        method: "POST",
         mode: "cors",
         headers: {
           Authorization: "Token " + getCookie("token"),
@@ -107,7 +107,6 @@ function MenuOfBd(props) {
           }
           setIsChange(true);
           sendState();
-
         });
     } catch (error) {
       console.log(error);
@@ -139,7 +138,6 @@ function MenuOfBd(props) {
             }else{
               toast.success(name + " marcado como disponible.");
             }
-
           } else {
             toast.error(
               "Ha ocurrido un error al supender " +
@@ -164,7 +162,7 @@ function MenuOfBd(props) {
           label: "Sí",
           onClick: () => {
             fetch(url, {
-              method: "DELETE",
+              method: "POST",
               mode: "cors",
               headers: {
                 Authorization: "Token " + getCookie("token"),
