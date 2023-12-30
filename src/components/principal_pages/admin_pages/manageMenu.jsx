@@ -27,6 +27,7 @@ function ManageMenu() {
   const [newlyCreatedMenu, setNewlyCreatedMenu]= useState(false);
   const [isMenuCreated, setMenuCreate] = useState();
   const [loadingPage, setLoadingPage] = useState(true)
+  const [btnCreateMenuAvalaible, setBtnCreateMenuAvalaible] = useState(true)
   /*Función que valida si ya existe un menú con la fecha actual creado*/
   const validateMenu = async ()=>{
       let getId = await obtenerIDMenu(url)
@@ -83,6 +84,8 @@ function ManageMenu() {
         },
       });
     }else{
+      setBtnCreateMenuAvalaible(false)
+      setMenuTempFather([])
       fetch(url,{
         method: "POST",
         mode: "cors",
@@ -102,8 +105,10 @@ function ManageMenu() {
           setChange(true);
           setNewlyCreatedMenu(true)
           sendState()
+          setBtnCreateMenuAvalaible(true)
         }
-      })
+      }
+      )
     }
   }
 
@@ -145,6 +150,8 @@ function ManageMenu() {
                 menuTemp = {menuTempFather}
                 createMenu = {createMenu}
                 setChange = {setChange}
+                setBtnCreateMenuAvalaible = {setBtnCreateMenuAvalaible}
+                btnCreateMenuAvalaible = {btnCreateMenuAvalaible}
                 />
             }
           </div>

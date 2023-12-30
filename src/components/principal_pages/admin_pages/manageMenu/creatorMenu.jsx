@@ -8,11 +8,12 @@ import Drinks from "./itemMenuCreator/drinks";
 import ManageSoftDrinks from "./ManageSoftDrinks";
 
 function MenuCreator(props) {
+  const { btnCreateMenuAvalaible, setBtnCreateMenuAvalaible} = props
   const [menuSection, setMenuSection] = useState(0);
   const [seeMEnuOption, setSeeMenuOption] = useState();
   const [childrenUpdate, setChildrenUpdate] = useState(false);
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
-  const [btnCreateMenuAvalaible, setBtnCreateMenuAvalaible] = useState(true)
+
   /*Función que define si debe ir adelante el menú o atrás*/
   const viewSectionMenu = (backOrForward) => {
     if (backOrForward) {
@@ -69,7 +70,6 @@ function MenuCreator(props) {
 
 
   const createMenuPrevious=()=>{
-    setBtnCreateMenuAvalaible(false)
     props.createMenu();
   }
   return (
