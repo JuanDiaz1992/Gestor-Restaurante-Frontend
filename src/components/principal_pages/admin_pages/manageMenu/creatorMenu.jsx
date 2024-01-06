@@ -8,7 +8,7 @@ import Drinks from "./itemMenuCreator/drinks";
 import ManageSoftDrinks from "./ManageSoftDrinks";
 
 function MenuCreator(props) {
-  const { btnCreateMenuAvalaible, setBtnCreateMenuAvalaible} = props
+  const { btnCreateMenuAvalaible} = props
   const [menuSection, setMenuSection] = useState(0);
   const [seeMEnuOption, setSeeMenuOption] = useState();
   const [childrenUpdate, setChildrenUpdate] = useState(false);

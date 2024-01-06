@@ -202,102 +202,6 @@
 }
 
 
-@media screen and (max-width: 1030px) {
-    .sectionAdmin {
-        height: 100%;
-    }
-    .section_div1_container {
-        grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: repeat(5, 1fr);
-        }
-        .element1 { grid-area: 1 / 1 / 3 / 3; }
-        .element2 { grid-area: 1 / 3 / 2 / 5; }
-        .element3 { grid-area: 2 / 3 / 3 / 5; }
-        /* .element4 { grid-area: 3 / 1 / 4 / 5; }
-        .element5 { grid-area: 4 / 1 / 6 / 5; } */
-
-
-        .element4 { grid-area: 5 / 1 / 6 / 5; }
-        .element5 { grid-area: 3 / 1 / 5 / 5; }
-
-        .imgBannerVenta{
-            width: 190px;
-        }
-        .foto1{
-            right: 229px;
-            bottom: -6px;
-        }
-        .foto2{
-            right: -21px;
-            bottom: 0;
-        }
-        .foto3{
-            right: 189px;
-            bottom: 167px;
-        }
-        .foto4{
-            right: -35px;
-            bottom: 106px;
-        }
-        .foto6{
-            right: 289px;
-            bottom: 285px;
-            width: 100px;
-        }
-        .foto5{
-            position: absolute;
-            right: 50px;
-            bottom: -10px;
-            width: 250px;
-        }
-}
-
-@media screen and (max-width: 665px) {
-    .section_div1_container {
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(5, 1fr);
-
-        }
-        
-        .element1 { grid-area: 1 / 1 / 2 / 3; }
-        .element2 { grid-area: 2 / 1 / 3 / 3; }
-        .element5 { grid-area: 3 / 1 / 4 / 3; }
-        .element3{ grid-area: 4 / 1 / 5 / 3; }
-        .element4{ grid-area: 5 / 1 / 6 / 3; }
-        .grapich{
-            width: 310px;
-        }
-        .imgBannerVenta{
-            width: 150px;
-        }
-        .foto1{
-            right: 197px;
-            bottom: -6px;
-        }
-        .foto2{
-            right: -21px;
-            bottom: 0;
-        }
-        .foto3{
-            right: 182px;
-            bottom: 134px;
-        }
-        .foto4{
-            right: -13px;
-            bottom: 106px;
-        }
-        .foto6{
-            right: 252px;
-            bottom: 285px;
-            width: 60px;
-        }
-        .foto5{
-            position: absolute;
-            right: 50px;
-            bottom: -10px;
-            width: 200px;
-        }
-}
 
 
 
@@ -398,17 +302,6 @@
 }
 
 
-
-@media screen and (max-width: 784px) {
-    .section_editUser--div{
-        align-items: normal;
-        overflow: auto;
-    }
-
-}
-
-
-
 /*******************************section register buys and bills of inventory**********************/
 
 
@@ -505,26 +398,7 @@
 }
 
 
-@media screen and (max-width: 900px) {
 
-    .sectionRegistreInventory{
-        flex-direction: column-reverse;
-    }
-    .sectionRegistreInventory--div1{
-        width: 100%;
-        overflow: auto;
-    }
-    .sectionRegistreInventory--div2{
-        width: 100%;
-    }
-    .principalPagueRegistreInventory-div1{
-        flex-direction: column;
-        padding: 48px 0 0 0;
-    }
-    .card-div1-item{
-        height: 240px;
-    }
-}
 
 /********************************Menu creator*************************/
 
@@ -565,6 +439,7 @@
     align-items: center;
 }
 .menuCreator70{
+    max-width: 780px;
     width: 70%;
 }
 
@@ -590,10 +465,15 @@
 }
 
 .cardContainerMenu{
+    max-width: 616px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-end;
 
+}
+.accordion_create_item_menu{
+    margin:20px 0 20px 0 !important;
+    max-width: 636px;
 }
 
 .cardEspecialities{
@@ -610,9 +490,7 @@
 
 
 .formEspecialitiesContainer{
-    margin: 50px 0 0 0 ;
-    width: 70%;
-
+    width: 100%;
 }
 
 .cardContainerMenu--div{
@@ -723,3 +601,135 @@ table p{
     justify-content: flex-end;
     gap: 10px;
 }
+
+
+/*****************************************MOVIL***********************************/
+
+@media screen and (max-width: 900px) {
+
+    .sectionRegistreInventory{
+        flex-direction: column-reverse;
+    }
+    .sectionRegistreInventory--div1{
+        width: 100%;
+        overflow: auto;
+    }
+    .sectionRegistreInventory--div2{
+        width: 100%;
+    }
+    .principalPagueRegistreInventory-div1{
+        flex-direction: column;
+        padding: 48px 0 0 0;
+    }
+    .card-div1-item{
+        height: 240px;
+    }
+}
+
+
+@media screen and (max-width: 1030px) {
+    .sectionAdmin {
+        height: 100%;
+    }
+    .section_div1_container {
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+        }
+        .element1 { grid-area: 1 / 1 / 3 / 3; }
+        .element2 { grid-area: 1 / 3 / 2 / 5; }
+        .element3 { grid-area: 2 / 3 / 3 / 5; }
+        /* .element4 { grid-area: 3 / 1 / 4 / 5; }
+        .element5 { grid-area: 4 / 1 / 6 / 5; } */
+
+
+        .element4 { grid-area: 5 / 1 / 6 / 5; }
+        .element5 { grid-area: 3 / 1 / 5 / 5; }
+
+        .imgBannerVenta{
+            width: 190px;
+        }
+        .foto1{
+            right: 229px;
+            bottom: -6px;
+        }
+        .foto2{
+            right: -21px;
+            bottom: 0;
+        }
+        .foto3{
+            right: 189px;
+            bottom: 167px;
+        }
+        .foto4{
+            right: -35px;
+            bottom: 106px;
+        }
+        .foto6{
+            right: 289px;
+            bottom: 285px;
+            width: 100px;
+        }
+        .foto5{
+            position: absolute;
+            right: 50px;
+            bottom: -10px;
+            width: 250px;
+        }
+}
+
+
+@media screen and (max-width: 784px) {
+    .section_editUser--div{
+        align-items: normal;
+        overflow: auto;
+    }
+
+}
+
+
+@media screen and (max-width: 665px) {
+    .section_div1_container {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+        }
+        .element1 { grid-area: 1 / 1 / 2 / 3; }
+        .element2 { grid-area: 2 / 1 / 3 / 3; }
+        .element5 { grid-area: 3 / 1 / 4 / 3; }
+        .element3{ grid-area: 4 / 1 / 5 / 3; }
+        .element4{ grid-area: 5 / 1 / 6 / 3; }
+        .grapich{
+            width: 310px;
+        }
+        .imgBannerVenta{
+            width: 150px;
+        }
+        .foto1{
+            right: 197px;
+            bottom: -6px;
+        }
+        .foto2{
+            right: -21px;
+            bottom: 0;
+        }
+        .foto3{
+            right: 182px;
+            bottom: 134px;
+        }
+        .foto4{
+            right: -13px;
+            bottom: 106px;
+        }
+        .foto6{
+            right: 252px;
+            bottom: 285px;
+            width: 60px;
+        }
+        .foto5{
+            position: absolute;
+            right: 50px;
+            bottom: -10px;
+            width: 200px;
+        }
+}
+
+

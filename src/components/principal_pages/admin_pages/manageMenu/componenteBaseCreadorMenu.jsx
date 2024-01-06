@@ -4,7 +4,7 @@ import getCookie from "../../../Scripts/getCookies";
 import {AiFillCloseCircle} from "react-icons/ai";
 import { confirmAlert } from "react-confirm-alert";
 import compressImage from "../../../Scripts/comprimirImg"
-
+import validateData from "../../../Scripts/validateData";
 import GoToTop from "../../../Scripts/OnTop"
 import {
   Button,
@@ -14,6 +14,8 @@ import {
   CardFooter,
   Image,
   CardBody,
+  Accordion,
+  AccordionItem
 } from "@nextui-org/react";
 import { toast } from "react-hot-toast";
 
@@ -53,6 +55,7 @@ function Beginning(props){
       }
     };
     /*Función que crea nuevos elementos para el menú, este es el formulario*/
+    let formOK = validateData(name, 1, 4);
     const sendForm = async  (e) => {
       e.preventDefault();
       const compressedImage = await compressImage(photo);
@@ -73,30 +76,33 @@ function Beginning(props){
       formData.append("menu_item_type", props.nameItem);
       formData.append("idProfile_user", idUser);
       formData.append("new_item_menu", true);
-      fetch(url, {
-        method: "POST",
-        mode: "cors",
-        body: formData,
-        headers: {
-          Authorization: "Token " + getCookie("token"),
-          Module: "menu_management",
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.status === 200) {
-            toast.success(name + " se creo correctamente");
-            props.setChangeFather(true);
-            setUpdateItems(true);
-            setName("");
-            setDescription("");
-            setPrice();
-            let formRegis = document.getElementById('formRegis');
-            formRegis.reset();
-          } else if (data.status === 404) {
-            console.log("error 409");
-          }
-        });
+      if(formOK){
+        fetch(url, {
+          method: "POST",
+          mode: "cors",
+          body: formData,
+          headers: {
+            Authorization: "Token " + getCookie("token"),
+            Module: "menu_management",
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.status === 200) {
+              toast.success(name + " se creo correctamente");
+              props.setChangeFather(true);
+              setUpdateItems(true);
+              setName("");
+              setDescription("");
+              setPrice();
+              let formRegis = document.getElementById('formRegis');
+              formRegis.reset();
+            } else if (data.status === 404) {
+              console.log("error 409");
+            }
+          });
+      }
+
     };
     /*Cuando se agrega un nuevo elemento, se actualizan con este hook*/
     useEffect(() => {
@@ -216,79 +222,83 @@ return(
             </div>
           </>
         )}
-        <div className="formEspecialitiesContainer">
-          <h4>Agregar {props.onlyNameCategory}</h4>
-          <form
-            id="formRegis"
-            encType="multipart/form-data"
-            onSubmit={(e) => {
-              sendForm(e);
-            }}
-          >
-            <div className="mb-3">
-              <label htmlFor="name">Nombre {props.labelNameItem}</label>
-              <Input
-                value={name}
-                onChange={(e) => {
-                  setName(e.target.value);
+        <Accordion className="accordion_create_item_menu"  variant="splitted">
+          <AccordionItem aria-label="Accordion 1" title={"Agregar "+ props.onlyNameCategory}>
+            <div className="formEspecialitiesContainer">
+              <h4>Agregar {props.onlyNameCategory}</h4>
+              <form
+                id="formRegis"
+                encType="multipart/form-data"
+                onSubmit={(e) => {
+                  sendForm(e);
                 }}
-                id="name"
-                variant="faded"
-                radius="sm"
-                type="text"
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="description">Descripción</label>
-              <Textarea
-                value={description}
-                onChange={(e) => {
-                setDescription(e.target.value);
-                }}
-                id="description"
-                rows="3"
-                placeholder={"Describa brevemente que incluye o de que trata " + props.labedescriptionItem}
-              ></Textarea>
-            </div>
-            {props.type_menu === "especialities" &&
-              <div className="mb-3">
-              <label htmlFor="name">Precio de {props.labelNameItem}</label>
-              <Input
-                value={price}
-                onChange={(e) => {
-                  setPrice(e.target.value);
-                }}
-                id="name"
-                variant="faded"
-                radius="sm"
-                type="number"
-                placeholder="0.00"
-                labelPlacement="outside"
-                startContent={
-                  <div className="pointer-events-none flex items-center">
-                    <span className="text-default-400 text-small">$</span>
-                  </div>
+              >
+                <div className="mb-3">
+                  <label htmlFor="name">Nombre {props.labelNameItem}</label>
+                  <Input
+                    value={name}
+                    onChange={(e) => {
+                      setName(e.target.value);
+                    }}
+                    id="name"
+                    variant="faded"
+                    radius="sm"
+                    type="text"
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="description">Descripción</label>
+                  <Textarea
+                    value={description}
+                    onChange={(e) => {
+                    setDescription(e.target.value);
+                    }}
+                    id="description"
+                    rows="3"
+                    placeholder={"Describa brevemente que incluye o de que trata " + props.labedescriptionItem}
+                  ></Textarea>
+                </div>
+                {props.type_menu === "especialities" &&
+                  <div className="mb-3">
+                  <label htmlFor="name">Precio de {props.labelNameItem}</label>
+                  <Input
+                    value={price}
+                    onChange={(e) => {
+                      setPrice(e.target.value);
+                    }}
+                    id="name"
+                    variant="faded"
+                    radius="sm"
+                    type="number"
+                    placeholder="0.00"
+                    labelPlacement="outside"
+                    startContent={
+                      <div className="pointer-events-none flex items-center">
+                        <span className="text-default-400 text-small">$</span>
+                      </div>
+                    }
+                  />
+                </div>
                 }
-              />
+                <div className="mb-3">
+                  <label htmlFor="formFile" className="form-label colorBlack">
+                    Foto
+                  </label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    id="formFile"
+                    className="form-control"
+                    onChange={(e) => setPhoto(e.target.files[0])}
+                  />
+                </div>
+                <Button type="submit" color={formOK? "primary":"secondary"} variant="bordered">
+                  Crear item
+                </Button>
+              </form>
             </div>
-            }
-            <div className="mb-3">
-              <label htmlFor="formFile" className="form-label colorBlack">
-                Foto
-              </label>
-              <input
-                type="file"
-                accept="image/*"
-                id="formFile"
-                className="form-control"
-                onChange={(e) => setPhoto(e.target.files[0])}
-              />
-            </div>
-            <Button type="submit" color="primary" variant="bordered">
-              Crear item
-            </Button>
-          </form>
-        </div>
+          </AccordionItem>
+        </Accordion>
       </>
       <GoToTop/>
   </>
