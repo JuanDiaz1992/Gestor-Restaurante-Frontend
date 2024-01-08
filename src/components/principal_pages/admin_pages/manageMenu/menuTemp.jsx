@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button,ButtonGroup } from "@nextui-org/react";
+import { Button,Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Spinner } from "@nextui-org/react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { toast } from "react-hot-toast";
 import getCookie from "../../../Scripts/getCookies";
@@ -81,49 +81,28 @@ function MenuTemp(props) {
       {menuTemp.length !== 0 ? (
         <>
           <div className="menuContainer sticky">
-            <h4>Menú para hoy:</h4>
+            <h4>Menú del día.</h4>
             <div className="buttomsEspcialitiesContainer">
-              {menuTemp.map((item, index) => (
-                  <ButtonGroup key = {index}>
-                    <Button
-                      color={
-                        item.menu_item_type === "especialities"
-                          ? "primary"
-                          : item.menu_item_type === "soups"
-                          ? "warning"
-                          : item.menu_item_type === "beginning"
-                          ? "success"
-                          : item.menu_item_type === "meats"
-                          ? "danger"
-                          : item.menu_item_type === "drinks"
-                          ? "secondary"
-                          : ""
-                      }
-                      variant="flat"
-                    >
-                      {item.name}
-                    </Button>
-                    <Button
-                        color={
-                          item.menu_item_type === "especialities"
-                            ? "primary"
-                            : item.menu_item_type === "soups"
-                            ? "warning"
-                            : item.menu_item_type === "beginning"
-                            ? "success"
-                            : item.menu_item_type === "meats"
-                            ? "danger"
-                            : item.menu_item_type === "drinks"
-                            ? "secondary"
-                            : ""
-                        }
-                      endContent={<AiFillCloseCircle />}
-                      onClick={() => {
-                        deleteItemOfMenu(item.id, item.name);
-                      }}>
-                    </Button>
-                  </ButtonGroup>
-              ))}
+              <Table  className="tableMenuTemp" isStriped isHeaderSticky aria-label="Menú temporal">
+                <TableHeader>
+                  <TableColumn>Nombre</TableColumn>
+                  <TableColumn>Acción</TableColumn>
+                </TableHeader>
+                <TableBody>
+                  {menuTemp.map((item, index) => (
+                    <TableRow key={index}>
+                      <TableCell>{item.name}</TableCell>
+                      <TableCell>
+                        <Button
+                          color="danger"
+                          endContent={<AiFillCloseCircle/>}
+                          onClick={()=>{deleteItemOfMenu(item.id, item.name)}}
+                          >Eliminar</Button>
+                        </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </ Table>
             </div>
           </div>
         </>

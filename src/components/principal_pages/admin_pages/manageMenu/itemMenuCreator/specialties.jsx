@@ -14,7 +14,7 @@ function Specialities(props) {
       {specialitiesInclude === true ? (
           <>
             <ComponenteBaseCreadorMenu
-              nameCategoryItem = {"las especialidades"}
+              nameCategoryItem = {"Especialidades"}
               onlyNameCategory = {"especialidad"}
               nameItem = {"especialities"}
               labedescriptionItem = {"la especialidad"}

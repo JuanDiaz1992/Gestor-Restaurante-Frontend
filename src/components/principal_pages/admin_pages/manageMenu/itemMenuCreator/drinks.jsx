@@ -3,7 +3,7 @@ function Drinks(props){
     return(
         <>
         <ComponenteBaseCreadorMenu
-            nameCategoryItem = {"las bebidas"}
+            nameCategoryItem = {"Bebidas"}
             onlyNameCategory = {"bebida"}
             nameItem = {"drinks"}
             labedescriptionItem = {"la bebida"}

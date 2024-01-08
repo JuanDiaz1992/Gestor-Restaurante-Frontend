@@ -1,6 +1,9 @@
 /*******************************Principal Page Admin**********************/
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
+.content{
+    min-height: 80vh;
+}
 .sectionAdmin{
     width: 100%;
     display: flex;
@@ -427,9 +430,13 @@
     width: 30%;
     height: fit-content;
 }
+.menuContainer h4{
+    text-align: center;
+}
 .menuCreator{
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
 
 }
@@ -448,12 +455,13 @@
     display: flex;
     gap: 10px;
     justify-content: center;
-    padding: 0 35px 0 0;
+
 }
 
 
 .buttomsEspcialitiesContainer{
-
+    overflow-y: auto;
+    padding: 5px;
     display: flex;
     gap: 2px;
     flex-wrap: wrap
@@ -512,6 +520,11 @@
     align-items: center;
 }
 
+.tableMenuTemp{
+    max-height: 70vh;
+
+}
+
 /********************************Menu del día en el creador de menú*************************/
 
 table p{
@@ -519,7 +532,7 @@ table p{
     margin: 0;
 }
 .section_menu{
-    margin: 100px 30px;
+    margin: 100px 30px 30px 30px ;
     min-height: 72vh;
 }
 .sectionMenuCenter{
@@ -542,9 +555,11 @@ table p{
     display: flex;
     flex-direction: column;
     align-items: center;
-     
 }
-
+.table_menu_bd{
+    width: 90vmin;
+    overflow-x: auto;
+}
 .delete_softDrink{
     display: flex;
     font-size: 25px;
@@ -625,7 +640,31 @@ table p{
         height: 240px;
     }
 }
+@media screen and (max-width: 1027px) {
+    .cardContainerMenu--div{
+        flex: auto;
+    }
+    .menuContainer{
+        width: fit-content;
+    }
 
+    .cardEspecialities img{
+        height: 100%;
+        width: 100%;
+    }
+    .cardEspecialities{
+        width: 100%;
+    }
+    .cardContainerImg{
+        width: 100%;
+    }
+    .cardContainerImg div{
+        max-width: none !important;
+        max-height: 170px;
+        width: 100%;
+        height: 170px;
+    }
+}
 
 @media screen and (max-width: 1030px) {
     .sectionAdmin {
@@ -733,3 +772,25 @@ table p{
 }
 
 
+@media screen and (max-width: 665px) {
+    .sectionMenu_div--container{
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+    .menuContainer{
+        width: 100%;
+    }
+    .menuCreator70{
+        width: 100%;
+    }
+    .section_menu{
+        margin: 100px 10px;
+    }
+
+}
+
+@media screen and (max-width: 523px) {
+    .menu_of_day_container--div2{
+        flex-direction: column;
+    }
+}

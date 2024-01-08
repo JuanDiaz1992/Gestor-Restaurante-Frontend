@@ -4,7 +4,7 @@ function Meat(props){
 
       <>
         <ComponenteBaseCreadorMenu
-        nameCategoryItem = {"las carnes"}
+        nameCategoryItem = {"Carnes"}
         onlyNameCategory = {"carne"}
         nameItem = {"meats"}
         labedescriptionItem = {"la carne"}

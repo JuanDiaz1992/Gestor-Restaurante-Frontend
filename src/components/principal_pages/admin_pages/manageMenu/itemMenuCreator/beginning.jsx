@@ -5,7 +5,7 @@ return(
 
     <>
         <ComponenteBaseCreadorMenu
-            nameCategoryItem = {"los principios"}
+            nameCategoryItem = {"Principios"}
             onlyNameCategory = {"principio"}
             nameItem = {"beginning"}
             labedescriptionItem = {"el principio"}

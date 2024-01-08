@@ -4,7 +4,7 @@ function Soups(props){
     return(
         <>
           <ComponenteBaseCreadorMenu
-          nameCategoryItem = {"las sopas"}
+          nameCategoryItem = {"Sopas"}
           onlyNameCategory = {"sopa"}
           nameItem = {"soups"}
           labedescriptionItem = {"la sopa"}

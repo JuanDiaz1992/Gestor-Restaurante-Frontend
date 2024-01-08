@@ -182,7 +182,7 @@ return(
       <>
         {item.length !== 0 ? (
           <>
-            <h4>Seleccione {props.nameCategoryItem} para hoy: </h4>
+            <h4>{props.nameCategoryItem}</h4>
             <div className="cardContainerMenu max-w-[900px] gap-2 grid grid-cols-12 grid-rows-2 px-8">
               {item.map((item) => (
                 <div className="cardContainerMenu--div" key={item.id}>
@@ -206,6 +206,7 @@ return(
                     </CardBody>
                     <CardFooter className="text-small justify-between">
                       <b>{item.name}</b>
+                      {item.price>0 && <b>{item.price - 2000}</b>}
                     </CardFooter>
                   </Card>
                 </div>

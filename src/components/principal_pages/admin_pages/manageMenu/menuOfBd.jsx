@@ -240,63 +240,63 @@ function MenuOfBd(props) {
           </>
           :
           <>
-              <h1 className="sectionMenu_div--container--tile_menu">MENÚ DEL DÍA</h1>
-              <Table isStriped aria-label="Items menu of bd">
-                <TableHeader>
-                  <TableColumn>Nombre</TableColumn>
-                  <TableColumn>Tipo</TableColumn>
-                  <TableColumn>Precio</TableColumn>
-                  <TableColumn>Estatus</TableColumn>
-                  <TableColumn>Acciones</TableColumn>
-                </TableHeader>
-                <TableBody>
-                {allItemsMenu.map((item, index) =>(
-                    <TableRow key={index}>
-                    <TableCell>
-                      <div className="avata_and_name_container">
-                          <Avatar radius="lg"  size="lg" alt={item.title} className={(item.state === 1? "" : "agotado")} classNames={{ img: "opacity-1" }} src={url + item.picture}/>
-                        <p>{item.name}</p>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <p>
-                        {
-                            item.menu_item_type === "especialities"
-                          ? "Especialidades"
-                          : item.menu_item_type === "soups"
-                          ? "Sopas"
-                          : item.menu_item_type === "beginning"
-                          ? "Principios"
-                          : item.menu_item_type === "meats"
-                          ? "Carnes"
-                          : item.menu_item_type === "drinks"
-                          ? "Bebidas"
-                          : ""
-                        }
-                      </p>
-                    </TableCell>
-                    <TableCell>{item.menu_item_type === "especialities"? (
-                              <p>${item.price}</p>
-                            ) : null}</TableCell>
-                    <TableCell>{item.state === 1? "Disponible" : "Agotado"}</TableCell>
-                    <TableCell>
-                      <div className="relative flex items-center gap-2">
-                      <Tooltip color="default" content="Suspender">
-                        <span onClick={() => supend(item.id, item.name, item.state)} className="icon_container">
-                          <AiOutlinePauseCircle />
-                        </span>
-                      </Tooltip>
-                      <Tooltip color="danger" content="Borrar">
-                        <span onClick={() => deleteItemFromMenuBd(item.id, item.name)} className="icon_container">
-                          <AiFillDelete />
-                        </span>
-                      </Tooltip>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))}
-                </TableBody>
-          </Table>
+            <h1 className="sectionMenu_div--container--tile_menu">MENÚ DEL DÍA</h1>
+            <Table className="table_menu_bd" isStriped aria-label="Items menu of bd">
+              <TableHeader>
+                <TableColumn>Nombre</TableColumn>
+                <TableColumn>Tipo</TableColumn>
+                <TableColumn>Precio</TableColumn>
+                <TableColumn>Estatus</TableColumn>
+                <TableColumn>Acciones</TableColumn>
+              </TableHeader>
+              <TableBody>
+              {allItemsMenu.map((item, index) =>(
+                  <TableRow key={index}>
+                  <TableCell>
+                    <div className="avata_and_name_container">
+                        <Avatar radius="lg"  size="lg" alt={item.title} className={(item.state === 1? "" : "agotado")} classNames={{ img: "opacity-1" }} src={url + item.picture}/>
+                      <p>{item.name}</p>
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <p>
+                      {
+                          item.menu_item_type === "especialities"
+                        ? "Especialidades"
+                        : item.menu_item_type === "soups"
+                        ? "Sopas"
+                        : item.menu_item_type === "beginning"
+                        ? "Principios"
+                        : item.menu_item_type === "meats"
+                        ? "Carnes"
+                        : item.menu_item_type === "drinks"
+                        ? "Bebidas"
+                        : ""
+                      }
+                    </p>
+                  </TableCell>
+                  <TableCell>{item.menu_item_type === "especialities"? (
+                            <p>${item.price}</p>
+                          ) : null}</TableCell>
+                  <TableCell>{item.state === 1? "Disponible" : "Agotado"}</TableCell>
+                  <TableCell>
+                    <div className="relative flex items-center gap-2">
+                    <Tooltip color="default" content="Suspender">
+                      <span onClick={() => supend(item.id, item.name, item.state)} className="icon_container">
+                        <AiOutlinePauseCircle />
+                      </span>
+                    </Tooltip>
+                    <Tooltip color="danger" content="Borrar">
+                      <span onClick={() => deleteItemFromMenuBd(item.id, item.name)} className="icon_container">
+                        <AiFillDelete />
+                      </span>
+                    </Tooltip>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+              </TableBody>
+            </Table>
           </>
           }
         </div>
