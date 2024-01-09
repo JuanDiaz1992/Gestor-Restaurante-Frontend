@@ -376,9 +376,9 @@
 }
 
 .viewMore{
-    text-decoration: underline; /* Para agregar el subrayado */
-    color: blue; /* Para establecer el color del texto */
-    cursor: pointer; /* Opcional: Cambiar el cursor al pasar sobre el párrafo */
+    text-decoration: underline;
+    color: blue;
+    cursor: pointer;
     white-space: nowrap;
 }
 .valueObservations{
@@ -602,8 +602,10 @@ table p{
     flex-direction: column;
     gap: 5px;
     padding: 15px 10px !important;
-    border-radius: 10px;
-    border: 1px solid rgb(165, 165, 165);
+}
+.action_div_container_edit_item_menu{
+    display: flex;
+    gap: 3px;
 }
 .modal_content_edit_menu{
     position: absolute;
