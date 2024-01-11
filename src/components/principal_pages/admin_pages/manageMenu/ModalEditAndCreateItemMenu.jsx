@@ -14,14 +14,14 @@ import getCookie from "../../../Scripts/getCookies";
 import compressImage from "../../../Scripts/comprimirImg";
 import validateData from "../../../Scripts/validateData";
 
-function ModalEditAndCreateItemMenu({createItem, setCreateItem, setChanges, labelNameItem}) {
-  const [typeSelect, setTypeSelect] = useState("");
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState();
+function ModalEditAndCreateItemMenu({createItem, createOrEditItem, setChanges, editItem,dataItem}) {
+  const [typeSelect, setTypeSelect] = useState(editItem === true? dataItem[1] : "especialities");
+  const [name, setName] = useState(editItem === true?  dataItem[2] : "");
+  const [description, setDescription] = useState(editItem === true?  dataItem[3] : "");
+  const [price, setPrice] = useState(editItem === true?  dataItem[4] : "");
   const [photo, setPhoto] = useState();
   const url = process.env.REACT_APP_URL_HOST;
-  let DataOk = validateData([name, typeSelect], 2, 4);
+
   useEffect(() => {
     if (!createItem) {
       setName("");
@@ -32,8 +32,23 @@ function ModalEditAndCreateItemMenu({createItem, setCreateItem, setChanges, labe
   }, [createItem]);
   const idUser = useSelector((state) => state.auth.id_user);
 
-
-
+  let formOK = false;
+  //Valida si los datos son correctos dependiendiendo si es una edición o una creación de bebida
+  if (editItem) {
+    if (name !== dataItem[2] ||
+        description !== dataItem[3] ||
+        parseInt(price) !== dataItem[4] ||
+        typeSelect !== dataItem[1]) {
+          validateData([name, typeSelect,], 2, 4) ? formOK = true : formOK = false;
+    }else if(photo && validateData([name], 2, 4)){
+      formOK = true
+    }
+    else{
+      formOK = false;
+    }
+  }else{
+    formOK = validateData([name, typeSelect], 2, 4);
+  }
 
   const sendForm = async () => {
     const compressedImage = await compressImage(photo);
@@ -45,6 +60,7 @@ function ModalEditAndCreateItemMenu({createItem, setCreateItem, setChanges, labe
     formData.append("name", name);
     formData.append("description", description);
     formData.append("price", priceFull);
+    formData.append("amount", 0);
     if (compressedImage) {
       formData.append(
         "photo",
@@ -55,8 +71,16 @@ function ModalEditAndCreateItemMenu({createItem, setCreateItem, setChanges, labe
     }
     formData.append("menu_item_type", typeSelect);
     formData.append("idProfile_user", idUser);
-    formData.append("new_item_menu", true);
-    if (DataOk) {
+    if (editItem) {
+      formData.append("edit_item_menu", true);
+      formData.append("idItem", dataItem[0]);
+      if(compressedImage !== ""){
+        formData.append("beforePicture", dataItem[5]);
+      }
+    } else {
+      formData.append("new_item_menu", true);
+    }
+    if (formOK) {
       fetch(url, {
         method: "POST",
         mode: "cors",
@@ -74,7 +98,7 @@ function ModalEditAndCreateItemMenu({createItem, setCreateItem, setChanges, labe
             setDescription("");
             setPrice();
             setTypeSelect("");
-            setCreateItem(false);
+            createOrEditItem(false,false);
             let formRegis = document.getElementById("formRegis");
             formRegis.reset();
           } else if (data.status === 404) {
@@ -103,6 +127,7 @@ function ModalEditAndCreateItemMenu({createItem, setCreateItem, setChanges, labe
               label="Seleccione el tipo"
               className="max-w-xs"
               value={typeSelect}
+              defaultSelectedKeys={[typeSelect]}
               onChange={(e) => setTypeSelect(e.target.value)}
             >
               <SelectItem key="especialities">Especialidad</SelectItem>
@@ -113,7 +138,7 @@ function ModalEditAndCreateItemMenu({createItem, setCreateItem, setChanges, labe
             </Select>
           </div>
           <div className="mb-3">
-            <label htmlFor="name">Nombre {labelNameItem}</label>
+            <label htmlFor="name">Nombre </label>
             <Input
               value={name}
               onChange={(e) => {
@@ -171,10 +196,10 @@ function ModalEditAndCreateItemMenu({createItem, setCreateItem, setChanges, labe
         </form>
       </ModalBody>
       <ModalFooter className="flex  flex-row gap-1 flex-wrap">
-        <Button onClick={sendForm} color={DataOk ? "primary" : "default"}>
-          Submit
+        <Button onClick={sendForm} color={formOK ? "primary" : "default"}>
+          Aceptar cambios
         </Button>
-        <Button color="danger" onClick={() => setCreateItem(false)}>
+        <Button color="danger" onClick={() => createOrEditItem(false,false)}>
           Atrás
         </Button>
       </ModalFooter>

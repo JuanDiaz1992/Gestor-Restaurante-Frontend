@@ -90,12 +90,12 @@ function Index() {
         ) : typeMenu.length > 1 ? (
           <>
             <header className="header">
-              {business.logo? 
+              {business.logo?
               <img src={url + business.logo} alt="" />
               :
               <img src={LogoDefault} alt="" />
-               }
-              
+              }
+
             </header>
 
 
@@ -130,7 +130,7 @@ function Index() {
                             </div>
                             {item.menu_item_type === "especialities" ||
                             item.menu_item_type === "soft_drinks" ? (
-                              <p className="price">${item.price}</p>
+                              <p className="price">{item.price >0 && "$" + item.price}</p>
                             ) : null}
                           </div>
                           <div className="card_img_container">

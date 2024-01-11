@@ -276,7 +276,7 @@ function MenuOfBd(props) {
                     </p>
                   </TableCell>
                   <TableCell>{item.menu_item_type === "especialities"? (
-                            <p>${item.price}</p>
+                            <p>{item.price>0 && "$" + item.price}</p>
                           ) : null}</TableCell>
                   <TableCell>{item.state === 1? "Disponible" : "Agotado"}</TableCell>
                   <TableCell>

@@ -30,10 +30,14 @@ function EditMenuOfBD(props) {
   /*Estados para el envio del formulario para item nuevo*/
   const [createItem, setCreateItem] = useState(false);
 
+  /*Estados para la edición de un item del menú*/
+  const [editItem,setEditItem] = useState(false);
+  const [dataItem,setDataItem] = useState([])
 
   /********************************************************/
 
 
+console.log(props.allResults)
 
   const menu_data = async () => {
     try {
@@ -63,6 +67,7 @@ function EditMenuOfBD(props) {
           );
         });
         setAllItems(resultFilter);
+
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -133,15 +138,23 @@ function EditMenuOfBD(props) {
       .then((response) => response.json())
       .then((data) => {
         if (data.status === 200) {
+          setChanges(true);
           toast.success(`${name} se agregó correctamente`);
-          closeModalEdit();
           setIsChangeFather(true);
           props.sendState_socket();
         } else {
           toast.error("a ocurrido un error");
         }
       });
+
   };
+
+  const createOrEditItem=(requestOpen,requestEditOrCreate,data)=>{
+    setCreateItem(requestOpen);
+    setEditItem(requestEditOrCreate);
+    setDataItem(data);
+
+  }
 
   /*Función que crea nuevos elementos para el menú, este es el formulario*/
 
@@ -194,7 +207,7 @@ function EditMenuOfBD(props) {
                         <TableCell aria-label="Actions">
                           <div className="action_div_container_edit_item_menu">
                             <Button onClick={()=>{addToMenu(item.id, item.name)}} size="sm" color="success" isIconOnly >{<MdAdd />}</Button>
-                            <Button size="sm" color="primary" isIconOnly>{<MdEdit />}</Button>
+                            <Button onClick={()=>{createOrEditItem(true,true,[item.id,item.menu_item_type, item.name, item.description, item.price, item.picture])}} size="sm" color="primary" isIconOnly>{<MdEdit />}</Button>
                             <Button onClick={()=>{deleteItem(item.id, item.name)}} size="sm" color="danger" isIconOnly>{<MdOutlineDelete />}</Button>
                           </div>
                         </TableCell>
@@ -213,17 +226,19 @@ function EditMenuOfBD(props) {
       ) : (
         <>
           <ModalEditAndCreateItemMenu
-          labelNameItem = {props.labelNameItem}
-          setChanges = { setChanges }
-          setCreateItem = { setCreateItem }
-          createItem = {createItem}
+
+            setChanges = { setChanges }
+            createOrEditItem = { createOrEditItem }
+            createItem = {createItem}
+            dataItem={dataItem}
+            editItem = { editItem }
           />
         </>
       )}
       <ModalFooter className="flex  flex-row gap-1 flex-wrap">
         {!createItem ? (
           <>
-            <Button color="primary" onClick={() => setCreateItem(true)}>
+            <Button color="primary" onClick={() => createOrEditItem(true,false)}>
               Crear nuevo
             </Button>
             <Button color="warning" onClick={closeModalEdit}>
