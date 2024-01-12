@@ -18,37 +18,46 @@ import {
 } from "@nextui-org/react";
 import date from "../../../Scripts/obtenerFechaActual";
 import ModalEditAndCreateItemMenu from "./ModalEditAndCreateItemMenu";
-
-function EditMenuOfBD(props) {
-  const { idMenuFather, setIsChangeFather, closeModalEdit } = props;
-
+import obtenerIDMenu from "../../../Scripts/obtenerIDGlobalDelMenu";
+function EditMenuOfBD({
+  idMenuFather,
+  setIsChangeFather,
+  closeModalEdit,
+  sendState_socket,
+  openEditItem = false,
+  editItemFromMenu = false,
+  dataItemsEdit = [],
+  openModalEditFromMenu
+}) {
   const url = process.env.REACT_APP_URL_HOST;
   const [allItems, setAllItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [haveChanges, setChanges] = useState(false);
 
   /*Estados para el envio del formulario para item nuevo*/
-  const [createItem, setCreateItem] = useState(false);
+  const [createItem, setCreateItem] = useState(openEditItem);
 
   /*Estados para la edición de un item del menú*/
-  const [editItem,setEditItem] = useState(false);
-  const [dataItem,setDataItem] = useState([])
-
+  const [editItem, setEditItem] = useState(editItemFromMenu);
+  const [dataItem, setDataItem] = useState(dataItemsEdit);
+  console.log(dataItemsEdit)
   /********************************************************/
 
 
-console.log(props.allResults)
-
   const menu_data = async () => {
     try {
-      const response = await fetch(`${url}items_menu/`, {
-        method: "GET",
-        mode: "cors",
-        headers: {
-          Authorization: "Token " + getCookie("token"),
-          Module: "menu_management",
-        },
-      });
+      let idMenu = await obtenerIDMenu(url);
+      const response = await fetch(
+        `${url}items_menu_consult?linkTo=menu&equalTo=${idMenu}/`,
+        {
+          method: "GET",
+          mode: "cors",
+          headers: {
+            Authorization: "Token " + getCookie("token"),
+            Module: "menu_management",
+          },
+        }
+      );
       const data = await response.json();
       if (data.status === 200) {
         const categorias = {
@@ -59,15 +68,11 @@ console.log(props.allResults)
           drinks: 5,
         };
         const newArray = data.results.sort((a, b) => {
-          return categorias[a["menu_item_type"]] - categorias[b["menu_item_type"]];
-        });
-        const resultFilter = newArray.filter((result) => {
-          return !props.allResults.some(
-            (isInMenuresult) => isInMenuresult.name === result.name
+          return (
+            categorias[a["menu_item_type"]] - categorias[b["menu_item_type"]]
           );
         });
-        setAllItems(resultFilter);
-
+        setAllItems(newArray);
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -80,8 +85,7 @@ console.log(props.allResults)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [haveChanges]);
 
-
-  const deleteItem = (id,name) => {
+  const deleteItem = (id, name) => {
     confirmAlert({
       title: "Confirmación de eliminación",
       message: `¿Estás seguro que deseas eiliminar a ${name}?`,
@@ -94,7 +98,7 @@ console.log(props.allResults)
               mode: "cors",
               headers: {
                 Authorization: "Token " + getCookie("token"),
-                'Module': 'menu_management'
+                Module: "menu_management",
               },
               body: JSON.stringify({
                 item: id,
@@ -107,8 +111,8 @@ console.log(props.allResults)
                   setChanges(true);
                   toast.success(name + " se eliminó correctamente");
                 }
-              })
-            },
+              });
+          },
         },
         {
           label: "No",
@@ -118,8 +122,7 @@ console.log(props.allResults)
     });
   };
 
-
-  const addToMenu = (id,name) => {
+  const addToMenu = (id, name) => {
     const dateTime = date();
     fetch(url, {
       method: "POST",
@@ -130,7 +133,7 @@ console.log(props.allResults)
       },
       body: JSON.stringify({
         dateTime: dateTime,
-        id:id,
+        id: id,
         idMEnu: idMenuFather,
         add_to_menu: true,
       }),
@@ -141,23 +144,20 @@ console.log(props.allResults)
           setChanges(true);
           toast.success(`${name} se agregó correctamente`);
           setIsChangeFather(true);
-          props.sendState_socket();
+          sendState_socket();
         } else {
           toast.error("a ocurrido un error");
         }
       });
-
   };
 
-  const createOrEditItem=(requestOpen,requestEditOrCreate,data)=>{
+  const createOrEditItem = (requestOpen, requestEditOrCreate, data) => {
     setCreateItem(requestOpen);
     setEditItem(requestEditOrCreate);
     setDataItem(data);
-
-  }
+  };
 
   /*Función que crea nuevos elementos para el menú, este es el formulario*/
-
 
   return (
     <>
@@ -185,34 +185,72 @@ console.log(props.allResults)
                     <TableColumn>Acciones</TableColumn>
                   </TableHeader>
                   <TableBody>
-                    {allItems.map((item, index) => (
-                      item.menu_item_type !== "soft_drinks" &&
-                      <TableRow key={index}>
-                        <TableCell aria-label="Name">
-                          {item.name.length > 16?
-                            item.name.slice(0, 17) + "...":
-                            item.name
-                          }
-                        </TableCell>
-                        <TableCell aria-label="Type">
-                          {
-                          item.menu_item_type === "especialities"? "Especialidades":
-                          item.menu_item_type === "soups"? "Sopas":
-                          item.menu_item_type === "beginning"? "Principios":
-                          item.menu_item_type === "meats"? "Carnes":
-                          item.menu_item_type === "drinks"? "Bebidas":
-                          ""
-                          }
-                        </TableCell>
-                        <TableCell aria-label="Actions">
-                          <div className="action_div_container_edit_item_menu">
-                            <Button onClick={()=>{addToMenu(item.id, item.name)}} size="sm" color="success" isIconOnly >{<MdAdd />}</Button>
-                            <Button onClick={()=>{createOrEditItem(true,true,[item.id,item.menu_item_type, item.name, item.description, item.price, item.picture])}} size="sm" color="primary" isIconOnly>{<MdEdit />}</Button>
-                            <Button onClick={()=>{deleteItem(item.id, item.name)}} size="sm" color="danger" isIconOnly>{<MdOutlineDelete />}</Button>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
+                    {allItems.map(
+                      (item, index) =>
+                        item.menu_item_type !== "soft_drinks" && (
+                          <TableRow key={index}>
+                            <TableCell aria-label="Name">
+                              {item.name.length > 16
+                                ? item.name.slice(0, 17) + "..."
+                                : item.name}
+                            </TableCell>
+                            <TableCell aria-label="Type">
+                              {item.menu_item_type === "especialities"
+                                ? "Especialidades"
+                                : item.menu_item_type === "soups"
+                                ? "Sopas"
+                                : item.menu_item_type === "beginning"
+                                ? "Principios"
+                                : item.menu_item_type === "meats"
+                                ? "Carnes"
+                                : item.menu_item_type === "drinks"
+                                ? "Bebidas"
+                                : ""}
+                            </TableCell>
+                            <TableCell aria-label="Actions">
+                              <div className="action_div_container_edit_item_menu">
+                                <Button
+                                  onClick={() => {
+                                    addToMenu(item.id, item.name);
+                                  }}
+                                  size="sm"
+                                  color="success"
+                                  isIconOnly
+                                >
+                                  {<MdAdd />}
+                                </Button>
+                                <Button
+                                  onClick={() => {
+                                    createOrEditItem(true, true, [
+                                      item.id,
+                                      item.menu_item_type,
+                                      item.name,
+                                      item.description,
+                                      item.price,
+                                      item.picture,
+                                    ]);
+                                  }}
+                                  size="sm"
+                                  color="primary"
+                                  isIconOnly
+                                >
+                                  {<MdEdit />}
+                                </Button>
+                                <Button
+                                  onClick={() => {
+                                    deleteItem(item.id, item.name);
+                                  }}
+                                  size="sm"
+                                  color="danger"
+                                  isIconOnly
+                                >
+                                  {<MdOutlineDelete />}
+                                </Button>
+                              </div>
+                            </TableCell>
+                          </TableRow>
+                        )
+                    )}
                   </TableBody>
                 </Table>
               </div>
@@ -226,19 +264,23 @@ console.log(props.allResults)
       ) : (
         <>
           <ModalEditAndCreateItemMenu
-
-            setChanges = { setChanges }
-            createOrEditItem = { createOrEditItem }
-            createItem = {createItem}
+            setChanges={setChanges}
+            createOrEditItem={createOrEditItem}
+            createItem={createItem}
             dataItem={dataItem}
-            editItem = { editItem }
+            editItem={editItem}
+            openModalEditFromMenu = {openModalEditFromMenu}
+            closeModalEdit = {closeModalEdit}
           />
         </>
       )}
       <ModalFooter className="flex  flex-row gap-1 flex-wrap">
         {!createItem ? (
           <>
-            <Button color="primary" onClick={() => createOrEditItem(true,false)}>
+            <Button
+              color="primary"
+              onClick={() => createOrEditItem(true, false)}
+            >
               Crear nuevo
             </Button>
             <Button color="warning" onClick={closeModalEdit}>

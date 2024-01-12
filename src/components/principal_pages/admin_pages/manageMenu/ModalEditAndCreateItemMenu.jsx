@@ -2,26 +2,38 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
 import {
-    Button,
-    ModalBody,
-    Input,
-    Textarea,
-    Select,
-    SelectItem,
-    ModalFooter
-    } from "@nextui-org/react";
+  Button,
+  ModalBody,
+  Input,
+  Textarea,
+  Select,
+  SelectItem,
+  ModalFooter,
+} from "@nextui-org/react";
 import getCookie from "../../../Scripts/getCookies";
 import compressImage from "../../../Scripts/comprimirImg";
 import validateData from "../../../Scripts/validateData";
 
-function ModalEditAndCreateItemMenu({createItem, createOrEditItem, setChanges, editItem,dataItem}) {
-  const [typeSelect, setTypeSelect] = useState(editItem === true? dataItem[1] : "especialities");
-  const [name, setName] = useState(editItem === true?  dataItem[2] : "");
-  const [description, setDescription] = useState(editItem === true?  dataItem[3] : "");
-  const [price, setPrice] = useState(editItem === true?  dataItem[4] : "");
+function ModalEditAndCreateItemMenu({
+  createItem,
+  createOrEditItem,
+  setChanges,
+  editItem,
+  dataItem,
+  openModalEditFromMenu = false,
+  closeModalEdit
+}) {
+  const [typeSelect, setTypeSelect] = useState(
+    editItem === true ? dataItem[1] : "especialities"
+  );
+  const [name, setName] = useState(editItem === true ? dataItem[2] : "");
+  const [description, setDescription] = useState(
+    editItem === true ? dataItem[3] : ""
+  );
+  const [price, setPrice] = useState(editItem === true ? dataItem[4] : "");
   const [photo, setPhoto] = useState();
   const url = process.env.REACT_APP_URL_HOST;
-
+    //console.log(dataItem)
   useEffect(() => {
     if (!createItem) {
       setName("");
@@ -35,18 +47,21 @@ function ModalEditAndCreateItemMenu({createItem, createOrEditItem, setChanges, e
   let formOK = false;
   //Valida si los datos son correctos dependiendiendo si es una edición o una creación de bebida
   if (editItem) {
-    if (name !== dataItem[2] ||
-        description !== dataItem[3] ||
-        parseInt(price) !== dataItem[4] ||
-        typeSelect !== dataItem[1]) {
-          validateData([name, typeSelect,], 2, 4) ? formOK = true : formOK = false;
-    }else if(photo && validateData([name], 2, 4)){
-      formOK = true
-    }
-    else{
+    if (
+      name !== dataItem[2] ||
+      description !== dataItem[3] ||
+      parseInt(price) !== dataItem[4] ||
+      typeSelect !== dataItem[1]
+    ) {
+      validateData([name, typeSelect], 2, 4)
+        ? (formOK = true)
+        : (formOK = false);
+    } else if (photo && validateData([name], 2, 4)) {
+      formOK = true;
+    } else {
       formOK = false;
     }
-  }else{
+  } else {
     formOK = validateData([name, typeSelect], 2, 4);
   }
 
@@ -74,12 +89,13 @@ function ModalEditAndCreateItemMenu({createItem, createOrEditItem, setChanges, e
     if (editItem) {
       formData.append("edit_item_menu", true);
       formData.append("idItem", dataItem[0]);
-      if(compressedImage !== ""){
+      if (compressedImage !== "") {
         formData.append("beforePicture", dataItem[5]);
       }
     } else {
       formData.append("new_item_menu", true);
     }
+
     if (formOK) {
       fetch(url, {
         method: "POST",
@@ -98,7 +114,7 @@ function ModalEditAndCreateItemMenu({createItem, createOrEditItem, setChanges, e
             setDescription("");
             setPrice();
             setTypeSelect("");
-            createOrEditItem(false,false);
+            createOrEditItem(false, false);
             let formRegis = document.getElementById("formRegis");
             formRegis.reset();
           } else if (data.status === 404) {
@@ -108,7 +124,6 @@ function ModalEditAndCreateItemMenu({createItem, createOrEditItem, setChanges, e
       setChanges(true);
     }
   };
-
 
   return (
     <>
@@ -199,9 +214,15 @@ function ModalEditAndCreateItemMenu({createItem, createOrEditItem, setChanges, e
         <Button onClick={sendForm} color={formOK ? "primary" : "default"}>
           Aceptar cambios
         </Button>
-        <Button color="danger" onClick={() => createOrEditItem(false,false)}>
+        {openModalEditFromMenu?
+        <Button color="danger" onClick={() => closeModalEdit()}>
+          Cerrar
+        </Button>
+        :
+        <Button color="danger" onClick={() => createOrEditItem(false, false)}>
           Atrás
         </Button>
+        }
       </ModalFooter>
     </>
   );
