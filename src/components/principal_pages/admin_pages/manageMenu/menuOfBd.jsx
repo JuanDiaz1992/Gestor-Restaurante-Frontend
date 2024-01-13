@@ -68,7 +68,6 @@ function MenuOfBd(props) {
                 categorias[b["menu_item_type"]]
               );
             });
-            console.log(newArray)
             setAllItemsMenu(newArray);
             setLoading(false);
           } else {

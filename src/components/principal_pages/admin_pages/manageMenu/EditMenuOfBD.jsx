@@ -40,7 +40,6 @@ function EditMenuOfBD({
   /*Estados para la edición de un item del menú*/
   const [editItem, setEditItem] = useState(editItemFromMenu);
   const [dataItem, setDataItem] = useState(dataItemsEdit);
-  console.log(dataItemsEdit)
   /********************************************************/
 
 
@@ -271,6 +270,7 @@ function EditMenuOfBD({
             editItem={editItem}
             openModalEditFromMenu = {openModalEditFromMenu}
             closeModalEdit = {closeModalEdit}
+            setIsChangeFather = {setIsChangeFather}
           />
         </>
       )}

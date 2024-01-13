@@ -31,15 +31,15 @@ function EditUser(props) {
       nameUSer === props.nameUSer &&
       typeUser === props.typeUser &&
       !photoInput
-    ) {
-      Swal.fire({
-        title: "Advertencia",
-        text: "No haz realizado ningún cambio",
-        icon: "warning",
-        confirmButtonText: "Ok",
-        customClass: {
-          container: "notification-modal",
-        },
+      ) {
+        Swal.fire({
+          title: "Advertencia",
+          text: "No haz realizado ningún cambio",
+          icon: "warning",
+          confirmButtonText: "Ok",
+          customClass: {
+            container: "notification-modal",
+          },
       });
     } else if (!nameIsOK) {
     } else {
@@ -48,6 +48,7 @@ function EditUser(props) {
       formData.append("name", nameUSer);
       formData.append("username", props.userNameEdited);
       formData.append("photo", photoInput);
+      formData.append("affterPhoto", props.photo)
       formData.append("type_user", type_user);
       formData.append("edit_user_request", true);
       fetch(url, {

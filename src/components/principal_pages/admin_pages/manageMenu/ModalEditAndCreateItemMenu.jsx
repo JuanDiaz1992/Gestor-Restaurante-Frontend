@@ -21,7 +21,8 @@ function ModalEditAndCreateItemMenu({
   editItem,
   dataItem,
   openModalEditFromMenu = false,
-  closeModalEdit
+  closeModalEdit,
+  setIsChangeFather
 }) {
   const [typeSelect, setTypeSelect] = useState(
     editItem === true ? dataItem[1] : "especialities"
@@ -33,7 +34,6 @@ function ModalEditAndCreateItemMenu({
   const [price, setPrice] = useState(editItem === true ? dataItem[4] : "");
   const [photo, setPhoto] = useState();
   const url = process.env.REACT_APP_URL_HOST;
-    //console.log(dataItem)
   useEffect(() => {
     if (!createItem) {
       setName("");
@@ -109,7 +109,14 @@ function ModalEditAndCreateItemMenu({
         .then((response) => response.json())
         .then((data) => {
           if (data.status === 200) {
-            toast.success(name + " se creo correctamente");
+            if(openModalEditFromMenu){
+              closeModalEdit()
+            }
+            if(editItem){
+              toast.success("Elemento se editó correctamente");
+            }else{
+              toast.success(name + " se creo correctamente");
+            }
             setName("");
             setDescription("");
             setPrice();
@@ -121,6 +128,7 @@ function ModalEditAndCreateItemMenu({
             console.log("error 409");
           }
         });
+      setIsChangeFather(true);
       setChanges(true);
     }
   };
