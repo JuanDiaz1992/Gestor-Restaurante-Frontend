@@ -14,8 +14,12 @@ import {
   CardFooter,
   Image,
   CardBody,
-  Accordion,
-  AccordionItem
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  useDisclosure
 } from "@nextui-org/react";
 import { toast } from "react-hot-toast";
 
@@ -139,7 +143,7 @@ function Beginning(props){
       }
     };
 
-    const deleteItem = (id, name) => {
+    const deleteItem = (id, name, picture) => {
       confirmAlert({
         title: "Confirmación de eliminación",
         message: `¿Estás seguro que deseas eiliminar a ${name}?`,
@@ -156,6 +160,7 @@ function Beginning(props){
                 },
                 body: JSON.stringify({
                   item: id,
+                  picture: picture,
                   delete_item_bd_from_menu: true,
                 }),
               })
@@ -176,6 +181,9 @@ function Beginning(props){
         ],
       });
     };
+
+    /**MODAL**/
+    const {isOpen, onOpen, onOpenChange} = useDisclosure();
 return(
 
     <>
@@ -186,7 +194,7 @@ return(
             <div className="cardContainerMenu max-w-[900px] gap-2 grid grid-cols-12 grid-rows-2 px-8">
               {item.map((item) => (
                 <div className="cardContainerMenu--div" key={item.id}>
-                  <button onClick={()=>deleteItem(item.id, item.name)} className="cardContainerImg__buttonDelete"><AiFillCloseCircle/></button>
+                  <button onClick={()=>deleteItem(item.id, item.name, item.picture)} className="cardContainerImg__buttonDelete"><AiFillCloseCircle/></button>
                   <Card
                     className="cardEspecialities"
                     shadow="sm"
@@ -223,83 +231,96 @@ return(
             </div>
           </>
         )}
-        <Accordion className="accordion_create_item_menu"  variant="splitted">
-          <AccordionItem aria-label="Accordion 1" title={"Agregar "+ props.onlyNameCategory}>
-            <div className="formEspecialitiesContainer">
-              <h4>Agregar {props.onlyNameCategory}</h4>
-              <form
-                id="formRegis"
-                encType="multipart/form-data"
-                onSubmit={(e) => {
-                  sendForm(e);
-                }}
-              >
-                <div className="mb-3">
-                  <label htmlFor="name">Nombre {props.labelNameItem}</label>
-                  <Input
-                    value={name}
-                    onChange={(e) => {
-                      setName(e.target.value);
-                    }}
-                    id="name"
-                    variant="faded"
-                    radius="sm"
-                    type="text"
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="description">Descripción</label>
-                  <Textarea
-                    value={description}
-                    onChange={(e) => {
-                    setDescription(e.target.value);
-                    }}
-                    id="description"
-                    rows="3"
-                    placeholder={"Describa brevemente que incluye o de que trata " + props.labedescriptionItem}
-                  ></Textarea>
-                </div>
-                {props.type_menu === "especialities" &&
-                  <div className="mb-3">
-                  <label htmlFor="name">Precio de {props.labelNameItem}</label>
-                  <Input
-                    value={price}
-                    onChange={(e) => {
-                      setPrice(e.target.value);
-                    }}
-                    id="name"
-                    variant="faded"
-                    radius="sm"
-                    type="number"
-                    placeholder="0.00"
-                    labelPlacement="outside"
-                    startContent={
-                      <div className="pointer-events-none flex items-center">
-                        <span className="text-default-400 text-small">$</span>
+        <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+          <ModalContent>
+            {(onClose) => (
+              <>
+                <ModalHeader className="flex flex-col gap-1"></ModalHeader>
+                <ModalBody>
+                  <div className="formEspecialitiesContainer">
+                    <h4>Agregar {props.onlyNameCategory}</h4>
+                    <form
+                      id="formRegis"
+                      encType="multipart/form-data"
+                      onSubmit={(e) => {
+                        sendForm(e);
+                      }}
+                    >
+                      <div className="mb-3">
+                        <label htmlFor="name">Nombre {props.labelNameItem}</label>
+                        <Input
+                          value={name}
+                          onChange={(e) => {
+                            setName(e.target.value);
+                          }}
+                          id="name"
+                          variant="faded"
+                          radius="sm"
+                          type="text"
+                        />
                       </div>
-                    }
-                  />
-                </div>
-                }
-                <div className="mb-3">
-                  <label htmlFor="formFile" className="form-label colorBlack">
-                    Foto
-                  </label>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    id="formFile"
-                    className="form-control"
-                    onChange={(e) => setPhoto(e.target.files[0])}
-                  />
-                </div>
-                <Button type="submit" color={formOK? "primary":"secondary"} variant="bordered">
-                  Crear item
-                </Button>
-              </form>
-            </div>
-          </AccordionItem>
-        </Accordion>
+                      <div className="mb-3">
+                        <label htmlFor="description">Descripción</label>
+                        <Textarea
+                          value={description}
+                          onChange={(e) => {
+                          setDescription(e.target.value);
+                          }}
+                          id="description"
+                          rows="3"
+                          placeholder={"Describa brevemente que incluye o de que trata " + props.labedescriptionItem}
+                        ></Textarea>
+                      </div>
+                      {props.type_menu === "especialities" &&
+                        <div className="mb-3">
+                        <label htmlFor="name">Precio de {props.labelNameItem}</label>
+                        <Input
+                          value={price}
+                          onChange={(e) => {
+                            setPrice(e.target.value);
+                          }}
+                          id="name"
+                          variant="faded"
+                          radius="sm"
+                          type="number"
+                          placeholder="0.00"
+                          labelPlacement="outside"
+                          startContent={
+                            <div className="pointer-events-none flex items-center">
+                              <span className="text-default-400 text-small">$</span>
+                            </div>
+                          }
+                        />
+                      </div>
+                      }
+                      <div className="mb-3">
+                        <label htmlFor="formFile" className="form-label colorBlack">
+                          Foto
+                        </label>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          id="formFile"
+                          className="form-control"
+                          onChange={(e) => setPhoto(e.target.files[0])}
+                        />
+                      </div>
+                      <Button type="submit" color={formOK? "primary":"secondary"} variant="bordered">
+                        Crear item
+                      </Button>
+                    </form>
+                  </div>
+                </ModalBody>
+                <ModalFooter>
+                    <Button color="danger" variant="light" onPress={onClose}>
+                      Cerrar
+                    </Button>
+                </ModalFooter>
+              </>
+            )}
+          </ModalContent>
+        </Modal>
+        <Button className="button_add_new_item_from_creator_menu" onPress={onOpen}>Agregar {props.onlyNameCategory}</Button>
       </>
       <GoToTop/>
   </>

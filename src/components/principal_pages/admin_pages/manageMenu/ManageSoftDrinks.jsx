@@ -63,7 +63,7 @@ function ManageSoftDrinks({ closeModalEdit }) {
   }
 
 
-  const deleteItemFromMenuBd=(id, name)=>{
+  const deleteItemFromMenuBd=(id, name, picture)=>{
     confirmAlert({
       title: "Confirmación de eliminación",
       message: `¿Estás seguro que deseas eiliminar a ${name}?`,
@@ -80,6 +80,7 @@ function ManageSoftDrinks({ closeModalEdit }) {
               },
               body: JSON.stringify({
                 item: id,
+                picture:picture,
                 delete_item_bd_from_menu: true,
               }),
             })
@@ -154,7 +155,7 @@ function ManageSoftDrinks({ closeModalEdit }) {
                         </Button>
                         <Button isIconOnly color="danger" variant="faded" aria-label="Take a photo"
                             onClick={() =>
-                            deleteItemFromMenuBd(softDrink.id, softDrink.name)
+                            deleteItemFromMenuBd(softDrink.id, softDrink.name, softDrink.picture)
                           }>
                         <AiFillDelete />
                         </Button>

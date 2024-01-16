@@ -15,10 +15,10 @@ function ModalSoftDrinks({
   }) {
   const url = process.env.REACT_APP_URL_HOST;
   const idUser = useSelector((state) => state.auth.id_user);
-  const [name, setName] = useState(dataEdit[1]);
-  const [description, setDescription] = useState(dataEdit[2]);
-  const [price, setPrice] = useState(dataEdit[3]);
-  const [amount, setAmount] = useState(dataEdit[4]);
+  const [name, setName] = useState(dataEdit[1]?dataEdit[1]:"");
+  const [description, setDescription] = useState(dataEdit[2]?dataEdit[2]:"");
+  const [price, setPrice] = useState(dataEdit[3]?dataEdit[3]:"");
+  const [amount, setAmount] = useState(dataEdit[4]?dataEdit[4]:"");
   const [photo, setPhoto] = useState();
   /*****************************************/
 
@@ -84,7 +84,11 @@ function ModalSoftDrinks({
         .then((response) => response.json())
         .then((data) => {
           if (data.status === 200) {
-            toast.success(name + editSoftDrink? " se editó correctamente" : " se creo correctamente");
+            if(editSoftDrink){
+              toast.success(name + " se editó correctamente");
+            }else{
+              toast.success(name + " se añadió correctamente");
+            }
             setName("");
             setDescription("");
             setPrice();

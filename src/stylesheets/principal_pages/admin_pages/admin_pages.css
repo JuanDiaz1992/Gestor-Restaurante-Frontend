@@ -479,11 +479,12 @@
     justify-content: flex-end;
 
 }
-.accordion_create_item_menu{
-    margin:20px 0 20px 0 !important;
-    max-width: 636px;
-}
 
+.button_add_new_item_from_creator_menu{
+    width: 100% !important;
+    max-width: 616px !important;
+    margin: 20px 0 !important;
+}
 .cardEspecialities{
     width: 200px;
 }

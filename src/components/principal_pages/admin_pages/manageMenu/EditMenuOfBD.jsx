@@ -84,7 +84,7 @@ function EditMenuOfBD({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [haveChanges]);
 
-  const deleteItem = (id, name) => {
+  const deleteItem = (id, name, picture) => {
     confirmAlert({
       title: "Confirmación de eliminación",
       message: `¿Estás seguro que deseas eiliminar a ${name}?`,
@@ -101,6 +101,7 @@ function EditMenuOfBD({
               },
               body: JSON.stringify({
                 item: id,
+                picture:picture,
                 delete_item_bd_from_menu: true,
               }),
             })
@@ -237,7 +238,7 @@ function EditMenuOfBD({
                                 </Button>
                                 <Button
                                   onClick={() => {
-                                    deleteItem(item.id, item.name);
+                                    deleteItem(item.id, item.name, item.picture);
                                   }}
                                   size="sm"
                                   color="danger"
