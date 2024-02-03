@@ -1,87 +1,76 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { SocketContext } from "../../context/SocketContex";
 import { Card, CardBody, Spinner } from "@nextui-org/react";
 import obtenerIDMenu from "../Scripts/obtenerIDGlobalDelMenu";
 import "../../stylesheets/principal_pages/index.css";
-import LogoDefault from "../../img/logo2.png"
+import LogoDefault from "../../img/logo2.png";
+import useSWR from 'swr'
+
+
+
 
 function Index() {
-  const socket = useContext(SocketContext)
   const url = process.env.REACT_APP_URL_HOST;
   const business = useSelector((state) => state.auth);
   const [typeMenu, setTypeMenu] = useState([]);
   const [allItemsMenu, setAllItemsMenu] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [change, setChange] = useState(false)
+  const [idMenu,getIdMenu] =useState();
 
-
-  //Conexión con socket para actualizar cambios en el menú
-  useEffect(() => {
-    if (socket) {
-      socket.on('change_state', (data) => {
-        setChange(data["change_menu"])
-      });
+  const fetcher = async (url) => {
+    const response = await fetch(url, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        Module: 'menu_management',
+      },
+    });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
     }
-
-    // Importante: No olvides limpiar el listener cuando el componente se desmonte.
-    return () => {
-      if (socket) {
-        socket.off('change_state');
-      }
-    };
-  }, [socket]);
-  //***************************** */
-
-  const getMEnu = async () => {
-    try {
-      let idMenu = await obtenerIDMenu(url);
-      fetch(`${url}get_menu_index?linkTo=menu&equalTo=${idMenu}`, {
-        method: "GET",
-        mode: "cors",
-        headers: {
-          Module: "menu_management",
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.status === 200) {
-            const newArray = [
-              ...new Set(
-                data.results.map((menu_type) => menu_type.menu_item_type)
-              ),
-            ];
-            const categorias = {
-              especialities: 1,
-              soups: 2,
-              beginning: 3,
-              meats: 4,
-              drinks: 5,
-              soft_drinks:6
-            };
-            newArray.sort((a, b) => categorias[a] - categorias[b]);
-            setTypeMenu(newArray);
-            setAllItemsMenu(data.results);
-            setLoading(false);
-          } else {
-            setLoading(false);
-          }
-        });
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
+    return response.json();
   };
-  useEffect(() => {
-    getMEnu();
-    setChange(false)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [change]);
+
+
+
+  useEffect(()=>{
+    const getid = async()=>{
+      let idMenu = await obtenerIDMenu(url);
+      getIdMenu(idMenu)
+    }
+    getid();
+  },[url])
+
+  const { data, error, isLoading } = useSWR(`${url}get_menu_index?linkTo=menu&equalTo=${idMenu}`, fetcher)
+
+
+
+useEffect(()=>{
+    if (data) {
+      const newArray = [
+        ...new Set(data.results.map((menu_type) => menu_type.menu_item_type)),
+      ];
+      const categorias = {
+        especialities: 1,
+        soups: 2,
+        beginning: 3,
+        meats: 4,
+        drinks: 5,
+        soft_drinks: 6,
+      };
+
+      newArray.sort((a, b) => categorias[a] - categorias[b]);
+      setTypeMenu(newArray);
+      setAllItemsMenu(data.results);
+    }else if(error){
+      console.log(error)
+    }
+
+},[data,isLoading,error])
 
   return (
     <>
       <section className="section section_menu_index">
-        {loading ? (
+        {isLoading ? (
           <>
             <div className="spiner_container">
               <Spinner label="Cargando" color="warning" labelColor="warning" />

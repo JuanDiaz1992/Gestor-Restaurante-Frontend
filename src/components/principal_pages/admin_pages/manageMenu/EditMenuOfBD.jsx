@@ -23,7 +23,6 @@ function EditMenuOfBD({
   idMenuFather,
   setIsChangeFather,
   closeModalEdit,
-  sendState_socket,
   openEditItem = false,
   editItemFromMenu = false,
   dataItemsEdit = [],
@@ -144,7 +143,6 @@ function EditMenuOfBD({
           setChanges(true);
           toast.success(`${name} se agregó correctamente`);
           setIsChangeFather(true);
-          sendState_socket();
         } else {
           toast.error("a ocurrido un error");
         }

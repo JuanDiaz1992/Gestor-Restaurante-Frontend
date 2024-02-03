@@ -1,5 +1,4 @@
 import { useEffect, useState, useContext } from "react";
-import { SocketContext } from "../../../../context/SocketContex";
 import {
   Button,
   ModalContent,
@@ -33,12 +32,7 @@ function MenuOfBd(props) {
   const [idMenu, setIdMenu] = useState();
 
   /*Conexión websocket para actualizar el menú cliente*/
-  const socket = useContext(SocketContext);
-  const sendState = () => {
-    socket.emit("change_state", {
-      change_menu: true,
-    });
-  };
+
   const getMenu = async () => {
     try {
       let idMenu = await obtenerIDMenu(url);
@@ -123,7 +117,6 @@ function MenuOfBd(props) {
             props.setMenuCreate(false);
           }
           setIsChange(true);
-          sendState();
         });
     } catch (error) {
       console.log(error);
@@ -163,7 +156,6 @@ function MenuOfBd(props) {
             );
           }
           setIsChange(true);
-          sendState();
         });
     } catch (error) {
       console.log(error);
@@ -203,7 +195,6 @@ function MenuOfBd(props) {
                     },
                   });
                   props.setMenuCreate(false);
-                  sendState();
                 }
               });
           },
@@ -230,7 +221,6 @@ function MenuOfBd(props) {
             idMenuFather={idMenu}
             closeModalEdit={closeModalEditMenu}
             setIsChangeFather={setIsChange}
-            sendState_socket={sendState}
           />
         );
         break;
@@ -238,7 +228,6 @@ function MenuOfBd(props) {
         setModalContent(
           <ManageSoftDrinks
             closeModalEdit={closeModalEditMenu}
-            sendState={sendState}
           />
         );
         break;
@@ -249,7 +238,6 @@ function MenuOfBd(props) {
             idMenuFather={idMenu}
             closeModalEdit={closeModalEditMenu}
             setIsChangeFather={setIsChange}
-            sendState_socket={sendState}
             openEditItem={true}
             editItemFromMenu={true}
             dataItemsEdit={data}

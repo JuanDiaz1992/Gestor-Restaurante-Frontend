@@ -1,9 +1,9 @@
-import { useEffect, useState,useContext } from "react";
+import { useEffect, useState } from "react";
 import getCookie from "../../../Scripts/getCookies";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { toast } from "react-hot-toast";
 import { confirmAlert } from "react-confirm-alert";
-import { SocketContext } from "../../../../context/SocketContex";
+
 import {
   ModalHeader,
   ModalBody,
@@ -28,12 +28,6 @@ function ManageSoftDrinks({ closeModalEdit }) {
 
 
   const url = process.env.REACT_APP_URL_HOST;
-  const socket = useContext(SocketContext);
-  const sendState = ()=>{
-    socket.emit('change_state',{
-      change_menu:true
-    })
-  }
   const getMenu = async () => {
     fetch(
       `${url}items_menu_soft_driks?linkTo=menu_item_type&equalTo=soft_drinks`,
@@ -91,7 +85,6 @@ function ManageSoftDrinks({ closeModalEdit }) {
                   toast.success(name + " se eliminó correctamente");
                 }
               });
-              sendState()
           },
         },
         {
@@ -171,7 +164,6 @@ function ManageSoftDrinks({ closeModalEdit }) {
               <ModalSoftDrinks
                 dataEdit = {dataEdit}
                 editSoftDrink = {editSoftDrink}
-                sendState = {sendState}
                 setSreateNewSoftDrink = {setSreateNewSoftDrink}
                 setChanges = {setChanges}
               />

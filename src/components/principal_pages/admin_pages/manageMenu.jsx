@@ -1,5 +1,4 @@
-import { useState, useEffect, useContext } from "react";
-import { SocketContext } from "../../../context/SocketContex";
+import { useState, useEffect} from "react";
 import { Toaster } from "react-hot-toast";
 import {Spinner} from "@nextui-org/react";
 import Swal from "sweetalert2";
@@ -13,12 +12,6 @@ import MenuOfBd from "./manageMenu/menuOfBd";
 
 
 function ManageMenu() {
-  const socket = useContext(SocketContext)
-  const sendState = ()=>{
-    socket.emit('change_state',{
-      change_menu:true
-    })
-  }
   const url = process.env.REACT_APP_URL_HOST;
   /*Este estado actualiza la mayoria de los componentes del creador del menú*/
   const [isChange,setChange] = useState(false);
@@ -104,7 +97,6 @@ function ManageMenu() {
           setMenuCreate(true);
           setChange(true);
           setNewlyCreatedMenu(true)
-          sendState()
           setBtnCreateMenuAvalaible(true)
         }
       }

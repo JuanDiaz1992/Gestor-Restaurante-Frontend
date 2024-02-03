@@ -79,7 +79,7 @@ function ModalEditAndCreateItemMenu({
     if (compressedImage) {
       formData.append(
         "photo",
-        new File([compressedImage], photo.name + ".webp", {
+        new File([compressedImage], photo.name, {
           type: "image/webp",
         })
       );

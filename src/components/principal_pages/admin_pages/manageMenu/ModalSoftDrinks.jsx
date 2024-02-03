@@ -8,7 +8,6 @@ import getCookie from "../../../Scripts/getCookies";
 
 function ModalSoftDrinks({
     editSoftDrink,
-    sendState,
     setSreateNewSoftDrink,
     setChanges,
     dataEdit
@@ -57,7 +56,7 @@ function ModalSoftDrinks({
     if (compressedImage !== "") {
       formData.append(
         "photo",
-        new File([compressedImage], photo.name + ".webp", {
+        new File([compressedImage], photo.name, {
           type: "image/webp",
         })
       );
@@ -100,7 +99,6 @@ function ModalSoftDrinks({
           }
         });
       setChanges(true);
-      sendState();
     }
   };
   return (
