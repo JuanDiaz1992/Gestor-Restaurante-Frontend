@@ -33,6 +33,10 @@ function MenuOfBd(props) {
   const [isChange, setIsChange] = useState(false);
   const [idMenu, setIdMenu] = useState();
 
+
+
+
+
   /*Conexión websocket para actualizar el menú cliente*/
   const socket = useContext(SocketContext);
   const sendState = () => {
@@ -44,9 +48,9 @@ function MenuOfBd(props) {
 
   let date = getDate();
   const getMenu = async () => {
+    let id = await obtenerIDMenu(url);
+    setIdMenu(id);
     try {
-      let idMenu = await obtenerIDMenu(url);
-      setIdMenu(idMenu);
       fetch(`${url}menu_from_creator_menu?linkTo=date&equalTo=${date}`, {
         method: "GET",
         mode: "cors",
@@ -79,6 +83,7 @@ function MenuOfBd(props) {
           }
         });
     } catch (error) {
+      getMenu();
       console.log(error);
       setLoading(false);
     }
