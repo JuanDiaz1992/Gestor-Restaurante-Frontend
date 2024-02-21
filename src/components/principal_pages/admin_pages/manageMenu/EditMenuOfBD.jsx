@@ -18,7 +18,7 @@ import {
 } from "@nextui-org/react";
 import date from "../../../Scripts/obtenerFechaActual";
 import ModalEditAndCreateItemMenu from "./ModalEditAndCreateItemMenu";
-import obtenerIDMenu from "../../../Scripts/obtenerIDGlobalDelMenu";
+
 function EditMenuOfBD({
   idMenuFather,
   setIsChangeFather,
@@ -41,13 +41,13 @@ function EditMenuOfBD({
   const [editItem, setEditItem] = useState(editItemFromMenu);
   const [dataItem, setDataItem] = useState(dataItemsEdit);
   /********************************************************/
+  let dateT = date();
 
 
   const menu_data = async () => {
     try {
-      let idMenu = await obtenerIDMenu(url);
       const response = await fetch(
-        `${url}items_menu_consult?linkTo=menu&equalTo=${idMenu}/`,
+        `${url}items_menu_consult?linkTo=date&equalTo=${dateT}/`,
         {
           method: "GET",
           mode: "cors",
@@ -123,7 +123,6 @@ function EditMenuOfBD({
   };
 
   const addToMenu = (id, name) => {
-    const dateTime = date();
     fetch(url, {
       method: "POST",
       mode: "cors",
@@ -132,7 +131,7 @@ function EditMenuOfBD({
         Module: "menu_management",
       },
       body: JSON.stringify({
-        dateTime: dateTime,
+        dateTime: dateT,
         id: id,
         idMEnu: idMenuFather,
         add_to_menu: true,

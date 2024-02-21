@@ -4,7 +4,8 @@ import { SocketContext } from "../../context/SocketContex";
 import { Card, CardBody, Spinner } from "@nextui-org/react";
 import obtenerIDMenu from "../Scripts/obtenerIDGlobalDelMenu";
 import "../../stylesheets/principal_pages/index.css";
-import LogoDefault from "../../img/logo2.png"
+import LogoDefault from "../../img/logo2.png";
+import getDate from "../Scripts/obtenerFechaActual"
 
 function Index() {
   const socket = useContext(SocketContext)
@@ -13,7 +14,10 @@ function Index() {
   const [typeMenu, setTypeMenu] = useState([]);
   const [allItemsMenu, setAllItemsMenu] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [change, setChange] = useState(false)
+  const [change, setChange] = useState(false);
+  let date = getDate();
+
+
 
 
   //Conexión con socket para actualizar cambios en el menú
@@ -35,8 +39,7 @@ function Index() {
 
   const getMEnu = async () => {
     try {
-      let idMenu = await obtenerIDMenu(url);
-      fetch(`${url}get_menu_index?linkTo=menu&equalTo=${idMenu}`, {
+      fetch(`${url}get_menu_index?linkTo=date&equalTo=${date}`, {
         method: "GET",
         mode: "cors",
         headers: {
@@ -46,6 +49,7 @@ function Index() {
         .then((response) => response.json())
         .then((data) => {
           if (data.status === 200) {
+            console.log(data)
             const newArray = [
               ...new Set(
                 data.results.map((menu_type) => menu_type.menu_item_type)

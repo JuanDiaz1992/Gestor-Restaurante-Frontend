@@ -24,6 +24,7 @@ import obtenerIDMenu from "../../../Scripts/obtenerIDGlobalDelMenu";
 import EditMenuOfBD from "./EditMenuOfBD";
 import ManageSoftDrinks from "./ManageSoftDrinks";
 import GoToTop from "../../../Scripts/OnTop";
+import getDate from "../../../Scripts/obtenerFechaActual";
 
 function MenuOfBd(props) {
   const url = process.env.REACT_APP_URL_HOST;
@@ -39,11 +40,14 @@ function MenuOfBd(props) {
       change_menu: true,
     });
   };
+
+
+  let date = getDate();
   const getMenu = async () => {
     try {
       let idMenu = await obtenerIDMenu(url);
       setIdMenu(idMenu);
-      fetch(`${url}items_menuJoin?linkTo=menu&equalTo=${idMenu}`, {
+      fetch(`${url}menu_from_creator_menu?linkTo=date&equalTo=${date}`, {
         method: "GET",
         mode: "cors",
         headers: {
