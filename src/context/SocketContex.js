@@ -10,6 +10,7 @@ const SocketProvider = ({ children }) => {
   const url = process.env.REACT_APP_URL_HOST_NODE;
   useEffect(() => {
     const socket = io(url);
+
     setSocket(socket);
 
     return () => socket.disconnect();
