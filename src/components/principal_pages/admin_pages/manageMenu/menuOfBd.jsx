@@ -48,8 +48,7 @@ function MenuOfBd(props) {
 
   let date = getDate();
   const getMenu = async () => {
-    let id = await obtenerIDMenu(url);
-    setIdMenu(id);
+
     try {
       fetch(`${url}menu_from_creator_menu?linkTo=date&equalTo=${date}`, {
         method: "GET",
@@ -178,8 +177,17 @@ function MenuOfBd(props) {
       console.log(error);
     }
   };
+  const getIDMenu= async()=>{
+    let id = await obtenerIDMenu(url);
+    setIdMenu(id);
+  }
+  useEffect(()=>{
+    getIDMenu();
+  },[])
 
-  const deleteMenu = () => {
+
+  const deleteMenu =() => {
+
     confirmAlert({
       title: "Confirmación de eliminación",
       message: `¿Estás seguro que deseas eiliminar todo el menú?`,

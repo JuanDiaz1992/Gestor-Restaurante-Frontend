@@ -5,7 +5,6 @@ import {Spinner} from "@nextui-org/react";
 import Swal from "sweetalert2";
 import getDate from "../../Scripts/obtenerFechaActual";
 import getCookie from "../../Scripts/getCookies";
-import obtenerIDMenu from "../../Scripts/obtenerIDGlobalDelMenu"
 import CreatorMenu from "./manageMenu/creatorMenu";
 import MenuTemp from "./manageMenu/menuTemp";
 import MenuOfBd from "./manageMenu/menuOfBd";
@@ -28,15 +27,34 @@ function ManageMenu() {
   const [isMenuCreated, setMenuCreate] = useState();
   const [loadingPage, setLoadingPage] = useState(true)
   const [btnCreateMenuAvalaible, setBtnCreateMenuAvalaible] = useState(true)
+
+
   /*Función que valida si ya existe un menú con la fecha actual creado*/
-  const validateMenu = async ()=>{
-      let getId = await obtenerIDMenu(url)
-      if (getId !== 0 ) {
-        setMenuCreate(true)
-      }else{
-        setMenuCreate(false)
-      }
-      setLoadingPage(false)
+  const validateMenu =()=>{
+    let formattedDate = getDate();
+    try {
+      fetch(`${url}menu_from_creator_menu?linkTo=date&equalTo=${formattedDate}`, {
+        method: "GET",
+        mode: "cors",
+        headers: {
+          Authorization: "Token " + getCookie("token"),
+          Module: "menu_management",
+        },
+      })
+      .then(response =>response.json())
+      .then(data=>{
+        console.log(data)
+        if (data.status === 200) {
+          setMenuCreate(true);
+        } else {
+          setMenuCreate(false)
+        }
+      })
+    } catch (error) {
+      console.log("Error en la conexión a la bd:", error);
+      throw error; // Puedes propagar el error para manejarlo en el componente que llama a esta función
+    }
+    setLoadingPage(false);
   }
   useEffect(()=>{
     validateMenu();
