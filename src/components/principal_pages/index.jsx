@@ -2,7 +2,6 @@ import { useEffect, useState, useContext } from "react";
 import { useSelector } from "react-redux";
 import { SocketContext } from "../../context/SocketContex";
 import { Card, CardBody, Spinner } from "@nextui-org/react";
-import obtenerIDMenu from "../Scripts/obtenerIDGlobalDelMenu";
 import "../../stylesheets/principal_pages/index.css";
 import LogoDefault from "../../img/logo2.png";
 import getDate from "../Scripts/obtenerFechaActual"
@@ -37,19 +36,18 @@ function Index() {
   }, [socket]);
   //***************************** */
 
-  const getMEnu = async () => {
+  const getMEnu = () => {
     try {
       fetch(`${url}get_menu_index?linkTo=date&equalTo=${date}`, {
         method: "GET",
         mode: "cors",
         headers: {
-          Module: "menu_management",
+          Module: "menu_management"
         },
       })
         .then((response) => response.json())
         .then((data) => {
           if (data.status === 200) {
-            console.log(data)
             const newArray = [
               ...new Set(
                 data.results.map((menu_type) => menu_type.menu_item_type)
@@ -72,8 +70,8 @@ function Index() {
           }
         });
     } catch (error) {
-      console.log(error);
       setLoading(false);
+      console.log(error);
     }
   };
   useEffect(() => {

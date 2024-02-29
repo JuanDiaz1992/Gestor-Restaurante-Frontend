@@ -35,7 +35,7 @@ function ManageUser() {
     })
       .then((response) => response.json())
       .then((data) => {
-        setAllUsers(data.users);
+        setAllUsers(data.results);
         setLoading(true);
       });
 

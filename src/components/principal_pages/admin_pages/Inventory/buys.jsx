@@ -101,7 +101,6 @@ function InventoryAll() {
               }
               const data = await response.json();
               if (data.status) {
-                console.log(data);
                 toast.success("Eliminado", {
                   style: {
                     borderRadius: "10px",
@@ -151,7 +150,6 @@ function InventoryAll() {
       }
       const data = await response.json();
       if (data.registered) {
-        console.log(data);
         setChangeState(true);
         setPurchaseValue("");
         setReason("");

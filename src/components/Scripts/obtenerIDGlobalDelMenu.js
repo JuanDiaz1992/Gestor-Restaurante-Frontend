@@ -4,7 +4,7 @@ async function obtenerIDMenu(url) {
   let formattedDate = getDate();
   console.log(formattedDate);
   try {
-    const response = await fetch(`${url}menu?linkTo=date&equalTo=${formattedDate}`, {
+    const response = await fetch(`${url}idMenu?linkTo=date&equalTo=${formattedDate}`, {
       method: "GET",
       mode: "cors",
       headers: {
