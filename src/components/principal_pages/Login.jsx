@@ -27,7 +27,18 @@ function Login() {
   },[companyName]);
 
 
-
+  const executedSwalFire=(title, text,icon)=>{
+    Swal.fire({
+      title: icon,
+      text: text,
+      icon: icon,
+      confirmButtonText: "Ok",
+      willClose: function () {},
+      customClass: {
+        container: "notification-modal",
+      },
+    });
+  }
 
   const { name, password, onInputChange, onResetForm } = useForm({
     name: "",
@@ -72,16 +83,7 @@ function Login() {
           });
           onResetForm();
         } else {
-          Swal.fire({
-            title: "Error",
-            text: "Usuario o contraseña invalidos",
-            icon: "error",
-            confirmButtonText: "Ok",
-            willClose: function () {},
-            customClass: {
-              container: "notification-modal",
-            },
-          });
+          executedSwalFire("Error","Usuario o contraseña invalidos","error");
         }
       });
     setIsLoading(false);
@@ -99,7 +101,6 @@ function Login() {
     <section className="section_login">
         <div className="section_logind_div1"></div>
         <div className="section_logind_div2 card card_login">
-            
             <form onSubmit={onLogin} className="card-body card-body_login needs-validation" >
                 <h5 className="card-title">Bienvenido a {company}</h5>
                 <div className="mb-3 div_login">
