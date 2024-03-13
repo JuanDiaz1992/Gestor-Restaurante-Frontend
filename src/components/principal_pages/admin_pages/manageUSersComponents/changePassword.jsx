@@ -80,12 +80,12 @@ function ChangePassword(props){
                 const data = await response.json();
                 if(data.registered){
                     Swal.fire({
-                        title: "Cambio exitoso",
-                        text: data.message,
-                        icon: data.results,
+                        title: "Genial!",
+                        text: "Cambio éxitoso",
+                        icon: "success",
                         confirmButtonText: "Ok",
                         customClass: {
-                          container: "notification-modal",
+                        container: "notification-modal",
                         },
                         willClose: function() {
                             if(username === props.userNameEdited){

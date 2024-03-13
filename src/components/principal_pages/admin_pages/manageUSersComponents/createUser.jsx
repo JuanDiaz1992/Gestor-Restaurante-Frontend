@@ -128,7 +128,7 @@ de cada input no se ve reflejado inmediatamente al momento de la ejecución de l
                 })
                 .then(response => response.json())
                 .then(data =>{
-                    if(data.registered){
+                    if(data.status === 200){
                         setChangeState(true);
                         console.log(data)
                         getUserName('');
@@ -140,8 +140,8 @@ de cada input no se ve reflejado inmediatamente al momento de la ejecución de l
                         formRegis.reset();
                         Swal.fire({
                             title: "Registrado",
-                            text: data.message,
-                            icon: data.results,
+                            text: "Usuario creado correctamente",
+                            icon: "success",
                             confirmButtonText: "Ok",
                             customClass: {
                                 container: "notification-modal",
@@ -149,10 +149,32 @@ de cada input no se ve reflejado inmediatamente al momento de la ejecución de l
                         }
                         );
                         props.closeModalEdit();
-                    }else{
+                    }else if(data.status === 405){
                         Swal.fire({
                             title: "Error",
-                            text: data.message,
+                            text: "Los datos no pueden contener caracteres especiales",
+                            icon: "error",
+                            confirmButtonText: "Ok",
+                            customClass: {
+                                container: "notification-modal",
+                            },
+                        });
+                    }
+                    else if(data.status === 406){
+                        Swal.fire({
+                            title: "Error",
+                            text: "Las contraseñas no coinciden",
+                            icon: "error",
+                            confirmButtonText: "Ok",
+                            customClass: {
+                                container: "notification-modal",
+                            },
+                        });
+                    }
+                    else{
+                        Swal.fire({
+                            title: "Error",
+                            text: "Error al crear el usuario, valide la información e intente de nuevo",
                             icon: "error",
                             confirmButtonText: "Ok",
                             customClass: {

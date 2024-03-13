@@ -59,12 +59,10 @@ function Login() {
         return response.json();
       })
       .then(function (data) {
-        if (data.is_logged_in) {
-          dispatch(login(data));
-          console.log(data)
-          const token = data.token;
+        if (data.status === 200) {
+          dispatch(login(data.results));
+          const token = data.results.token;
           Cookies.set('token', token, { sameSite: 'None', secure: true });
-
           navigate("/Dashboard", {
             replace: true,
             state: {
@@ -76,7 +74,7 @@ function Login() {
         } else {
           Swal.fire({
             title: "Error",
-            text: data.message,
+            text: "Usuario o contraseña invalidos",
             icon: "error",
             confirmButtonText: "Ok",
             willClose: function () {},

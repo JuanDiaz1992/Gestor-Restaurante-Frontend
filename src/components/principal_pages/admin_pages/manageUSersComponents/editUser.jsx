@@ -69,8 +69,8 @@ function EditUser(props) {
             setChangeState(true);
             Swal.fire({
               title: "Cambio Ok",
-              text: data.message,
-              icon: data.results,
+              text: "Cambio éxitoso",
+              icon: "success",
               confirmButtonText: "Ok",
               customClass: {
                 container: "notification-modal",

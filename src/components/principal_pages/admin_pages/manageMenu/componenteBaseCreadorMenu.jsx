@@ -24,6 +24,7 @@ import {
 import { toast } from "react-hot-toast";
 
 function Beginning(props){
+    const {isOpen, onOpen, onOpenChange} = useDisclosure();
     const url = process.env.REACT_APP_URL_HOST;
     const idUser = useSelector((state) => state.auth.id_user);
     /*Sección de estados*/
@@ -101,6 +102,7 @@ function Beginning(props){
               setPrice();
               let formRegis = document.getElementById('formRegis');
               formRegis.reset();
+              onOpenChange()
             } else if (data.status === 404) {
               console.log("error 409");
             }
@@ -135,7 +137,7 @@ function Beginning(props){
         if (data.status === 200) {
           props.setChangeFather(true);
           toast.success(name + " se agregó al menú");
-        } else if (data.status === 409) {
+        } else if (data.status === 404) {
           toast.error(name + " ya está en el menú");
         }
       } catch (error) {
@@ -183,7 +185,7 @@ function Beginning(props){
     };
 
     /**MODAL**/
-    const {isOpen, onOpen, onOpenChange} = useDisclosure();
+    
 return(
 
     <>
@@ -214,7 +216,7 @@ return(
                     </CardBody>
                     <CardFooter className="text-small justify-between">
                       <b>{item.name}</b>
-                      {item.price>0 && <b>{item.price - 2000}</b>}
+                      {item.price>0 && <b>{item.price}</b>}
                     </CardFooter>
                   </Card>
                 </div>
