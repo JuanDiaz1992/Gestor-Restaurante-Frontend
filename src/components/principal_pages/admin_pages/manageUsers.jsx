@@ -2,7 +2,9 @@ import { useSelector } from "react-redux";
 import getCookie from "../../Scripts/getCookies";
 import { useState, useEffect } from "react";
 import { confirmAlert } from "react-confirm-alert";
-
+import  cerrarSesion from "../../Scripts/cerrarSesion";
+// import { useDispatch } from "react-redux";
+// import { logout } from "../redux/userSlice";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import Swal from "sweetalert2";
 import Modal from "react-modal";
@@ -18,7 +20,7 @@ function ManageUser() {
   const url = process.env.REACT_APP_URL_HOST;
   const [setUsers, setAllUsers] = useState([]);
   const [loading,setLoading] = useState(false)
-
+  // const dispatch = useDispatch();
   const [changeState, setChangeState] =
     useState(false); /*Este estado fue creado para
     pasarse como props al modal para editar usuario con el fin de que cuando se realice un cambio
@@ -35,15 +37,22 @@ function ManageUser() {
     })
       .then((response) => response.json())
       .then((data) => {
-        setAllUsers(data.results);
-        setLoading(true);
+        if (data.status === 200) {
+          setAllUsers(data.results);
+          setLoading(true);
+        }
+        else if(data.status === 401){
+          // dispatch(logout());
+          cerrarSesion()
+        }
+
       });
 
       setChangeState(false);
 
   }, [url, changeState]);
 
-  const deleteUser = (id, name) => {
+  const deleteUser = (id, name,username) => {
     confirmAlert({
       title: "Confirmación de eliminación",
       message: `¿Estás seguro que deseas eiliminar a ${name}?`,
@@ -60,22 +69,37 @@ function ManageUser() {
               },
               body: JSON.stringify({
                 id: id,
+                username: username,
                 delete_user: true,
               }),
             })
               .then((response) => response.json())
               .then((data) => {
-                setChangeState(true);
-                Swal.fire({
-                  title: "Proceso completado",
-                  text: data.message,
-                  icon: "success",
-                  confirmButtonText: "Ok",
-                  willClose: function () {},
-                  customClass: {
-                    container: "notification-modal",
-                  },
-                });
+                if (data.status === 200) {
+                  setChangeState(true);
+                  Swal.fire({
+                    title: "Proceso completado",
+                    text: `El usuario ${name} se eliminó correctamente del sistema.`,
+                    icon: "success",
+                    confirmButtonText: "Ok",
+                    willClose: function () {},
+                    customClass: {
+                      container: "notification-modal",
+                    },
+                  });
+                }else{
+                  Swal.fire({
+                    title: "Proceso completado",
+                    text: data.message,
+                    icon: "success",
+                    confirmButtonText: "Ok",
+                    willClose: function () {},
+                    customClass: {
+                      container: "notification-modal",
+                    },
+                  });
+                }
+
               });
           },
         },
@@ -197,7 +221,7 @@ function ManageUser() {
                       {userNAme !== user.username ? (
                         <button
                           className="btn btn-danger"
-                          onClick={(e) => deleteUser(user.id, user.name)}
+                          onClick={(e) => deleteUser(user.id, user.name,user.username)}
                         >
                           Eliminar
                         </button>

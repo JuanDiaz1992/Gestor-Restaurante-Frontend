@@ -1,6 +1,5 @@
 import getCookie from './getCookies'
 import setCookie from './borrarCookies'
-
 export const cerrarSesion = async () => {
   const url = process.env.REACT_APP_URL_HOST;
   try {

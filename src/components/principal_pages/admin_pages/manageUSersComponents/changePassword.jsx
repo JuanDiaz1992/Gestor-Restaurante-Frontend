@@ -78,7 +78,7 @@ function ChangePassword(props){
                     throw new Error('Error al enviar el formulario');
                 }
                 const data = await response.json();
-                if(data.registered){
+                if(data.status === 200){
                     Swal.fire({
                         title: "Genial!",
                         text: "Cambio éxitoso",
@@ -95,12 +95,29 @@ function ChangePassword(props){
                             }else{
                                 props.closeModalEdit()
                             }
-                            
-                          }
-                      });
+                        }
+                    });
+                }else if(data.status === 409){
+                    Swal.fire({
+                        title: "Cambio fallido",
+                        text: "Las contraseñas no coinciden",
+                        icon: "error",
+                        confirmButtonText: "Ok",
+                        customClass: {
+                        container: "notification-modal",
+                        },
+                    });
+                }else{
+                    Swal.fire({
+                        title: "Error",
+                        text: "Ha ocurrido un error al realizar el cambio, valide e intente de nuevo.",
+                        icon: "error",
+                        confirmButtonText: "Ok",
+                        customClass: {
+                        container: "notification-modal",
+                        },
+                    });
                 }
-                console.log(data)
-
             }catch(error){
                 console.log(error);
             }

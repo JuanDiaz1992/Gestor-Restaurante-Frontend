@@ -48,7 +48,7 @@ function EditUser(props) {
       formData.append("name", nameUSer);
       formData.append("username", props.userNameEdited);
       formData.append("photo", photoInput);
-      formData.append("affterPhoto", props.photo)
+      formData.append("beforePicture", props.photo)
       formData.append("type_user", type_user);
       formData.append("edit_user_request", true);
       fetch(url, {
@@ -62,15 +62,28 @@ function EditUser(props) {
       })
         .then((response) => response.json())
         .then((data) => {
-          if (data.registered) {
+          if (data.status === 200) {
             if (userNAme === props.userNameEdited && nameUSer !== name) {
               dispatch(changeName({ name: nameUSer }));
             }
             setChangeState(true);
             Swal.fire({
-              title: "Cambio Ok",
-              text: "Cambio éxitoso",
+              title: "Cambio éxitoso",
+              text: "El cambio se ah realizado correctamente",
               icon: "success",
+              confirmButtonText: "Ok",
+              customClass: {
+                container: "notification-modal",
+              },
+              willClose: function () {
+                props.closeModalEdit();
+              },
+            });
+          }else{
+            Swal.fire({
+              title: "Error",
+              text: "Cambio fallido, intendelo de nuevo o comuniquese con el administrador.",
+              icon: "error",
               confirmButtonText: "Ok",
               customClass: {
                 container: "notification-modal",

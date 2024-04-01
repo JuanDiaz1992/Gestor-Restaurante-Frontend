@@ -149,7 +149,7 @@ function InventoryAll() {
         throw new Error("Error al enviar el formulario");
       }
       const data = await response.json();
-      if (data.registered) {
+      if (data.status === 200) {
         setChangeState(true);
         setPurchaseValue("");
         setReason("");
