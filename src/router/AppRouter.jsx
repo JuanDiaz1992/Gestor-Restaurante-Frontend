@@ -12,7 +12,8 @@ import ChefPage from '../components/principal_pages/chefPage';
 import ManageUser from "../components/principal_pages/admin_pages/manageUsers";
 import Inventory from "../components/principal_pages/admin_pages/Inventory/buys";
 import ManageMenu from "../components/principal_pages/admin_pages/manageMenu";
-import Config from "../components/principal_pages/admin_pages/configApp"
+import Config from "../components/principal_pages/admin_pages/configApp";
+import Delivery from "../components/principal_pages/delivery";
 
 function AppRouter(){
     const type_user = useSelector(state => state.auth.type_user )
@@ -37,7 +38,10 @@ function AppRouter(){
                             <Route path='*' element={<Navigate to='/Error404' replace />} />
                         )}
                         {type_user === 2 || type_user === 1 ? (
-                            <Route path="/WaiterPage" element={<WaiterPage />}/>
+                            <>
+                                <Route path="/Delivery" element={<Delivery/>}/>
+                                <Route path="/WaiterPage" element={<WaiterPage />}/>
+                            </>
                             ) : (
                             <Route path='*' element={<Navigate to='/Error404' replace />} />
                         )}

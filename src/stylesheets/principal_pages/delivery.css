@@ -1,0 +1,56 @@
+.section__delivery{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 90vh;
+    padding: 60px 0 0 0;
+    background-color: #b6b6b6;
+}
+/* Home Domicilios */
+.section__delivery__container{
+    background-image: url("../../img/delivery/588.jpg");
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+.section__delivery__container__text__buttons{
+    background-color: #d1d1d1;
+    padding: 15px 0;
+    border-radius: 25px 25px 0px 0px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: flex-end;
+    gap: 5px;
+    text-align: center;
+}
+.section__delivery__container__buttons__container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+.section__delivery__img__container{
+    height: 65%;
+    display: flex;
+    align-items: flex-start;
+}
+.section__delivery__img__container img{
+    max-width: 211px;
+    opacity: 1 !important;
+
+}
+
+/*Tomar Pedidos*/
+
+.section__getdelivery__container{
+    padding: 35px 0 0 0;
+    display: flex;
+    flex-direction: column;
+}

@@ -127,6 +127,11 @@ function NavBar() {
                         </NavLink>
                       </li>
                       <li className="nav-item">
+                        <NavLink className="nav-link" to="/Delivery" as="a" onClick={handleChange}>
+                          Domicilios
+                        </NavLink>
+                      </li>
+                      <li className="nav-item">
                         <NavLink className="nav-link" to="/ChefPage" as="a" onClick={handleChange}>
                           Pedidos pendientes
                         </NavLink>
@@ -141,11 +146,18 @@ function NavBar() {
                     <></>
                   )}
                   {type_user === 2? (
+                    <>
                     <li className="nav-item">
                       <NavLink className="nav-link" to="/WaiterPage" as="a" onClick={handleChange}>
                         Tomar pedidos
                       </NavLink>
                     </li>
+                    <li className="nav-item">
+                    <NavLink className="nav-link" to="/Delivery" as="a" onClick={handleChange}>
+                      Domicilios
+                    </NavLink>
+                  </li>
+                  </>
                   ) : (
                     <></>
                   )}
