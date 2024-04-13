@@ -43,7 +43,6 @@ function ManageMenu() {
       })
       .then(response =>response.json())
       .then(data=>{
-        console.log(data)
         if (data.status === 200) {
           setMenuCreate(true);
         } else {
@@ -52,7 +51,7 @@ function ManageMenu() {
       })
     } catch (error) {
       console.log("Error en la conexión a la bd:", error);
-      throw error; // Puedes propagar el error para manejarlo en el componente que llama a esta función
+      throw error;
     }
     setLoadingPage(false);
   }

@@ -149,7 +149,6 @@ de cada input no se ve reflejado inmediatamente al momento de la ejecución de l
           .then((data) => {
             if (data.status === 200) {
               setChangeState(true);
-              console.log(data);
               getUserName("");
               getPassword("");
               getConfirmPassword("");
@@ -159,10 +158,6 @@ de cada input no se ve reflejado inmediatamente al momento de la ejecución de l
               formRegis.reset();
               executedSwalFire("Registrado","Usuario creado correctamente","success");
               props.closeModalEdit();
-            } else if (data.status === 405) {
-              executedSwalFire("Error","Los datos no pueden contener caracteres especiales","error");
-            } else if (data.status === 406) {
-              executedSwalFire("Error","Las contraseñas no coinciden","error");
             } else {
               executedSwalFire("Error","Error al crear el usuario, valide la información e intente de nuevo","error");
             }

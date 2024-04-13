@@ -20,7 +20,6 @@ import { toast } from "react-hot-toast";
 import { confirmAlert } from "react-confirm-alert";
 import Swal from "sweetalert2";
 import getCookie from "../../../Scripts/getCookies";
-import obtenerIDMenu from "../../../Scripts/obtenerIDGlobalDelMenu";
 import EditMenuOfBD from "./EditMenuOfBD";
 import ManageSoftDrinks from "./ManageSoftDrinks";
 import GoToTop from "../../../Scripts/OnTop";
@@ -31,7 +30,7 @@ function MenuOfBd(props) {
   const [allItemsMenu, setAllItemsMenu] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isChange, setIsChange] = useState(false);
-  const [idMenu, setIdMenu] = useState();
+
 
 
 
@@ -60,6 +59,7 @@ function MenuOfBd(props) {
       })
         .then((response) => response.json())
         .then((data) => {
+
           if (data.status === 200) {
             const categorias = {
               especialities: 1,
@@ -94,13 +94,6 @@ function MenuOfBd(props) {
   }, [isChange]);
 
   const deleteItemFromMenuBd = (id, name) => {
-    let delete_item_menu_bd_bolean = false;
-    let delete_all_menu_bolean = false;
-    if (allItemsMenu.length > 1) {
-      delete_item_menu_bd_bolean = true;
-    } else if (allItemsMenu.length === 1) {
-      delete_all_menu_bolean = true;
-    }
     try {
       fetch(url, {
         method: "POST",
@@ -110,16 +103,16 @@ function MenuOfBd(props) {
           Module: "menu_management",
         },
         body: JSON.stringify({
-          idMenu: idMenu,
           id: id,
-          delete_item_menu_bd: delete_item_menu_bd_bolean,
-          delete_all_menu: delete_all_menu_bolean,
+          delete_item_menu_bd: true,
         }),
       })
         .then((response) => response.json())
         .then((data) => {
           if (data.status === 200) {
             toast.success(name + " se eliminó de le menú.");
+            setIsChange(true);
+            sendState();
           } else {
             toast.error(
               "Ha ocurrido un error al eliminar " +
@@ -130,8 +123,6 @@ function MenuOfBd(props) {
           if (allItemsMenu.length === 1) {
             props.setMenuCreate(false);
           }
-          setIsChange(true);
-          sendState();
         });
     } catch (error) {
       console.log(error);
@@ -139,7 +130,7 @@ function MenuOfBd(props) {
   };
 
   const supend = (id, name, state) => {
-    const newsState = state === 1 ? 0 : 1;
+    let newsState = state === 1 ? 0 : 1;
     try {
       fetch(url, {
         method: "POST",
@@ -149,7 +140,6 @@ function MenuOfBd(props) {
           Module: "menu_management",
         },
         body: JSON.stringify({
-          idMenu: idMenu,
           id: id,
           state: newsState,
           supend_item_menu: true,
@@ -177,13 +167,7 @@ function MenuOfBd(props) {
       console.log(error);
     }
   };
-  const getIDMenu= async()=>{
-    let id = await obtenerIDMenu(url);
-    setIdMenu(id);
-  }
-  useEffect(()=>{
-    getIDMenu();
-  },[])
+
 
 
   const deleteMenu =() => {
@@ -204,7 +188,6 @@ function MenuOfBd(props) {
               },
               body: JSON.stringify({
                 delete_menu: true,
-                idMenu: idMenu,
               }),
             })
               .then((response) => response.json())
@@ -244,7 +227,6 @@ function MenuOfBd(props) {
         setModalContent(
           <EditMenuOfBD
             allResults={allItemsMenu}
-            idMenuFather={idMenu}
             closeModalEdit={closeModalEditMenu}
             setIsChangeFather={setIsChange}
             sendState_socket={sendState}
@@ -263,7 +245,6 @@ function MenuOfBd(props) {
         setModalContent(
           <EditMenuOfBD
             allResults={allItemsMenu}
-            idMenuFather={idMenu}
             closeModalEdit={closeModalEditMenu}
             setIsChangeFather={setIsChange}
             sendState_socket={sendState}
