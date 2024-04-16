@@ -187,7 +187,8 @@ function MenuOfBd(props) {
                 Module: "menu_management",
               },
               body: JSON.stringify({
-                delete_menu: true,
+                "date":date,
+                "delete_menu": true,
               }),
             })
               .then((response) => response.json())

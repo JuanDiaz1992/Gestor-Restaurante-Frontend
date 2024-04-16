@@ -21,11 +21,11 @@ export default function App({ closeModalEdit, bussinessInfo }) {
 
   const sendForm = async () => {
     if (
-        nameBusiness && 
-        documentBusiness && 
-        description && 
-        address && 
-        numberPhone && 
+        nameBusiness &&
+        documentBusiness &&
+        description &&
+        address &&
+        numberPhone &&
         officeHours) {
           const newLogo = await compressImage(logo);
           let formData = new FormData();

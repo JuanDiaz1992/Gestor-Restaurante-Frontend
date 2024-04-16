@@ -16,11 +16,10 @@ import {
   TableRow,
   TableCell,
 } from "@nextui-org/react";
-import date from "../../../Scripts/obtenerFechaActual";
+import getDate from "../../../Scripts/obtenerFechaActual";
 import ModalEditAndCreateItemMenu from "./ModalEditAndCreateItemMenu";
 
 function EditMenuOfBD({
-  idMenuFather,
   setIsChangeFather,
   closeModalEdit,
   sendState_socket,
@@ -41,13 +40,13 @@ function EditMenuOfBD({
   const [editItem, setEditItem] = useState(editItemFromMenu);
   const [dataItem, setDataItem] = useState(dataItemsEdit);
   /********************************************************/
-  let dateT = date();
+  let date = getDate();
 
 
   const menu_data = async () => {
     try {
       const response = await fetch(
-        `${url}items_menu_consult?linkTo=date&equalTo=${dateT}/`,
+        `${url}items_menu_is_not_in_menu?linkTo=date&equalTo=${date}`,
         {
           method: "GET",
           mode: "cors",
@@ -131,9 +130,8 @@ function EditMenuOfBD({
         Module: "menu_management",
       },
       body: JSON.stringify({
-        dateTime: dateT,
+        date: date,
         id: id,
-        idMEnu: idMenuFather,
         add_to_menu: true,
       }),
     })

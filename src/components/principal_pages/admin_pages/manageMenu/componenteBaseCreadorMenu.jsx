@@ -39,7 +39,7 @@ function Beginning(props){
     /*Función que trae solo el item de la bd*/
     const menu_data = async () => {
       try {
-        const response = await fetch(`${url}items_menu/`, {
+        const response = await fetch(`${url}items_menu_from_creator/`, {
           method: "GET",
           mode: "cors",
           headers: {
@@ -161,8 +161,7 @@ function Beginning(props){
                   'Module': 'menu_management'
                 },
                 body: JSON.stringify({
-                  item: id,
-                  picture: picture,
+                  id: id,
                   delete_item_bd_from_menu: true,
                 }),
               })
