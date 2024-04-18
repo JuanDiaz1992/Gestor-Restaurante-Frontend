@@ -13,7 +13,7 @@ function FatherComponent(){
     const dispatch = useDispatch();
     const url = process.env.REACT_APP_URL_HOST;
     const getDataBusiness = () =>{
-        fetch(`${url}business/`,{
+            fetch(`${url}getInfoBusiness?linkTo=id&equalTo=${1}`,{
             method:'GET',
             mode:'cors',
             headers:{

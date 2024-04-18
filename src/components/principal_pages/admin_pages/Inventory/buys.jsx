@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+
 import getCookie from "../../../Scripts/getCookies";
 import { useState, useEffect } from "react";
 import { Toaster, toast } from "react-hot-toast";
@@ -12,7 +12,7 @@ function InventoryAll() {
   const [reason, setReason] = useState("");
   const [observations, setObservations] = useState("");
 
-  const idProfile_user = useSelector((state) => state.auth.id_user);
+
   const url = process.env.REACT_APP_URL_HOST;
   const [isThereInventory, setIsThereInventory] = useState(false);
   const [inventoryData, setInventoryData] = useState("");
@@ -136,7 +136,6 @@ function InventoryAll() {
           purchaseValue: purchaseValue,
           reason: reason,
           observations: observations,
-          idProfile_user: idProfile_user,
           dateTime:formattedDate,
           record_buys: true
         }),
